@@ -1,0 +1,50 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "storePassword": "00000019F93C2610D6C2DF36D9D090B4EABD0C41C502B69A4FA93077327758448C9E4DDA9BDD17675F",
+          "certpath": "/Users/macmima1234/Documents/harmony/chamath/chmath.cer",
+          "keyAlias": "novcat",
+          "keyPassword": "000000194BAFEFD6E371753231C68794985341E291C8DFA88ED8CAAC187FF49B16A1944113B0C3E119",
+          "profile": "/Users/macmima1234/Documents/harmony/chamath/chmathRelease.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/macmima1234/Documents/harmony/chamath/chmath.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": 12,
+        "compatibleSdkVersion": 10,
+        "runtimeOS": "OpenHarmony"
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug"
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

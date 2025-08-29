@@ -1,0 +1,25 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "release",
+        "type": "HarmonyOS", 
+        "material": {
+          "storeFile": "chmath.p12",
+          "storePassword": "1q2ws3edc1q2ws3edc1q2ws3edc1q2ws",
+          "keyAlias": "novcat",
+          "keyPassword": "1q2ws3edc1q2ws3edc1q2ws3edc1q2ws",
+          "profile": "chmathRelease.p7b",
+          "signAlg": "SHA256withECDSA", 
+          "certpath": "chmath.cer"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "release"
+      }
+    ]
+  }
+}
