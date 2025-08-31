@@ -1,3 +1,6 @@
+// import textToSpeech from '@ohos.textToSpeech' // HarmonyOS环境使用
+// Web环境使用Web Speech API
+
 @Entry
 @Component
 struct NativeCalculator {
@@ -129,6 +132,27 @@ struct NativeCalculator {
       this.display += num
     }
     this.expression += num
+    // 播放数字音频
+    this.playNumberAudio(num)
+  }
+
+  // 播放数字音频
+  playNumberAudio(num: string) {
+    try {
+      let audioText = num === '.' ? '点' : num
+      // 使用Web Speech API
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(audioText)
+        utterance.lang = 'zh-CN'
+        utterance.rate = 1.0
+        utterance.pitch = 1.0
+        window.speechSynthesis.speak(utterance)
+      } else {
+        console.log('播放数字音频:', audioText)
+      }
+    } catch (error) {
+      console.error('数字音频播放错误:', error)
+    }
   }
 
   // 输入运算符
@@ -136,17 +160,140 @@ struct NativeCalculator {
     if (this.expression.length > 0) {
       this.expression += ` ${op} `
       this.display = '0'
+      // 播放运算符音频
+      this.playOperatorAudio(op)
     }
   }
+
+  // 播放运算符音频
+  playOperatorAudio(op: string) {
+    try {
+      // 根据运算符播放对应音频
+      let audioText = ''
+      switch (op) {
+        case '+':
+          audioText = '加'
+          break
+        case '-':
+          audioText = '减'
+          break
+        case '×':
+          audioText = '乘'
+          break
+        case '÷':
+          audioText = '除'
+          console.log('除法符号调试: 输入符号=', op, '音频文本=', audioText)
+          break
+        default:
+          audioText = op
+      }
+      
+      console.log('运算符音频播放调试: 符号=', op, '音频文本=', audioText)
+      
+      // 使用Web Speech API
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        console.log('Web Speech API 可用，开始播放:', audioText)
+        const utterance = new SpeechSynthesisUtterance(audioText)
+        utterance.lang = 'zh-CN'
+        utterance.rate = 1.0
+        utterance.pitch = 1.0
+        
+        // 添加事件监听器进行调试
+        utterance.onstart = () => console.log('语音开始播放:', audioText)
+        utterance.onend = () => console.log('语音播放结束:', audioText)
+        utterance.onerror = (event) => console.error('语音播放错误:', event)
+        
+        window.speechSynthesis.speak(utterance)
+      } else {
+        console.log('Web Speech API 不可用，播放运算符音频:', audioText)
+      }
+    } catch (error) {
+      console.error('音频播放错误:', error)
+    }
+  }
+
+   // 播放结果音频
+   playResultAudio(result: string) {
+     try {
+       // 如果结果包含约等于符号，只播报数字部分
+       let resultText = result
+       if (result.startsWith('≈')) {
+         resultText = result.substring(1) // 去掉≈符号
+       }
+       
+       // 限制语音播报的小数位数为2位
+       const num = parseFloat(resultText)
+       if (!isNaN(num) && resultText.includes('.')) {
+         const parts = resultText.split('.')
+         if (parts[1] && parts[1].length > 2) {
+           resultText = num.toFixed(2)
+         }
+       }
+       
+       let audioText = '等于' + resultText
+       // 使用Web Speech API
+       if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+         const utterance = new SpeechSynthesisUtterance(audioText)
+         utterance.lang = 'zh-CN'
+         utterance.rate = 1.0
+         utterance.pitch = 1.0
+         window.speechSynthesis.speak(utterance)
+       } else {
+         console.log('播放结果音频:', audioText)
+       }
+     } catch (error) {
+       console.error('结果音频播放错误:', error)
+     }
+   }
 
   // 计算结果
   calculate() {
     try {
       let expr = this.expression.replace(/×/g, '*').replace(/÷/g, '/')
+      
+      // 检查除数为0的情况
+      if (expr.includes('/')) {
+        const parts = expr.split('/')
+        if (parts.length === 2 && parseFloat(parts[1].trim()) === 0) {
+          this.display = '不能除以零'
+          return
+        }
+      }
+      
       let result = eval(expr)
-      this.lastResult = this.expression + ' = ' + result.toString()
-      this.display = result.toString()
-      this.expression = result.toString()
+      
+      // 检查结果是否为有效数字
+      if (!isFinite(result)) {
+        this.display = '错误'
+        return
+      }
+      
+      // 限制小数点后最多2位
+      let resultStr = result.toString()
+      let isApproximate = false
+      
+      if (resultStr.includes('.')) {
+        const parts = resultStr.split('.')
+        const integerPart = parts[0]
+        const decimalPart = parts[1]
+        
+        if (decimalPart.length > 2) {
+          // 小数位数超过2位，保留2位小数
+          resultStr = parseFloat(resultStr).toFixed(2)
+          isApproximate = true
+        }
+      }
+      
+      // 如果结果被截断或使用科学计数法，添加约等于符号
+      if (isApproximate) {
+        resultStr = '≈' + resultStr
+      }
+      
+      this.lastResult = this.expression + ' = ' + resultStr
+      this.display = resultStr
+      this.expression = resultStr
+      // 播放结果音频
+      this.playResultAudio(resultStr)
     } catch (error) {
       this.display = '错误'
     }

@@ -23,6 +23,10 @@
     {
       "name": "microphone_permission_reason", 
       "value": "用于语音识别，让孩子用语音进行数学练习"
+    },
+    {
+      "name": "reason_microphone",
+      "value": "用于语音识别，让孩子用语音进行数学练习"
     }
   ]
 }

@@ -1,0 +1,11 @@
+{
+  "name": "chamath",
+  "version": "1.0.0",
+  "description": "HarmonyOS React Web Application",
+  "private": true,
+  "devDependencies": {
+    "@ohos/hvigor": "5.19.6",
+    "@ohos/hvigor-ohos-plugin": "5.19.6",
+    "typescript": "^5.9.2"
+  }
+}

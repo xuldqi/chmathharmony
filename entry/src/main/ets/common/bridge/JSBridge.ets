@@ -4,6 +4,31 @@ import AudioBridge from './AudioBridge';
 import StorageBridge from './StorageBridge';
 import VoiceBridge from './VoiceBridge';
 
+// 导入各个 Bridge 的回调数据类型
+interface JSAudioCallbackData {
+  event: string;
+  action?: string;
+  result?: boolean | string | number | string[] | null;
+  error?: string;
+  data?: Record<string, string | number | boolean>;
+}
+
+interface JSStorageCallbackData {
+  event: string;
+  requestId?: string;
+  result?: boolean | string | number | string[] | null;
+  error?: string;
+  action?: string;
+}
+
+interface JSVoiceCallbackData {
+  event: string;
+  requestId?: string;
+  result?: boolean | string | number | string[] | null;
+  error?: string;
+  action?: string;
+}
+
 /**
  * 桥接消息数据接口
  */
@@ -20,13 +45,37 @@ interface BridgeMessageData {
 }
 
 /**
+ * 音频消息数据接口
+ */
+interface AudioMessageData {
+  number?: number;
+  operator?: string;
+  volume?: number;
+}
+
+/**
+ * 存储消息数据接口
+ */
+interface StorageMessageData {
+  key?: string;
+  value?: string;
+  requestId?: string;
+}
+
+/**
+ * 语音消息数据接口
+ */
+interface VoiceMessageData extends Record<string, string | number | boolean> {
+}
+
+/**
  * 回调数据接口
  */
-interface CallbackData {
+interface JSCallbackData {
   event: string;
   requestId?: string;
   result?: boolean | string | number | string[] | null;
-  error?: Error;
+  error?: string;
   action?: string;
   data?: BridgeMessageData;
 }
@@ -79,31 +128,16 @@ export default class JSBridge {
    * 初始化各个子Bridge
    */
   private initializeBridges(): void {
-    // 设置回调函数，用于向Web发送消息
-    this.audioBridge.init(this.audioCallback);
-    this.storageBridge.init(this.storageCallback);
-    this.voiceBridge.init(this.voiceCallback);
-  }
-  
-  /**
-   * 音频桥接回调函数
-   */
-  private audioCallback = (data: CallbackData): void => {
-    this.sendToWeb(data);
-  }
-  
-  /**
-   * 存储桥接回调函数
-   */
-  private storageCallback = (data: CallbackData): void => {
-    this.sendToWeb(data);
-  }
-  
-  /**
-   * 语音桥接回调函数
-   */
-  private voiceCallback = (data: CallbackData): void => {
-    this.sendToWeb(data);
+    // 初始化各个Bridge
+    this.audioBridge.init((data) => {
+       this.sendToWeb(data as JSCallbackData);
+     });
+     this.storageBridge.init((data) => {
+       this.sendToWeb(data as JSCallbackData);
+     });
+     this.voiceBridge.init((data) => {
+       this.sendToWeb(data as JSCallbackData);
+     });
   }
 
   /**
@@ -117,11 +151,11 @@ export default class JSBridge {
     try {
       // 根据action类型分发到对应的Bridge
       if (action.startsWith('audio_')) {
-        this.audioBridge.handleMessage(action, data);
+        this.audioBridge.handleMessage(action, data as Record<string, string | number | boolean>);
       } else if (action.startsWith('storage_')) {
-        this.storageBridge.handleMessage(action, data);
+        this.storageBridge.handleMessage(action, data as Record<string, string | number | boolean>);
       } else if (action.startsWith('voice_')) {
-        this.voiceBridge.handleMessage(action, data);
+        this.voiceBridge.handleMessage(action, data as Record<string, string | number | boolean>);
       } else if (action.startsWith('device_')) {
         this.handleDeviceMessage(action, data);
       } else {
@@ -129,7 +163,7 @@ export default class JSBridge {
       }
     } catch (error) {
       console.error(`处理消息失败: ${action}`, JSON.stringify(error));
-      this.sendErrorToWeb(action, error);
+      this.sendErrorToWeb(action, error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -173,7 +207,7 @@ export default class JSBridge {
           console.warn(`未支持的权限类型: ${permission}`);
       }
 
-      const successResult: CallbackData = {
+      const successResult: JSCallbackData = {
         requestId,
         result: granted,
         event: 'permissionResult'
@@ -181,10 +215,10 @@ export default class JSBridge {
       this.sendToWeb(successResult);
     } catch (error) {
       console.error(`请求权限失败: ${permission}`, JSON.stringify(error));
-      const errorResult: CallbackData = {
+      const errorResult: JSCallbackData = {
         requestId,
         result: false,
-        error: error as Error,
+        error: error instanceof Error ? error.message : String(error),
         event: 'permissionResult'
       };
       this.sendToWeb(errorResult);
@@ -211,7 +245,7 @@ export default class JSBridge {
    * 向Web发送消息
    * @param data 要发送的数据
    */
-  sendToWeb(data: CallbackData): void {
+  sendToWeb(data: JSCallbackData): void {
     if (!this.webviewController || !this.isInitialized) {
       console.error('JSBridge未初始化');
       return;
@@ -241,8 +275,8 @@ export default class JSBridge {
    * @param action 操作类型
    * @param error 错误信息
    */
-  private sendErrorToWeb(action: string, error: Error): void {
-    const errorData: CallbackData = {
+  private sendErrorToWeb(action: string, error: string): void {
+    const errorData: JSCallbackData = {
       event: 'error',
       action: action,
       error: error

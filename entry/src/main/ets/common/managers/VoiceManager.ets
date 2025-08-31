@@ -9,14 +9,14 @@ export default class VoiceManager {
   private isInitialized: boolean = false;
   private isRecognizing: boolean = false;
   private resultCallback: ((result: string) => void) | null = null;
-  private errorCallback: ((error: any) => void) | null = null;
+  private errorCallback: ((error: string) => void) | null = null;
 
   /**
    * 初始化语音管理器
    * @param onResult 识别结果回调
    * @param onError 错误回调
    */
-  async init(onResult: (result: string) => void, onError: (error: any) => void): Promise<void> {
+  async init(onResult: (result: string) => void, onError: (error: string) => void): Promise<void> {
     console.info('VoiceManager初始化开始');
     
     this.resultCallback = onResult;
@@ -29,7 +29,7 @@ export default class VoiceManager {
       console.info('VoiceManager初始化完成（简化版本）');
     } catch (error) {
       console.error('VoiceManager初始化失败', JSON.stringify(error));
-      throw error;
+      throw new Error(error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -61,7 +61,7 @@ export default class VoiceManager {
     } catch (error) {
       console.error('启动语音识别失败', JSON.stringify(error));
       this.isRecognizing = false;
-      throw error;
+      throw new Error(error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -83,7 +83,7 @@ export default class VoiceManager {
       this.isRecognizing = false;
     } catch (error) {
       console.error('停止语音识别失败', JSON.stringify(error));
-      throw error;
+      throw new Error(error instanceof Error ? error.message : String(error));
     }
   }
 

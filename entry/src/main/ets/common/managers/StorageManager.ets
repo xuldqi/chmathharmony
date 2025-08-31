@@ -52,6 +52,7 @@ export default class StorageManager {
 
   /**
    * 设置存储项
+   *
    * @param key 键名
    * @param value 值
    */

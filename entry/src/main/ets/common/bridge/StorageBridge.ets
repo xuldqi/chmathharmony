@@ -10,31 +10,15 @@ interface StorageMessageData {
 }
 
 /**
- * 存储回调数据接口
+ * 回调数据接口
  */
 interface StorageCallbackData {
-  requestId: string;
-  result: string | string[] | null;
-  event: 'storageCallback';
-}
-
-/**
- * 存储成功回调数据接口
- */
-interface StorageSuccessData {
-  event: 'storageSuccess';
-  action: string;
-  data: StorageMessageData;
-}
-
-/**
- * 存储错误回调数据接口
- */
-interface StorageErrorData {
-  event: 'storageError';
-  action: string;
-  error: Error;
+  event: string;
   requestId?: string;
+  result?: boolean | string | number | string[] | null;
+  error?: string;
+  action?: string;
+  data?: StorageMessageData;
 }
 
 /**
@@ -43,13 +27,13 @@ interface StorageErrorData {
  */
 export default class StorageBridge {
   private storageManager: StorageManager = new StorageManager();
-  private sendToWeb: ((data: StorageCallbackData | StorageSuccessData | StorageErrorData) => void) | null = null;
+  private sendToWeb: ((data: StorageCallbackData) => void) | null = null;
 
   /**
    * 初始化存储桥接
    * @param sendCallback 向Web发送消息的回调函数
    */
-  init(sendCallback: (data: StorageCallbackData | StorageSuccessData | StorageErrorData) => void): void {
+  init(sendCallback: (data: StorageCallbackData) => void): void {
     this.sendToWeb = sendCallback;
     this.storageManager.init();
     console.info('StorageBridge初始化完成');
@@ -60,21 +44,21 @@ export default class StorageBridge {
    * @param action 操作类型
    * @param data 数据
    */
-  async handleMessage(action: string, data: StorageMessageData): Promise<void> {
+  async handleMessage(action: string, data: Record<string, string | number | boolean>): Promise<void> {
     try {
       switch (action) {
         case 'storage_getItem':
-          if (data.key && data.requestId) {
+          if (data.key && typeof data.key === 'string' && data.requestId && typeof data.requestId === 'string') {
             await this.getItem(data.key, data.requestId);
           }
           break;
         case 'storage_setItem':
-          if (data.key && data.value) {
+          if (data.key && typeof data.key === 'string' && data.value && typeof data.value === 'string') {
             await this.setItem(data.key, data.value);
           }
           break;
         case 'storage_removeItem':
-          if (data.key) {
+          if (data.key && typeof data.key === 'string') {
             await this.removeItem(data.key);
           }
           break;
@@ -82,7 +66,7 @@ export default class StorageBridge {
           await this.clear();
           break;
         case 'storage_getAllKeys':
-          if (data.requestId) {
+          if (data.requestId && typeof data.requestId === 'string') {
             await this.getAllKeys(data.requestId);
           }
           break;
@@ -91,7 +75,7 @@ export default class StorageBridge {
       }
     } catch (error) {
       console.error(`存储操作失败: ${action}`, JSON.stringify(error));
-      this.sendError(action, error as Error, data.requestId);
+      this.sendError(action, error instanceof Error ? error.message : String(error), typeof data.requestId === 'string' ? data.requestId : undefined);
     }
   }
 
@@ -202,7 +186,7 @@ export default class StorageBridge {
    */
   private sendSuccess(action: string, data: StorageMessageData): void {
     if (this.sendToWeb) {
-      const successData: StorageSuccessData = {
+      const successData: StorageCallbackData = {
         event: 'storageSuccess',
         action: action,
         data: data
@@ -217,9 +201,9 @@ export default class StorageBridge {
    * @param error 错误信息
    * @param requestId 请求ID（可选）
    */
-  private sendError(action: string, error: Error, requestId?: string): void {
+  private sendError(action: string, error: string, requestId?: string): void {
     if (this.sendToWeb) {
-      const errorData: StorageErrorData = {
+      const errorData: StorageCallbackData = {
         event: 'storageError',
         action: action,
         error: error,
@@ -238,5 +222,6 @@ export default class StorageBridge {
     console.info('StorageBridge已销毁');
   }
 }
+
 
 

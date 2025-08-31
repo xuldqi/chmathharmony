@@ -10,21 +10,14 @@ interface AudioMessageData {
 }
 
 /**
- * 音频成功回调数据接口
+ * 回调数据接口
  */
-interface AudioSuccessData {
-  event: 'audioSuccess';
-  action: string;
-  data: AudioMessageData;
-}
-
-/**
- * 音频错误回调数据接口
- */
-interface AudioErrorData {
-  event: 'audioError';
-  action: string;
-  error: Error;
+interface AudioCallbackData {
+  event: string;
+  action?: string;
+  result?: boolean | string | number | string[] | null;
+  error?: string;
+  data?: AudioMessageData;
 }
 
 /**
@@ -33,13 +26,13 @@ interface AudioErrorData {
  */
 export default class AudioBridge {
   private audioManager: AudioManager = new AudioManager();
-  private sendToWeb: ((data: AudioSuccessData | AudioErrorData) => void) | null = null;
+  private sendToWeb: ((data: AudioCallbackData) => void) | null = null;
 
   /**
    * 初始化音频桥接
    * @param sendCallback 向Web发送消息的回调函数
    */
-  init(sendCallback: (data: AudioSuccessData | AudioErrorData) => void): void {
+  init(sendCallback: (data: AudioCallbackData) => void): void {
     this.sendToWeb = sendCallback;
     this.audioManager.init();
     console.info('AudioBridge初始化完成');
@@ -50,16 +43,16 @@ export default class AudioBridge {
    * @param action 操作类型
    * @param data 数据
    */
-  async handleMessage(action: string, data: AudioMessageData): Promise<void> {
+  async handleMessage(action: string, data: Record<string, string | number | boolean>): Promise<void> {
     try {
       switch (action) {
         case 'audio_playNumber':
-          if (data.number !== undefined) {
+          if (data.number !== undefined && typeof data.number === 'number') {
             await this.playNumber(data.number);
           }
           break;
         case 'audio_playOperator':
-          if (data.operator !== undefined) {
+          if (data.operator !== undefined && typeof data.operator === 'string') {
             await this.playOperator(data.operator);
           }
           break;
@@ -67,7 +60,7 @@ export default class AudioBridge {
           await this.playDelete();
           break;
         case 'audio_setVolume':
-          if (data.volume !== undefined) {
+          if (data.volume !== undefined && typeof data.volume === 'number') {
             await this.setVolume(data.volume);
           }
           break;
@@ -79,7 +72,7 @@ export default class AudioBridge {
       }
     } catch (error) {
       console.error(`音频操作失败: ${action}`, JSON.stringify(error));
-      this.sendError(action, new Error('音频操作失败'));
+      this.sendError(action, '音频操作失败');
     }
   }
 
@@ -173,7 +166,7 @@ export default class AudioBridge {
    */
   private sendSuccess(action: string, data: AudioMessageData): void {
     if (this.sendToWeb) {
-      const successCallback: AudioSuccessData = {
+      const successCallback: AudioCallbackData = {
         event: 'audioSuccess',
         action: action,
         data: data
@@ -187,9 +180,9 @@ export default class AudioBridge {
    * @param action 操作类型
    * @param error 错误信息
    */
-  private sendError(action: string, error: Error): void {
+  private sendError(action: string, error: string): void {
     if (this.sendToWeb) {
-      const errorCallback: AudioErrorData = {
+      const errorCallback: AudioCallbackData = {
         event: 'audioError',
         action: action,
         error: error
