@@ -25,11 +25,11 @@ if [ ! -f "${HVIGOR_SCRIPT}" ]; then
     exit 1
 fi
 
-# Set environment variables
+# Set environment variables - use correct SDK paths
 export HVIGOR_PROJECT_ROOT="$(pwd)"
-export DEVECO_SDK_HOME="${DEVECO_SDK_HOME:-/Users/macmima1234/Library/OpenHarmony/Sdk/12}"
-export hwsdk_dir="/Users/macmima1234/Library/OpenHarmony/Sdk/12"
-export sdk_dir="/Users/macmima1234/Library/OpenHarmony/Sdk"
+export DEVECO_SDK_HOME="/Applications/DevEco-Studio.app/Contents/sdk/default"
+export hwsdk_dir="/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony"
+export sdk_dir="/Applications/DevEco-Studio.app/Contents/sdk/default"
 export nodejs_dir="/Applications/DevEco-Studio.app/Contents/tools/node"
 export HVIGOR_INST_PATH="/Applications/DevEco-Studio.app/Contents/tools/hvigor"
 

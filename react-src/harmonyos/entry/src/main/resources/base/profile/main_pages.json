@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/Calculator",
+    "pages/Practice",
+    "pages/Game",
+    "pages/Report",
+    "pages/Settings"
+  ]
+}

@@ -11,6 +11,18 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "permission_microphone_reason",
+      "value": "用于语音识别，让孩子用语音进行数学练习"
+    },
+    {
+      "name": "permission_internet_reason",
+      "value": "用于加载React应用和在线数学练习内容"
+    },
+    {
+      "name": "permission_storage_reason",
+      "value": "用于保存孩子的学习进度和成就"
     }
   ]
 }

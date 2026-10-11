@@ -1,28 +1,20 @@
 {
   "app": {
-    "signingConfigs": [
-      {
-        "name": "default",
-        "type": "HarmonyOS",
-        "material": {
-          "certpath": "chmath.cer",
-          "storePassword": "00000019F93C2610D6C2DF36D9D090B4EABD0C41C502B69A4FA93077327758448C9E4DDA9BDD17675F",
-          "keyAlias": "novcat",
-          "keyPassword": "000000194BAFEFD6E371753231C68794985341E291C8DFA88ED8CAAC187FF49B16A1944113B0C3E119",
-          "profile": "chmathRelease.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "chmath.p12"
-        }
-      }
-    ],
+    "signingConfigs": [],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": "5.1.1(19)",
-        "targetSdkVersion": "5.1.1(19)",
-        "compatibleSdkVersion": "5.1.1(19)",
-        "runtimeOS": "HarmonyOS"
+        "compileSdkVersion": "6.0.2(22)",
+        "targetSdkVersion": "6.0.2(22)",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
       }
     ]
   },

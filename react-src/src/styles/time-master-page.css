@@ -1,0 +1,131 @@
+:root {
+  --tm-ui-cloud: #f3e0fa;
+  --tm-ui-cloud-shadow: #d9b8e4;
+  --tm-accent-mint: #66ddb3;
+  --tm-accent-mint-dark: #4bc29a;
+  --tm-text-ink: #4b454e;
+  --tm-bg-wall: #e8f6f1;
+  --tm-sticker-yellow: #ffef85;
+  --tm-sticker-yellow-dark: #f0d940;
+  --tm-sticker-pink: #ff8585;
+  --tm-sticker-pink-dark: #e06b6b;
+
+  --tm-shadow-y-resting: 6px;
+  --tm-shadow-y-active: 2px;
+}
+
+.time-master-page {
+  font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  background-color: var(--tm-bg-wall);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(102, 221, 179, 0.15) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(243, 224, 250, 0.4) 0%, transparent 25%);
+  color: var(--tm-text-ink);
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.time-master-page .shadow-pop-mint {
+  box-shadow: 0 var(--tm-shadow-y-resting) 0 var(--tm-accent-mint-dark);
+  transition: all 0.1s ease;
+}
+
+.time-master-page .shadow-pop-mint:active {
+  transform: translateY(4px);
+  box-shadow: 0 var(--tm-shadow-y-active) 0 var(--tm-accent-mint-dark);
+}
+
+.time-master-page .shadow-pop-yellow {
+  box-shadow: 0 var(--tm-shadow-y-resting) 0 var(--tm-sticker-yellow-dark);
+  transition: all 0.1s ease;
+}
+
+.time-master-page .shadow-pop-yellow:active {
+  transform: translateY(4px);
+  box-shadow: 0 var(--tm-shadow-y-active) 0 var(--tm-sticker-yellow-dark);
+}
+
+.time-master-page .shadow-pop-white {
+  box-shadow: 0 var(--tm-shadow-y-resting) 0 #ded6e0;
+  transition: all 0.1s ease;
+}
+
+.time-master-page .shadow-pop-white:active {
+  transform: translateY(4px);
+  box-shadow: 0 var(--tm-shadow-y-active) 0 #ded6e0;
+}
+
+.time-master-page .stat-pill {
+  background: var(--tm-ui-cloud);
+  padding: 6px 12px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 900;
+  font-size: 13px;
+  box-shadow: 0 4px 0 rgba(75, 69, 78, 0.1);
+}
+
+.time-master-page .icon-coin {
+  width: 18px;
+  height: 18px;
+  background: var(--tm-sticker-yellow);
+  border-radius: 50%;
+  border: 2px solid var(--tm-sticker-yellow-dark);
+}
+
+.time-master-page .clock-face {
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow:
+    0 12px 0 #ded6e0,
+    inset 0 0 0 8px var(--tm-ui-cloud);
+  position: relative;
+}
+
+.time-master-page .clock-number {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--tm-text-ink);
+}
+
+.time-master-page .clock-hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 50px;
+  z-index: 10;
+}
+
+.time-master-page .clock-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background: #4b454e;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  border: 3px solid #ffffff;
+}
+
+.time-master-page .hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.time-master-page .hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

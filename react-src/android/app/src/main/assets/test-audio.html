@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>运算符音频测试</title>
+</head>
+<body>
+    <h1>运算符音频测试</h1>
+    
+    <div>
+        <h3>加号 (+)</h3>
+        <button onclick="playOperatorAudio('jia')">播放加号音频</button>
+        <audio id="jia-audio" controls><source src="./audio/jia.ogg" type="audio/ogg"></audio>
+    </div>
+    
+    <div>
+        <h3>减号 (-)</h3>
+        <button onclick="playOperatorAudio('jian')">播放减号音频</button>
+        <audio id="jian-audio" controls><source src="./audio/jian.ogg" type="audio/ogg"></audio>
+    </div>
+    
+    <div>
+        <h3>乘号 (×)</h3>
+        <button onclick="playOperatorAudio('chengyi')">播放乘号音频</button>
+        <audio id="chengyi-audio" controls><source src="./audio/chengyi.ogg" type="audio/ogg"></audio>
+    </div>
+    
+    <div>
+        <h3>除号 (÷)</h3>
+        <button onclick="playOperatorAudio('chuyi')">播放除号音频</button>
+        <audio id="chuyi-audio" controls><source src="./audio/chuyi.ogg" type="audio/ogg"></audio>
+    </div>
+    
+    <br>
+    <button onclick="testAllOperators()">测试所有运算符</button>
+    
+    <script>
+        function playOperatorAudio(operator) {
+            const audio = document.getElementById(operator + '-audio');
+            console.log(`开始播放${operator}音频`);
+            audio.currentTime = 0; // 重置播放位置
+            audio.play().then(() => {
+                console.log(`${operator}音频播放成功`);
+            }).catch(error => {
+                console.error(`${operator}音频播放失败:`, error);
+            });
+        }
+        
+        async function testAllOperators() {
+            const operators = ['jia', 'jian', 'chengyi', 'chuyi'];
+            for (const op of operators) {
+                console.log(`测试${op}音频...`);
+                playOperatorAudio(op);
+                await new Promise(resolve => setTimeout(resolve, 2000)); // 等待2秒
+            }
+        }
+        
+        // 自动测试音频加载
+        window.addEventListener('load', () => {
+            console.log('页面加载完成，测试所有音频文件');
+            const operators = ['jia', 'jian', 'chengyi', 'chuyi'];
+            operators.forEach(op => {
+                const audio = document.getElementById(op + '-audio');
+                audio.addEventListener('loadstart', () => console.log(`${op}音频开始加载`));
+                audio.addEventListener('canplay', () => console.log(`${op}音频可以播放`));
+                audio.addEventListener('error', (e) => console.error(`${op}音频加载错误:`, e));
+            });
+        });
+    </script>
+</body>
+</html>

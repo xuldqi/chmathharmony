@@ -30,7 +30,7 @@ if /Users/macmima1234/Library/OpenHarmony/Sdk/12/toolchains/hdc shell bm install
 fi
 
 echo "🔧 尝试方法3: 替换安装..."
-/Users/macmima1234/Library/OpenHarmony/Sdk/12/toolchains/hdc shell bm uninstall -n com.tsto.chmath 2>/dev/null || true
+/Users/macmima1234/Library/OpenHarmony/Sdk/12/toolchains/hdc shell bm uninstall -n com.tsto.wallet 2>/dev/null || true
 if /Users/macmima1234/Library/OpenHarmony/Sdk/12/toolchains/hdc shell bm install -r -p /data/local/tmp/chmath.hap 2>/dev/null; then
     echo "✅ 方法3成功！"
     echo "🎉 应用已安装，请在模拟器中查找'数学乐园'应用"

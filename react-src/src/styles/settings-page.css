@@ -1,0 +1,4 @@
+/* 设置页：卡片阴影 6px */
+.settings-page .pop-shadow {
+  box-shadow: 0 6px 0 #DED6E0;
+}

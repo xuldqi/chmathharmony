@@ -1,4 +1,6 @@
-// Script for compiling build behavior. It is built in the build plug-in and cannot be modified currently.
-import { hapTasks } from '@ohos/hvigor-ohos-plugin';
+import { hapTasks } from '/Applications/DevEco-Studio.app/Contents/tools/hvigor/hvigor-ohos-plugin';
 
-export default hapTasks;
+export default {
+  system: hapTasks,
+  plugins:[]
+}

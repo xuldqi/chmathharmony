@@ -1,0 +1,161 @@
+ .savings-page {
+   font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+     sans-serif;
+  background: linear-gradient(180deg, #e8f6f1 0%, #f3e0fa 100%);
+  color: #4b454e;
+   -webkit-font-smoothing: antialiased;
+ }
+
+ .savings-page .savings-pop-card {
+   box-shadow: 0 6px 0 #ded6e0;
+ }
+
+ .savings-page .savings-pop-btn {
+   box-shadow: 0 5px 0 #4bc29a;
+   transition: transform 0.12s ease, box-shadow 0.12s ease;
+ }
+
+ .savings-page .savings-pop-btn:active {
+   transform: translateY(4px);
+   box-shadow: none;
+ }
+
+ .savings-page .savings-orb-wrapper {
+   position: fixed;
+   inset: 0;
+   overflow: hidden;
+   pointer-events: none;
+   z-index: -1;
+ }
+
+ .savings-page .savings-orb {
+   position: absolute;
+   border-radius: 999px;
+   filter: blur(70px);
+   opacity: 0.7;
+ }
+
+ .savings-page .savings-orb-1 {
+   width: 260px;
+   height: 260px;
+   top: -60px;
+   right: -80px;
+   background: radial-gradient(
+     circle,
+     rgba(129, 140, 248, 0.65) 0%,
+     rgba(255, 255, 255, 0) 70%
+   );
+ }
+
+ .savings-page .savings-orb-2 {
+   width: 320px;
+   height: 320px;
+   bottom: -40px;
+   left: -80px;
+   background: radial-gradient(
+     circle,
+     rgba(244, 114, 182, 0.5) 0%,
+     rgba(255, 255, 255, 0) 70%
+   );
+ }
+
+.savings-page .card-shadow {
+  box-shadow: 0 6px 0 #ded6e0;
+}
+
+.savings-page .btn-mint-shadow {
+  box-shadow: 0 4px 0 #4bc29a;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.savings-page .btn-mint-shadow:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #4bc29a;
+}
+
+.savings-page .btn-white-shadow {
+  box-shadow: 0 4px 0 #ded6e0;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.savings-page .btn-white-shadow:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #ded6e0;
+}
+
+.savings-page .btn-lavender-shadow {
+  box-shadow: 0 5px 0 #a896e8;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.savings-page .btn-lavender-shadow:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #a896e8;
+}
+
+.savings-page .icon-btn-shadow {
+  box-shadow: 0 4px 0 #ded6e0;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.savings-page .icon-btn-shadow:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #ded6e0;
+}
+
+.savings-page .pop-shadow {
+  box-shadow: 0 6px 0 #ded6e0;
+  transition: all 0.15s ease;
+}
+
+.savings-page .pop-shadow-sm {
+  box-shadow: 0 4px 0 #ded6e0;
+  transition: all 0.15s ease;
+}
+
+.savings-page .pop-shadow-mint {
+  box-shadow: 0 4px 0 #4bc29a;
+  transition: all 0.15s ease;
+}
+
+.savings-page .pop-shadow-btn {
+  box-shadow: 0 5px 0 #4bc29a;
+  transition: all 0.1s ease;
+}
+
+.savings-page .pop-shadow-btn:active {
+  box-shadow: 0 0 0 #4bc29a;
+  transform: translateY(5px);
+}
+
+.savings-page .active-scale:active {
+  transform: scale(0.98) translateY(2px);
+  box-shadow: 0 2px 0 #ded6e0;
+}
+
+.savings-page .custom-radio {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e5e7eb;
+  border-radius: 50%;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.savings-page .custom-radio:checked {
+  border-color: #66ddb3;
+}
+
+.savings-page .custom-radio:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background-color: #66ddb3;
+  border-radius: 50%;
+}

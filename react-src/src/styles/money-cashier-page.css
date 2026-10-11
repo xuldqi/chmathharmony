@@ -1,0 +1,99 @@
+.money-cashier-page {
+  font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  background: linear-gradient(180deg, #e8f6f1 0%, #f5fafa 50%, #f3e0fa 100%);
+  color: #4b454e;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+.money-cashier-page .shadow-pop-mint {
+  box-shadow: 0 4px 0 #4bc29a;
+  transition: all 0.15s ease;
+}
+
+.money-cashier-page .shadow-pop-mint:active {
+  box-shadow: 0 0 0 #4bc29a;
+  transform: translateY(4px);
+}
+
+.money-cashier-page .shadow-pop-yellow {
+  box-shadow: 0 4px 0 #f0d940;
+  transition: all 0.15s ease;
+}
+
+.money-cashier-page .shadow-pop-yellow:active {
+  box-shadow: 0 0 0 #f0d940;
+  transform: translateY(4px);
+}
+
+.money-cashier-page .shadow-pop-pink {
+  box-shadow: 0 4px 0 #e67676;
+  transition: all 0.15s ease;
+}
+
+.money-cashier-page .shadow-pop-pink:active {
+  box-shadow: 0 0 0 #e67676;
+  transform: translateY(4px);
+}
+
+.money-cashier-page .shadow-pop-blue {
+  box-shadow: 0 4px 0 #818cf8;
+  transition: all 0.15s ease;
+}
+
+.money-cashier-page .shadow-pop-blue:active {
+  box-shadow: 0 0 0 #818cf8;
+  transform: translateY(4px);
+}
+
+.money-cashier-page .shadow-pop-white {
+  box-shadow: 0 4px 0 #ded6e0;
+  transition: all 0.15s ease;
+}
+
+.money-cashier-page .shadow-pop-white:active {
+  box-shadow: 0 0 0 #ded6e0;
+  transform: translateY(4px);
+}
+
+.money-cashier-page .shadow-card {
+  box-shadow: 0 6px 0 #ded6e0;
+}
+
+.money-cashier-page .no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.money-cashier-page .no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.money-cashier-page .btn-coin {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes mc-pop-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.money-cashier-page .animate-pop-in {
+  animation: mc-pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.money-cashier-page .disabled-btn {
+  background-color: #e2e8f0;
+  color: #94a3b8;
+  box-shadow: none;
+  pointer-events: none;
+  transform: translateY(4px);
+}
+

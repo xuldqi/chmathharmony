@@ -1,0 +1,588 @@
+import { router } from '@kit.ArkUI';
+import { display } from '@kit.ArkUI';
+
+// 按钮状态接口
+interface ButtonState {
+  isHovered: boolean;
+  isPressed: boolean;
+  scale: number;
+  translateY: number;
+  emojiRotate: number;
+  emojiScale: number;
+}
+
+@Entry
+@Component
+struct Index {
+  @State isAudioEnabled: boolean = true
+  @State gridCols: number = 2
+  @State screenWidth: number = 0
+  @State screenHeight: number = 0
+  
+  // 按钮动画状态
+  @State buttonStates: ButtonState[] = [
+    { isHovered: false, isPressed: false, scale: 1.0, translateY: 0, emojiRotate: 0, emojiScale: 1.0 },
+    { isHovered: false, isPressed: false, scale: 1.0, translateY: 0, emojiRotate: 0, emojiScale: 1.0 },
+    { isHovered: false, isPressed: false, scale: 1.0, translateY: 0, emojiRotate: 0, emojiScale: 1.0 },
+    { isHovered: false, isPressed: false, scale: 1.0, translateY: 0, emojiRotate: 0, emojiScale: 1.0 },
+    { isHovered: false, isPressed: false, scale: 1.0, translateY: 0, emojiRotate: 0, emojiScale: 1.0 },
+    { isHovered: false, isPressed: false, scale: 1.0, translateY: 0, emojiRotate: 0, emojiScale: 1.0 },
+    { isHovered: false, isPressed: false, scale: 1.0, translateY: 0, emojiRotate: 0, emojiScale: 1.0 }
+  ]
+
+  aboutToAppear() {
+    this.detectDevice()
+  }
+
+  // 检测设备类型和屏幕尺寸
+  detectDevice() {
+    const displayInfo = display.getDefaultDisplaySync()
+    this.screenWidth = displayInfo.width
+    this.screenHeight = displayInfo.height
+    const aspectRatio = this.screenWidth / this.screenHeight
+    const isLandscape = aspectRatio > 1.3
+    
+    // 检测是否为平板或桌面
+    const isTabletOrDesktop = this.screenWidth >= 1024 || 
+      (this.screenWidth >= 768 && isLandscape) ||
+      (this.screenWidth >= 900 && this.screenHeight >= 600)
+    
+    if (isTabletOrDesktop) {
+      this.gridCols = 3
+    } else {
+      this.gridCols = 2
+    }
+  }
+
+  build() {
+    Stack() {
+      // 天空到紫色渐变背景
+      Column()
+        .width('100%')
+        .height('100%')
+        .linearGradient({
+          direction: GradientDirection.Bottom,
+          colors: [[0x87CEEB, 0.0], [0xE0E6FF, 0.5], [0xC8B2DB, 1.0]]
+        })
+
+      Column() {
+        // 顶部控制区域
+        Column() {
+          Text('欢迎来到数字乐园')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#374151')
+            .margin({ bottom: 24 })
+            
+          // 声音控制大按钮
+          this.SoundButton()
+            .margin({ bottom: 16 })
+            
+          Text(this.isAudioEnabled ? '🔊 声音已开启' : '🔇 声音已关闭')
+            .fontSize(14)
+            .fontWeight(FontWeight.Medium)
+            .fontColor(this.isAudioEnabled ? '#16a34a' : '#6b7280')
+            .animation({ duration: 300 })
+        }
+        .margin({ top: 40, bottom: 48 })
+
+        // 功能按钮网格
+        Column() {
+          GridRow({ columns: this.gridCols, gutter: { x: 24, y: 24 } }) {
+            // 语音计算器
+            GridCol() {
+              this.CartoonButton(
+                0,
+                '语音计算器',
+                '🧮',
+                this.createOrangeGradient(),
+                '#fb923c',
+                () => { router.pushUrl({ url: 'pages/Calculator' }) }
+              )
+            }
+            
+            // 数学练习
+            GridCol() {
+              this.CartoonButton(
+                1,
+                '数学练习',
+                '📚',
+                this.createEmeraldGradient(),
+                '#34d399',
+                () => { router.pushUrl({ url: 'pages/Practice' }) }
+              )
+            }
+            
+            // 数学大冒险
+            GridCol() {
+              this.CartoonButton(
+                2,
+                '数学大冒险',
+                '🎮',
+                this.createVioletGradient(),
+                '#a855f7',
+                () => { router.pushUrl({ url: 'pages/Game' }) }
+              )
+            }
+            
+            // 学数学
+            GridCol() {
+              this.CartoonButton(
+                3,
+                '学数学',
+                '🐱',
+                this.createRoseGradient(),
+                '#f43f5e',
+                () => { router.pushUrl({ url: 'pages/VisualMath' }) }
+              )
+            }
+            
+            // 学习报告
+            GridCol() {
+              this.CartoonButton(
+                4,
+                '学习报告',
+                '📊',
+                this.createCyanGradient(),
+                '#22d3ee',
+                () => { router.pushUrl({ url: 'pages/Report' }) }
+              )
+            }
+            
+            // 语音选择
+            GridCol() {
+              this.CartoonButton(
+                5,
+                '语音选择',
+                '🎤',
+                this.createPinkGradient(),
+                '#ec4899',
+                () => { router.pushUrl({ url: 'pages/VoiceSelect' }) }
+              )
+            }
+            
+            // 设置
+            GridCol() {
+              this.CartoonButton(
+                6,
+                '设置',
+                '⚙️',
+                this.createSlateGradient(),
+                '#64748b',
+                () => { router.pushUrl({ url: 'pages/Settings' }) }
+              )
+            }
+          }
+          .width('100%')
+          .maxWidth(600)
+        }
+        .width('100%')
+      }
+      .width('100%')
+      .height('100%')
+      .padding({ left: 24, right: 24 })
+      
+      // 浮动装饰元素
+      this.FloatingDecorations()
+    }
+    .width('100%')
+    .height('100%')
+  }
+
+  // 声音控制按钮
+  @Builder
+  SoundButton() {
+    Button() {
+      Stack() {
+        // 3D光泽效果
+        Circle()
+          .width(80)
+          .height(80)
+          .fill(
+            this.isAudioEnabled ?
+            LinearGradient({
+              direction: GradientDirection.Bottom,
+              colors: [[0x4ade80, 0.0], [0x16a34a, 1.0]]
+            }) :
+            LinearGradient({
+              direction: GradientDirection.Bottom,
+              colors: [[0x9ca3af, 0.0], [0x6b7280, 1.0]]
+            })
+          )
+          
+        // 高光层
+        Circle()
+          .width(80)
+          .height(80)
+          .fill(
+            RadialGradient({
+              center: [0.3, 0.3],
+              radius: 0.8,
+              colors: [[Color.White.opacity(0.2), 0.0], [Color.Transparent, 1.0]]
+            })
+          )
+          
+        // 图标
+        Text(this.isAudioEnabled ? '🔊' : '🔇')
+          .fontSize(24)
+          .animation({ duration: 200, curve: Curve.EaseInOut })
+      }
+    }
+    .type(ButtonType.Circle)
+    .width(80)
+    .height(80)
+    .backgroundColor(Color.Transparent)
+    .shadow({
+      radius: 25,
+      color: this.isAudioEnabled ? '#16a34a40' : '#6b728040',
+      offsetX: 0,
+      offsetY: 8
+    })
+    .scale({ x: 1.0, y: 1.0 })
+    .animation({ duration: 300, curve: Curve.EaseOut })
+    .onClick(() => {
+      this.isAudioEnabled = !this.isAudioEnabled
+    })
+  }
+
+  // 立体糖果按钮组件
+  @Builder
+  CartoonButton(index: number, title: string, emoji: string, gradient: LinearGradient, shadowColor: string, onTap: () => void) {
+    Stack() {
+      // 彩虹糖发光环效果 - 最底层
+      Column()
+        .width(192)
+        .height(192)
+        .borderRadius(96)
+        .linearGradient({
+          angle: 0,
+          colors: [
+            [0xff0096, 0.0],   // 粉色
+            [0x00ffff, 0.25],  // 青色
+            [0xffff00, 0.5],   // 黄色
+            [0xff0096, 0.75],  // 粉色
+            [0xff0096, 1.0]    // 粉色
+          ]
+        })
+        .opacity(this.buttonStates[index].isHovered ? 0.6 : 0)
+        .blur(16)
+        .rotate({ angle: this.buttonStates[index].isHovered ? 360 : 0 })
+        .animation({ 
+          duration: 3000, 
+          curve: Curve.Linear, 
+          iterations: -1,
+          playMode: PlayMode.Normal
+        })
+        
+      // 悬停发光效果
+      Column()
+        .width(184)
+        .height(184)
+        .borderRadius(92)
+        .radialGradient({
+          center: [0.5, 0.5],
+          radius: 0.6,
+          colors: [[shadowColor + '30', 0.0], [shadowColor + '15', 0.4], [Color.Transparent, 1.0]]
+        })
+        .opacity(this.buttonStates[index].isHovered ? 1.0 : 0)
+        .blur(12)
+        .animation({ duration: 500 })
+        
+      Button() {
+        Stack() {
+          // 主按钮体
+          Column()
+            .width(160)
+            .height(160)
+            .borderRadius(45)
+            .backgroundBlurStyle(BlurStyle.Thin)
+            .linearGradient(gradient)
+            
+          // 主高光效果
+          Column()
+            .width(144)
+            .height(40)
+            .margin({ top: 8, left: 8, right: 32 })
+            .borderRadius(20)
+            .linearGradient({
+              direction: GradientDirection.BottomRight,
+              colors: [[Color.White.opacity(0.9), 0.0], [Color.White.opacity(0.3), 1.0]]
+            })
+            .blur(1)
+            
+          // 边缘糖果光泽
+          Column()
+            .width(152)
+            .height(152)
+            .borderRadius(38)
+            .margin(4)
+            .linearGradient({
+              direction: GradientDirection.BottomRight,
+              colors: [
+                [Color.White.opacity(0.7), 0.0], 
+                [Color.Transparent, 0.35],
+                [Color.Transparent, 0.65], 
+                [Color.White.opacity(0.4), 1.0]
+              ]
+            })
+            .opacity(0.5)
+            
+          // 内部果冻效果
+          Column()
+            .width(136)
+            .height(136)
+            .borderRadius(32)
+            .margin(12)
+            .radialGradient({
+              center: [0.3, 0.3],
+              radius: 0.6,
+              colors: [[Color.White.opacity(0.9), 0.0], [Color.Transparent, 1.0]]
+            })
+            .opacity(0.4)
+            
+          // 底部糖果阴影
+          Column()
+            .width(112)
+            .height(16)
+            .borderRadius(8)
+            .margin({ bottom: 8, left: 16, right: 16 })
+            .radialGradient({
+              center: [0.5, 0.5],
+              radius: 0.7,
+              colors: [[Color.Black.opacity(0.3), 0.0], [Color.Transparent, 1.0]]
+            })
+            .opacity(0.25)
+            .alignSelf(ItemAlign.End)
+            
+          // 点击果冻效果
+          Column()
+            .width(160)
+            .height(160)
+            .borderRadius(45)
+            .radialGradient({
+              center: [0.5, 0.5],
+              radius: 0.7,
+              colors: [[Color.White.opacity(0.4), 0.0], [Color.Transparent, 1.0]]
+            })
+            .opacity(this.buttonStates[index].isPressed ? 1.0 : 0)
+            .animation({ duration: 200 })
+            
+          // 按钮内容
+          Column({ space: 8 }) {
+            Text(emoji)
+              .fontSize(40)
+              .rotate({ angle: this.buttonStates[index].emojiRotate })
+              .scale({ x: this.buttonStates[index].emojiScale, y: this.buttonStates[index].emojiScale })
+              .shadow({
+                radius: 12,
+                color: Color.Black.opacity(0.4),
+                offsetX: 0,
+                offsetY: 3
+              })
+              .animation({ duration: 500, curve: Curve.EaseOut })
+              
+            Text(title)
+              .fontSize(16)
+              .fontWeight(FontWeight.Bold)
+              .fontColor(Color.White)
+              .textAlign(TextAlign.Center)
+              .maxLines(2)
+              .shadow({
+                radius: 4,
+                color: Color.Black.opacity(0.5),
+                offsetX: 0,
+                offsetY: 2
+              })
+          }
+          .justifyContent(FlexAlign.Center)
+          .alignItems(HorizontalAlign.Center)
+          .width('100%')
+          .height('100%')
+          .padding(16)
+        }
+      }
+      .type(ButtonType.Normal)
+      .width(160)
+      .height(160)
+      .backgroundColor(Color.Transparent)
+      .borderRadius(45)
+      .shadow({
+        radius: 40,
+        color: shadowColor + '35',
+        offsetX: 0,
+        offsetY: 20
+      })
+      .scale({ x: this.buttonStates[index].scale, y: this.buttonStates[index].scale })
+      .translate({ x: 0, y: this.buttonStates[index].translateY })
+      .animation({ duration: 500, curve: Curve.EaseOut })
+      .onClick(() => {
+        // 点击音效和导航
+        onTap()
+      })
+      .onTouch((event: TouchEvent) => {
+        if (event.type === TouchType.Down) {
+          // 点击时的缩放和果冻效果
+          animateTo(
+            { duration: 150, curve: Curve.EaseOut },
+            () => {
+              this.buttonStates[index].isPressed = true
+              this.buttonStates[index].scale = 0.95
+            }
+          )
+        } else if (event.type === TouchType.Up || event.type === TouchType.Cancel) {
+          // 恢复原状
+          animateTo(
+            { duration: 300, curve: Curve.EaseOut },
+            () => {
+              this.buttonStates[index].isPressed = false
+              if (!this.buttonStates[index].isHovered) {
+                this.buttonStates[index].scale = 1.0
+                this.buttonStates[index].translateY = 0
+                this.buttonStates[index].emojiRotate = 0
+                this.buttonStates[index].emojiScale = 1.0
+              }
+            }
+          )
+        }
+      })
+      .onHover((isHover: boolean) => {
+        if (isHover) {
+          // 悬停时放大和上移，emoji旋转缩放
+          animateTo(
+            { duration: 500, curve: Curve.EaseOut },
+            () => {
+              this.buttonStates[index].isHovered = true
+              this.buttonStates[index].scale = 1.15
+              this.buttonStates[index].translateY = -12
+              this.buttonStates[index].emojiRotate = 12
+              this.buttonStates[index].emojiScale = 1.3
+            }
+          )
+        } else {
+          // 取消悬停时恢复
+          animateTo(
+            { duration: 500, curve: Curve.EaseOut },
+            () => {
+              this.buttonStates[index].isHovered = false
+              if (!this.buttonStates[index].isPressed) {
+                this.buttonStates[index].scale = 1.0
+                this.buttonStates[index].translateY = 0
+                this.buttonStates[index].emojiRotate = 0
+                this.buttonStates[index].emojiScale = 1.0
+              }
+            }
+          )
+        }
+      })
+    }
+  }
+  
+  // 浮动装饰元素
+  @Builder
+  FloatingDecorations() {
+    // 底部装饰
+    Text('⭐')
+      .fontSize(32)
+      .position({ x: 16, y: this.screenHeight - 120 })
+      .animation({ 
+        duration: 2000, 
+        curve: Curve.EaseInOut, 
+        iterations: -1, 
+        playMode: PlayMode.Alternate 
+      })
+      
+    Text('🌟')
+      .fontSize(32)
+      .position({ x: this.screenWidth - 64, y: this.screenHeight - 120 })
+      .animation({ 
+        duration: 2000, 
+        curve: Curve.EaseInOut, 
+        iterations: -1, 
+        playMode: PlayMode.Alternate,
+        delay: 500
+      })
+      
+    // 顶部装饰
+    Text('🎈')
+      .fontSize(24)
+      .position({ x: 40, y: 80 })
+      .animation({ 
+        duration: 3000, 
+        curve: Curve.EaseInOut, 
+        iterations: -1, 
+        playMode: PlayMode.Alternate 
+      })
+      
+    Text('🎨')
+      .fontSize(24)
+      .position({ x: this.screenWidth - 90, y: 128 })
+      .animation({ 
+        duration: 3000, 
+        curve: Curve.EaseInOut, 
+        iterations: -1, 
+        playMode: PlayMode.Alternate,
+        delay: 1000
+      })
+      
+    Text('🌈')
+      .fontSize(20)
+      .position({ x: 32, y: this.screenHeight * 0.5 })
+      .animation({ 
+        duration: 3000, 
+        curve: Curve.EaseInOut, 
+        iterations: -1, 
+        playMode: PlayMode.Alternate,
+        delay: 2000
+      })
+  }
+  
+  // 渐变颜色生成器
+  createOrangeGradient(): LinearGradient {
+    return {
+      direction: GradientDirection.BottomRight,
+      colors: [[0xfcd34d, 0.0], [0xf97316, 1.0]]
+    }
+  }
+  
+  createEmeraldGradient(): LinearGradient {
+    return {
+      direction: GradientDirection.BottomRight,
+      colors: [[0x6ee7b7, 0.0], [0x10b981, 1.0]]
+    }
+  }
+  
+  createVioletGradient(): LinearGradient {
+    return {
+      direction: GradientDirection.BottomRight,
+      colors: [[0xc4b5fd, 0.0], [0x8b5cf6, 1.0]]
+    }
+  }
+  
+  createRoseGradient(): LinearGradient {
+    return {
+      direction: GradientDirection.BottomRight,
+      colors: [[0xfda4af, 0.0], [0xf43f5e, 1.0]]
+    }
+  }
+  
+  createCyanGradient(): LinearGradient {
+    return {
+      direction: GradientDirection.BottomRight,
+      colors: [[0x67e8f9, 0.0], [0x06b6d4, 1.0]]
+    }
+  }
+  
+  createPinkGradient(): LinearGradient {
+    return {
+      direction: GradientDirection.BottomRight,
+      colors: [[0xf9a8d4, 0.0], [0xec4899, 1.0]]
+    }
+  }
+  
+  createSlateGradient(): LinearGradient {
+    return {
+      direction: GradientDirection.BottomRight,
+      colors: [[0xd6d3d1, 0.0], [0x64748b, 1.0]]
+    }
+  }
+}

@@ -30,7 +30,7 @@ echo "🚀 部署应用到模拟器..."
 
 # 5. 卸载旧版本（如果存在）
 echo "🧹 卸载旧版本..."
-/Users/macmima1234/Library/OpenHarmony/Sdk/12/toolchains/hdc shell bm uninstall -n com.tsto.chmath 2>/dev/null || true
+/Users/macmima1234/Library/OpenHarmony/Sdk/12/toolchains/hdc shell bm uninstall -n com.tsto.wallet 2>/dev/null || true
 
 # 6. 安装新版本
 echo "📲 安装应用..."

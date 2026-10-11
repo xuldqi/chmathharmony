@@ -15,8 +15,8 @@ export default class EntryAbility extends UIAbility {
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
-    // 尝试直接加载WebContainer，看权限修复后是否可用
-    const pageName = 'pages/WebContainer';
+    // 加载主页面（含 TabBar 导航）
+    const pageName = 'pages/MainPage';
     
     windowStage.loadContent(pageName, (err) => {
       if (err.code) {

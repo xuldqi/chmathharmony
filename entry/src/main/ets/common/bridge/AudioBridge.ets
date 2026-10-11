@@ -84,7 +84,7 @@ export default class AudioBridge {
     console.info(`播放数字语音: ${number}`);
     
     try {
-      await this.audioManager.playNumber(number);
+      await this.audioManager.playNumber(String(number));
       const successData: AudioMessageData = { number };
       this.sendSuccess('audio_playNumber', successData);
     } catch (error) {

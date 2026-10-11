@@ -33,6 +33,7 @@ interface JSVoiceCallbackData {
  * 桥接消息数据接口
  */
 interface BridgeMessageData {
+  action?: string;
   permission?: string;
   requestId?: string;
   number?: number;
@@ -282,6 +283,46 @@ export default class JSBridge {
       error: error
     };
     this.sendToWeb(errorData);
+  }
+
+  /**
+   * 处理来自 Web 端的消息（供外部调用）
+   * @param message 消息内容
+   * @returns 响应结果（JSON字符串）
+   */
+  processWebMessage(message: string): string | null {
+    try {
+      console.info(`JSBridge处理Web消息: ${message}`);
+      
+      // 解析消息
+      const data = JSON.parse(message) as BridgeMessageData;
+      const action = data.action;
+      const requestId = data.requestId;
+      
+      if (!action) {
+        console.warn('消息缺少 action 字段');
+        return JSON.stringify({ error: '缺少 action 字段', requestId });
+      }
+      
+      // 分发消息到对应的 Bridge
+      if (action.startsWith('audio_')) {
+        this.audioBridge.handleMessage(action, data as Record<string, string | number | boolean>);
+      } else if (action.startsWith('storage_')) {
+        this.storageBridge.handleMessage(action, data as Record<string, string | number | boolean>);
+      } else if (action.startsWith('voice_')) {
+        this.voiceBridge.handleMessage(action, data as Record<string, string | number | boolean>);
+      } else if (action.startsWith('device_')) {
+        this.handleDeviceMessage(action, data);
+      } else {
+        console.warn(`未知的消息类型: ${action}`);
+      }
+      
+      // 对于异步操作，返回 null（等待回调）
+      return null;
+    } catch (error) {
+      console.error('处理Web消息失败', JSON.stringify(error));
+      return JSON.stringify({ error: error instanceof Error ? error.message : String(error) });
+    }
   }
 
   /**

@@ -1,0 +1,13 @@
+{
+  "modelVersion": "5.0.0",
+  "name": "chmath-harmonyos",
+  "version": "1.0.0",
+  "description": "记账日记 - 鸿蒙版",
+  "main": "index.ets",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@ohos/hypium": "1.0.19"
+  }
+}

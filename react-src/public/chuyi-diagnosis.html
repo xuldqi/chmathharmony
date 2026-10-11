@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chuyi.ogg 深度诊断</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
+        button { padding: 8px 16px; margin: 5px; font-size: 14px; }
+        .log { background: #f5f5f5; padding: 10px; margin: 10px 0; border-left: 4px solid #007acc; }
+        .error { border-left-color: #d73a49; background: #ffeaea; }
+        .success { border-left-color: #28a745; background: #eafaf1; }
+        audio { margin: 10px 0; display: block; }
+        .test-section { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>chuyi.ogg 音频文件诊断</h1>
+    
+    <div class="test-section">
+        <h3>1. 原生HTML Audio元素测试</h3>
+        <audio id="native-audio" controls>
+            <source src="./audio/chuyi.ogg" type="audio/ogg">
+        </audio>
+        <button onclick="testNativeAudio()">测试原生播放</button>
+        <button onclick="testNativeRepeat()">连续播放5次</button>
+    </div>
+    
+    <div class="test-section">
+        <h3>2. JavaScript Audio对象测试</h3>
+        <button onclick="testJSAudio()">测试JS Audio播放</button>
+        <button onclick="testJSRepeat()">JS连续播放5次</button>
+        <button onclick="testDifferentInstances()">测试不同实例播放</button>
+    </div>
+    
+    <div class="test-section">
+        <h3>3. 对比测试 - chengyi.ogg</h3>
+        <audio id="chengyi-audio" controls>
+            <source src="./audio/chengyi.ogg" type="audio/ogg">
+        </audio>
+        <button onclick="testChengyi()">测试乘法音频</button>
+        <button onclick="testChengyiRepeat()">乘法连续播放5次</button>
+    </div>
+    
+    <div class="test-section">
+        <h3>4. 音频属性分析</h3>
+        <button onclick="analyzeAudio()">分析音频属性</button>
+    </div>
+    
+    <div id="log-container"></div>
+    
+    <script>
+        let testCounter = 0;
+        
+        function log(message, type = 'info') {
+            const container = document.getElementById('log-container');
+            const div = document.createElement('div');
+            div.className = `log ${type}`;
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            container.appendChild(div);
+            console.log(message);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        // 测试原生HTML Audio
+        function testNativeAudio() {
+            log('开始测试原生HTML Audio播放...');
+            const audio = document.getElementById('native-audio');
+            audio.currentTime = 0;
+            audio.play().then(() => {
+                log('✅ 原生HTML Audio播放成功', 'success');
+            }).catch(error => {
+                log(`❌ 原生HTML Audio播放失败: ${error.message}`, 'error');
+            });
+        }
+        
+        // 原生连续播放
+        async function testNativeRepeat() {
+            log('开始测试原生HTML Audio连续播放5次...');
+            const audio = document.getElementById('native-audio');
+            
+            for (let i = 1; i <= 5; i++) {
+                try {
+                    log(`第${i}次播放开始`);
+                    audio.currentTime = 0;
+                    await audio.play();
+                    
+                    // 等待播放完成
+                    await new Promise(resolve => {
+                        const onEnded = () => {
+                            audio.removeEventListener('ended', onEnded);
+                            log(`第${i}次播放完成`, 'success');
+                            resolve();
+                        };
+                        audio.addEventListener('ended', onEnded);
+                    });
+                    
+                    // 短暂延迟
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                } catch (error) {
+                    log(`❌ 第${i}次播放失败: ${error.message}`, 'error');
+                    break;
+                }
+            }
+        }
+        
+        // 测试JS Audio对象
+        function testJSAudio() {
+            log('开始测试JavaScript Audio对象播放...');
+            const audio = new Audio('./audio/chuyi.ogg');
+            
+            audio.onloadeddata = () => log('✅ 音频数据加载完成', 'success');
+            audio.oncanplay = () => log('✅ 音频可以播放', 'success');
+            audio.onerror = (e) => log(`❌ 音频加载错误: ${e}`, 'error');
+            audio.onended = () => log('✅ 音频播放完成', 'success');
+            
+            audio.play().then(() => {
+                log('✅ JS Audio播放开始', 'success');
+            }).catch(error => {
+                log(`❌ JS Audio播放失败: ${error.message}`, 'error');
+            });
+        }
+        
+        // JS连续播放
+        async function testJSRepeat() {
+            log('开始测试JS Audio连续播放5次...');
+            const audio = new Audio('./audio/chuyi.ogg');
+            
+            for (let i = 1; i <= 5; i++) {
+                try {
+                    log(`第${i}次JS播放开始`);
+                    audio.currentTime = 0;
+                    await audio.play();
+                    
+                    await new Promise(resolve => {
+                        const onEnded = () => {
+                            audio.removeEventListener('ended', onEnded);
+                            log(`第${i}次JS播放完成`, 'success');
+                            resolve();
+                        };
+                        audio.addEventListener('ended', onEnded);
+                    });
+                    
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                } catch (error) {
+                    log(`❌ 第${i}次JS播放失败: ${error.message}`, 'error');
+                    break;
+                }
+            }
+        }
+        
+        // 测试不同实例
+        async function testDifferentInstances() {
+            log('开始测试不同Audio实例播放...');
+            
+            for (let i = 1; i <= 3; i++) {
+                try {
+                    log(`创建第${i}个Audio实例`);
+                    const audio = new Audio('./audio/chuyi.ogg');
+                    
+                    await audio.play();
+                    log(`第${i}个实例播放开始`, 'success');
+                    
+                    await new Promise(resolve => {
+                        const onEnded = () => {
+                            audio.removeEventListener('ended', onEnded);
+                            log(`第${i}个实例播放完成`, 'success');
+                            resolve();
+                        };
+                        audio.addEventListener('ended', onEnded);
+                    });
+                    
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                } catch (error) {
+                    log(`❌ 第${i}个实例播放失败: ${error.message}`, 'error');
+                }
+            }
+        }
+        
+        // 测试乘法音频对比
+        function testChengyi() {
+            log('开始测试乘法音频播放...');
+            const audio = document.getElementById('chengyi-audio');
+            audio.currentTime = 0;
+            audio.play().then(() => {
+                log('✅ 乘法音频播放成功', 'success');
+            }).catch(error => {
+                log(`❌ 乘法音频播放失败: ${error.message}`, 'error');
+            });
+        }
+        
+        // 乘法连续播放
+        async function testChengyiRepeat() {
+            log('开始测试乘法音频连续播放5次...');
+            const audio = new Audio('./audio/chengyi.ogg');
+            
+            for (let i = 1; i <= 5; i++) {
+                try {
+                    log(`乘法第${i}次播放开始`);
+                    audio.currentTime = 0;
+                    await audio.play();
+                    
+                    await new Promise(resolve => {
+                        const onEnded = () => {
+                            audio.removeEventListener('ended', onEnded);
+                            log(`乘法第${i}次播放完成`, 'success');
+                            resolve();
+                        };
+                        audio.addEventListener('ended', onEnded);
+                    });
+                    
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                } catch (error) {
+                    log(`❌ 乘法第${i}次播放失败: ${error.message}`, 'error');
+                    break;
+                }
+            }
+        }
+        
+        // 分析音频属性
+        async function analyzeAudio() {
+            log('开始分析音频文件属性...');
+            
+            const chuyi = new Audio('./audio/chuyi.ogg');
+            const chengyi = new Audio('./audio/chengyi.ogg');
+            
+            // 等待音频加载
+            await Promise.all([
+                new Promise(resolve => {
+                    chuyi.onloadedmetadata = resolve;
+                    chuyi.onerror = resolve;
+                }),
+                new Promise(resolve => {
+                    chengyi.onloadedmetadata = resolve;
+                    chengyi.onerror = resolve;
+                })
+            ]);
+            
+            log(`chuyi.ogg - 时长: ${chuyi.duration}s, 就绪状态: ${chuyi.readyState}, 网络状态: ${chuyi.networkState}`);
+            log(`chengyi.ogg - 时长: ${chengyi.duration}s, 就绪状态: ${chengyi.readyState}, 网络状态: ${chengyi.networkState}`);
+            
+            if (chuyi.duration !== chengyi.duration) {
+                log('⚠️ 两个音频文件时长不同', 'error');
+            }
+            
+            // 检查文件大小
+            try {
+                const chuyiResponse = await fetch('./audio/chuyi.ogg');
+                const chengyiResponse = await fetch('./audio/chengyi.ogg');
+                const chuyiSize = chuyiResponse.headers.get('content-length');
+                const chengyiSize = chengyiResponse.headers.get('content-length');
+                log(`chuyi.ogg 文件大小: ${chuyiSize} bytes`);
+                log(`chengyi.ogg 文件大小: ${chengyiSize} bytes`);
+            } catch (error) {
+                log(`文件大小检查失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // 页面加载时的初始检查
+        window.addEventListener('load', () => {
+            log('页面加载完成，开始初始检查...');
+            log(`用户代理: ${navigator.userAgent}`);
+            log(`音频格式支持: ${new Audio().canPlayType('audio/ogg')}`);
+        });
+    </script>
+</body>
+</html>

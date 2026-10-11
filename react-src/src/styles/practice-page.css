@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+.practice-page {
+  font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+}
+
+.practice-page .card-shadow {
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.08);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.practice-page .card-shadow:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.practice-page .cute-face {
+  animation: practice-blink 4s infinite;
+}
+
+@keyframes practice-blink {
+  0%, 96%, 100% {
+    transform: scaleY(1);
+  }
+  98% {
+    transform: scaleY(0.1);
+  }
+}
+
+.practice-page .practice-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.practice-page .practice-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.practice-page .practice-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+
+/* Math Practice 新设计样式 */
+.math-practice-page .shadow-pop {
+  box-shadow: 0 6px 0 #DED6E0;
+}
+
+.math-practice-page .shadow-pop-sm {
+  box-shadow: 0 4px 0 #DED6E0;
+}
+
+.math-practice-page .shadow-pop-mint {
+  box-shadow: 0 5px 0 #4BC29A;
+}
+
+.math-practice-page .shadow-pop-amber {
+  box-shadow: 0 4px 0 #E5AA52;
+}
+
+.math-practice-page .btn-active:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 transparent;
+}
+
+.math-practice-page .btn-active-sm:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #DED6E0;
+}
+
+.math-practice-page .btn-active-mint:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 transparent;
+}
+
+.math-practice-page input::placeholder {
+  color: #D1D5DB;
+}
+
+.math-practice-page input:focus {
+  outline: none;
+  border-color: #FFBE5C;
+  box-shadow: 0 0 0 4px rgba(255, 190, 92, 0.2);
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.math-practice-page .animate-bounce-slow {
+  animation: bounce-slow 2s infinite ease-in-out;
+}
+
+.math-practice-page .no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.math-practice-page .no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

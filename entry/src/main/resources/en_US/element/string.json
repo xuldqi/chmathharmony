@@ -13,12 +13,12 @@
       "value": "label"
     },
     {
-      "name": "reason_internet",
-      "value": "Used to load React app and online math practice content"
+      "name": "permission_microphone_reason",
+      "value": "Used for voice recognition to enable children to practice math with voice"
     },
     {
-      "name": "reason_microphone",
-      "value": "Used for voice recognition to enable children to practice math with voice"
+      "name": "permission_internet_reason",
+      "value": "Used to load React app and online math practice content"
     }
   ]
 }

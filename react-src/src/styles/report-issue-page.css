@@ -1,0 +1,50 @@
+ .report-issue-page {
+   font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+     sans-serif;
+   background: linear-gradient(180deg, #e8f6f1 0%, #f3e0fa 100%);
+   color: #4b454e;
+   -webkit-font-smoothing: antialiased;
+ }
+
+ .report-issue-page .no-scrollbar::-webkit-scrollbar {
+   display: none;
+ }
+
+ .report-issue-page .no-scrollbar {
+   -ms-overflow-style: none;
+   scrollbar-width: none;
+ }
+
+ .report-issue-page textarea::placeholder,
+ .report-issue-page input::placeholder {
+   color: #9ca3af;
+ }
+
+ .report-issue-page .shadow-pop-card {
+   box-shadow: 0 6px 0 #ded6e0;
+ }
+
+ .report-issue-page .shadow-pop-btn {
+   box-shadow: 0 4px 0 #ded6e0;
+   transition: transform 0.1s ease, box-shadow 0.1s ease;
+ }
+
+ .report-issue-page .shadow-pop-btn:active {
+   transform: translateY(2px);
+   box-shadow: 0 2px 0 #ded6e0;
+ }
+
+ .report-issue-page .shadow-pop-submit {
+   box-shadow: 0 5px 0 #4bc29a;
+   transition: transform 0.1s ease, box-shadow 0.1s ease;
+ }
+
+ .report-issue-page .shadow-pop-submit:active {
+   transform: translateY(4px);
+   box-shadow: 0 2px 0 #ded6e0;
+ }
+
+ .report-issue-page .shadow-pop-pressed {
+   box-shadow: 0 2px 0 #ded6e0;
+ }
+

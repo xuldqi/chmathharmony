@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+.shop-page {
+  font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #E0F7FA 0%, #E1F5FE 30%, #F3E5F5 100%);
+}
+
+.shop-card-shadow {
+  box-shadow: 0 8px 0 #DED6E0;
+  transition: all 0.2s ease;
+}
+
+.shop-card-shadow:active {
+  transform: translateY(8px);
+  box-shadow: 0 0 0 #DED6E0;
+}
+
+.shop-card-shadow-sm {
+  box-shadow: 0 4px 0 #E2E8F0;
+  transition: all 0.2s ease;
+}
+
+.shop-card-shadow-sm:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #E2E8F0;
+}
+
+.shop-text-shadow-sm {
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.shop-hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.shop-hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.shop-bg-pattern {
+  background-image:
+    radial-gradient(#F1F5F9 15%, transparent 16%),
+    radial-gradient(#F1F5F9 15%, transparent 16%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}

@@ -1,7 +1,7 @@
 {
   "name": "chmath-react-app",
   "version": "1.0.0",
-  "description": "儿童语音计算器 React Web应用",
+  "description": "记账日记 React Web应用",
   "main": "index.js",
   "scripts": {
     "dev": "vite",

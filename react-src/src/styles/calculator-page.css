@@ -1,0 +1,788 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
+
+:root {
+  --c-ui-cloud: #F3E0FA;
+  --c-ui-cloud-shadow: #D9B8E4;
+  --c-accent-mint: #66DDB3;
+  --c-accent-mint-dark: #4BC29A;
+  --c-text-ink: #4B454E;
+  --c-text-white: #FFFFFF;
+  --c-bg-wall: #E8F6F1;
+  --c-sticker-yellow: #FFEF85;
+  --c-sticker-yellow-dark: #F0D940;
+  --c-sticker-pink: #FF8585;
+  --c-sticker-pink-dark: #E86B6B;
+
+  --r-button: 24px;
+  --r-card: 32px;
+  --s-safe-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+.calculator-page {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--c-bg-wall);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(102, 221, 179, 0.15) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(243, 224, 250, 0.4) 0%, transparent 25%);
+  color: var(--c-text-ink);
+  min-height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+}
+
+.calculator-page * {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calculator-page .app-container {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.calculator-page .display-area {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 14px;
+  position: relative;
+}
+
+.calculator-page .calc-screen {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  background: var(--c-ui-cloud);
+  border-radius: var(--r-card);
+  padding: 24px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  position: relative;
+  box-shadow: 0 10px 0 #E3CFEA, 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+
+.calculator-page .calc-screen.compact {
+  padding: 16px 18px 14px;
+}
+
+.calculator-page .calc-label {
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  background: var(--c-accent-mint);
+  color: var(--c-text-white);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 12px;
+  box-shadow: 0 4px 0 var(--c-accent-mint-dark);
+  transform: rotate(-1deg);
+}
+
+.calculator-page .history-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #8E7B96;
+  min-height: 24px;
+  width: 100%;
+  text-align: right;
+  word-break: break-all;
+  margin-top: auto;
+  margin-bottom: 4px;
+}
+
+.calculator-page .current-text {
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--c-text-ink);
+  line-height: 1.1;
+  width: 100%;
+  text-align: right;
+  word-break: break-all;
+}
+
+.calculator-page .voice-tip {
+  position: absolute;
+  right: 14px;
+  bottom: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #8E7B96;
+  opacity: 0.85;
+}
+
+.calculator-page .keypad-area {
+  flex: 0 0 auto;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top-left-radius: 36px;
+  border-top-right-radius: 36px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin: 0;
+  padding: 14px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.calculator-page .keypad-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.calculator-page .key-btn {
+  background: #ffffff;
+  border: none;
+  border-radius: 20px;
+  font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--c-text-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 0 #DED6E0;
+  transition: transform 0.1s, box-shadow 0.1s;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* 基础计算器 4 列网格专属：严格 1:1 正方形按键 */
+.calculator-page .keypad-grid .key-btn {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+/* 0 按键跨 2 列，宽度为两个正方形加一个间距，保持高度与单正方形完全一致 */
+.calculator-page .keypad-grid .key-btn.span-2-col {
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+/* = 按键跨 2 行，高度为两个正方形加一个间距，保持宽度与单正方形完全一致 */
+.calculator-page .keypad-grid .key-btn.span-2-row {
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+.calculator-page .key-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #DED6E0;
+}
+
+.calculator-page .key-btn.mint {
+  background: var(--c-accent-mint);
+  color: #ffffff;
+  box-shadow: 0 6px 0 var(--c-accent-mint-dark);
+}
+
+.calculator-page .key-btn.lavender {
+  background: var(--c-ui-cloud);
+  box-shadow: 0 6px 0 var(--c-ui-cloud-shadow);
+}
+
+.calculator-page .key-btn.yellow {
+  background: var(--c-sticker-yellow);
+  box-shadow: 0 6px 0 var(--c-sticker-yellow-dark);
+}
+
+.calculator-page .key-btn.pink {
+  background: var(--c-sticker-pink);
+  color: #ffffff;
+  box-shadow: 0 6px 0 var(--c-sticker-pink-dark);
+}
+
+.calculator-page .key-btn.operator {
+  font-size: 28px;
+  color: var(--c-accent-mint-dark);
+}
+
+.calculator-page .tab-bar {
+  background: #ffffff;
+  padding: 8px 10px;
+  padding-bottom: max(10px, var(--s-safe-bottom));
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.calculator-page .tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  opacity: 0.42;
+  flex: 1;
+  max-width: 64px;
+  min-width: 44px;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px 0;
+  transition: all 0.18s ease;
+  color: var(--c-text-ink);
+}
+
+.calculator-page .tab-item:active {
+  transform: scale(0.92);
+}
+
+.calculator-page .tab-item.active {
+  opacity: 1;
+  color: #2563EB;
+}
+
+.calculator-page .tab-item.active svg {
+  fill: #2563EB;
+  stroke: #2563EB;
+}
+
+.calculator-page .tab-label {
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* 让 MainTabBar 在非 calculator 页面也能复用同样样式 */
+.tab-bar {
+  background: #ffffff;
+  padding: 8px 10px;
+  padding-bottom: max(10px, var(--s-safe-bottom));
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  opacity: 0.42;
+  flex: 1;
+  max-width: 64px;
+  min-width: 44px;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px 0;
+  transition: all 0.18s ease;
+  color: #4B454E;
+}
+
+.tab-item:active {
+  transform: scale(0.92);
+}
+
+.tab-item.active {
+  opacity: 1;
+  color: #2563EB;
+}
+
+.tab-item.active svg:not([fill="none"]) {
+  fill: #2563EB;
+}
+
+.tab-item.active svg {
+  stroke: #2563EB;
+}
+
+.tab-label {
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.main-tabbar-shell {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.main-tabbar-shell .tab-bar {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  pointer-events: auto;
+}
+
+.calculator-page .voice-result-banner {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(102, 221, 179, 0.18);
+  color: #1b5f48;
+  font-size: 11px;
+  font-weight: 700;
+  max-width: 100%;
+  text-align: center;
+  box-shadow: 0 2px 0 rgba(75, 69, 78, 0.12);
+}
+
+/* ─── 科学计算器 Tab 切换器 ─────────────────────── */
+.calculator-page .calc-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 6px 20px 0;
+  justify-content: center;
+}
+
+.calculator-page .calc-tab-btn {
+  flex: 1;
+  max-width: 120px;
+  padding: 7px 0;
+  border: none;
+  border-radius: 999px;
+  font-family: 'Nunito', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--c-text-ink);
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 4px 0 #DED6E0;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calculator-page .calc-tab-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #DED6E0;
+}
+
+.calculator-page .calc-tab-btn.active {
+  background: var(--c-accent-mint);
+  color: #ffffff;
+  box-shadow: 0 4px 0 var(--c-accent-mint-dark);
+}
+
+/* ─── 科学模式下的紧凑屏幕（防止撑得太满） ──── */
+/* ─── 科学模式：顶部位置与间距完全对标基础计算器 ──── */
+.calculator-page.sci-mode {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.calculator-page.sci-mode .app-container {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.calculator-page.sci-mode .display-area {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 14px;
+  position: relative;
+}
+
+.calculator-page.sci-mode .calc-screen {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  background: var(--c-ui-cloud);
+  border-radius: var(--r-card);
+  padding: 20px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  position: relative;
+  box-shadow: 0 10px 0 #E3CFEA, 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+
+.calculator-page.sci-mode .calc-screen-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.calculator-page.sci-mode .calc-screen-header .calc-label {
+  display: none;
+}
+
+.calculator-page.sci-mode .sci-mode-tip {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 800;
+  color: #145941;
+  background: rgba(102, 221, 179, 0.28);
+  border: 1px solid rgba(102, 221, 179, 0.5);
+  padding: 5px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calculator-page.sci-mode .sci-mode-tip:active {
+  background: rgba(102, 221, 179, 0.45);
+}
+
+.calculator-page .sci-history {
+  font-size: 18px;
+  color: #8E7B96;
+  font-weight: 700;
+  min-height: 24px;
+  text-align: right;
+  word-break: break-all;
+  margin-top: auto;
+  margin-bottom: 4px;
+}
+
+.calculator-page .sci-display {
+  font-size: 40px;
+  line-height: 1;
+  min-height: 42px;
+  color: var(--c-text-ink);
+  font-weight: 900;
+  text-align: right;
+  word-break: break-all;
+}
+
+/* ─── 科学键盘 7×5 正方形按键布局 ─── */
+.calculator-page.sci-mode .keypad-area {
+  flex: 0 0 auto;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top-left-radius: 36px;
+  border-top-right-radius: 36px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin: 0;
+  padding: 12px 16px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.calculator-page .keypad-grid-sci-7x5 {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.calculator-page .sci-row {
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  align-items: center;
+}
+
+/* 正方形按键：width: 0 + flex: 1 均分宽度，aspect-ratio: 1/1 严格保证等宽高正方形 */
+.calculator-page .key-btn-sci {
+  flex: 1 1 0;
+  width: 0;
+  height: auto;
+  aspect-ratio: 1 / 1 !important;
+  font-size: 17px;
+  font-weight: 800;
+  border-radius: 14px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 0 #DED6E0;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calculator-page .key-btn-sci.operator {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.calculator-page .key-btn-sci:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #DED6E0;
+}
+
+.calculator-page .key-btn-sci.mint {
+  box-shadow: 0 4px 0 var(--c-accent-mint-dark);
+}
+
+.calculator-page .key-btn-sci.mint:active {
+  box-shadow: 0 1px 0 var(--c-accent-mint-dark);
+}
+
+.calculator-page .key-btn-sci.pink {
+  box-shadow: 0 4px 0 var(--c-sticker-pink-dark);
+}
+
+.calculator-page .key-btn-sci.pink:active {
+  box-shadow: 0 1px 0 var(--c-sticker-pink-dark);
+}
+
+.calculator-page .key-btn-sci.yellow {
+  box-shadow: 0 4px 0 var(--c-sticker-yellow-dark);
+}
+
+.calculator-page .key-btn-sci.yellow:active {
+  box-shadow: 0 1px 0 var(--c-sticker-yellow-dark);
+}
+
+.calculator-page .key-btn-sci.lavender {
+  box-shadow: 0 4px 0 var(--c-ui-cloud-shadow);
+}
+
+.calculator-page .key-btn-sci.lavender:active {
+  box-shadow: 0 1px 0 var(--c-ui-cloud-shadow);
+}
+
+/* 角标模式按键（DEG/RAD） */
+.calculator-page .key-btn-sci.badge-key {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* 长字符按键（如 sin⁻¹、cos⁻¹ 等）微调字号防溢出 */
+.calculator-page .key-btn-sci.small-text {
+  font-size: 13px;
+  letter-spacing: -0.4px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   分数计算器专属自适应布局与按键体系
+   ───────────────────────────────────────────────────────────── */
+.calculator-page.frac-mode .app-container {
+  justify-content: flex-end;
+}
+
+.calculator-page.frac-mode .display-area {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 16px 10px;
+}
+
+.calculator-page.frac-mode .calc-screen {
+  flex: 1;
+  min-height: 0;
+  padding: 18px 20px 14px;
+  border-radius: 28px;
+  box-shadow: 0 8px 0 #E3CFEA, 0 12px 24px rgba(0, 0, 0, 0.04);
+}
+
+.calculator-page.frac-mode .history-text {
+  font-size: 24px;
+  min-height: 48px;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.calculator-page.frac-mode .current-text {
+  font-size: 38px;
+}
+
+.calculator-page.frac-mode .keypad-area {
+  flex: 0 0 auto;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top-left-radius: 36px;
+  border-top-right-radius: 36px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin: 0;
+  padding: 12px 16px 6px;
+  gap: 8px;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.calculator-page.frac-mode .frac-columns {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+/* 左侧：整数输入 (占约 38%) */
+.calculator-page.frac-mode .frac-col-whole {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.calculator-page.frac-mode .frac-whole-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7px;
+  width: 100%;
+}
+
+.calculator-page.frac-mode .frac-whole-grid .key-btn-frac {
+  height: 58px;
+  font-size: 20px;
+  border-radius: 16px;
+}
+
+/* 右侧：分子分母 (占约 62%) */
+.calculator-page.frac-mode .frac-col-fraction {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.calculator-page.frac-mode .frac-part-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  width: 100%;
+}
+
+.calculator-page.frac-mode .frac-part-grid .key-btn-frac {
+  height: 42px;
+  font-size: 18px;
+  border-radius: 13px;
+}
+
+/* 分数键盘按键统一样式（紧凑、等宽、比例自适应） */
+.calculator-page.frac-mode .key-btn-frac {
+  width: 100%;
+  border-radius: 12px;
+  font-weight: 800;
+  box-shadow: 0 3px 0 #DED6E0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  transition: transform 0.08s, box-shadow 0.08s;
+  -webkit-tap-highlight-color: transparent;
+  color: var(--c-text-ink);
+  background: #ffffff;
+}
+
+.calculator-page.frac-mode .key-btn-frac:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #DED6E0;
+}
+
+.calculator-page.frac-mode .key-btn-frac.lavender {
+  background: var(--c-ui-cloud);
+  box-shadow: 0 3px 0 var(--c-ui-cloud-shadow);
+}
+.calculator-page.frac-mode .key-btn-frac.lavender:active {
+  box-shadow: 0 1px 0 var(--c-ui-cloud-shadow);
+}
+
+.calculator-page.frac-mode .key-btn-frac.yellow {
+  background: var(--c-sticker-yellow);
+  box-shadow: 0 3px 0 var(--c-sticker-yellow-dark);
+}
+.calculator-page.frac-mode .key-btn-frac.yellow:active {
+  box-shadow: 0 1px 0 var(--c-sticker-yellow-dark);
+}
+
+.calculator-page.frac-mode .key-btn-frac.pink {
+  background: var(--c-sticker-pink);
+  color: #ffffff;
+  box-shadow: 0 3px 0 var(--c-sticker-pink-dark);
+}
+.calculator-page.frac-mode .key-btn-frac.pink:active {
+  box-shadow: 0 1px 0 var(--c-sticker-pink-dark);
+}
+
+.calculator-page.frac-mode .key-btn-frac.mint {
+  background: var(--c-accent-mint);
+  color: #ffffff;
+  box-shadow: 0 3px 0 var(--c-accent-mint-dark);
+}
+.calculator-page.frac-mode .key-btn-frac.mint:active {
+  box-shadow: 0 1px 0 var(--c-accent-mint-dark);
+}
+
+/* 底部运算符栏：更大更饱满的按键尺寸与字号 */
+.calculator-page.frac-mode .frac-operators-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  height: 56px;
+  flex: 0 0 56px;
+}
+
+.calculator-page.frac-mode .frac-operators-row .key-btn-frac {
+  height: 100%;
+  font-size: 28px;
+  border-radius: 18px;
+  box-shadow: 0 4px 0 #DED6E0;
+}
+
+.calculator-page.frac-mode .frac-operators-row .key-btn-frac.yellow {
+  box-shadow: 0 4px 0 var(--c-sticker-yellow-dark);
+}
+.calculator-page.frac-mode .frac-operators-row .key-btn-frac.yellow:active {
+  box-shadow: 0 1px 0 var(--c-sticker-yellow-dark);
+}
+
+.calculator-page.frac-mode .frac-operators-row .key-btn-frac.mint {
+  box-shadow: 0 4px 0 var(--c-accent-mint-dark);
+}
+.calculator-page.frac-mode .frac-operators-row .key-btn-frac.mint:active {
+  box-shadow: 0 1px 0 var(--c-accent-mint-dark);
+}
+
+

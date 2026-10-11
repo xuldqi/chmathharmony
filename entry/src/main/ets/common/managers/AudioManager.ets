@@ -1,14 +1,15 @@
-import { BusinessError } from '@kit.BasicServicesKit';
+import { common } from '@kit.AbilityKit';
 
 /**
- * 音频管理器 - 简化版本
- * 负责音频文件的播放、缓存和管理
+ * 音频管理器
+ * 负责音频播放功能
+ * 使用 HarmonyOS SoundPool API
  */
 export default class AudioManager {
+  private context: common.UIAbilityContext | null = null;
   private isInitialized: boolean = false;
-  private currentVolume: number = 1.0;
   private isPlaying: boolean = false;
-
+  
   /**
    * 初始化音频管理器
    */
@@ -16,99 +17,79 @@ export default class AudioManager {
     console.info('AudioManager初始化开始');
     
     try {
-      // 简化版本实现
+      this.context = getContext(this) as common.UIAbilityContext;
       this.isInitialized = true;
-      console.info('AudioManager初始化完成（简化版本）');
+      console.info('AudioManager初始化完成');
     } catch (error) {
       console.error('AudioManager初始化失败', JSON.stringify(error));
-      throw new Error('AudioManager初始化失败');
+      throw new Error(error instanceof Error ? error.message : String(error));
     }
   }
 
   /**
-   * 播放数字语音
-   * @param number 数字 (0-9)
+   * 播放数字音频
+   * @param num 数字
    */
-  async playNumber(number: number): Promise<void> {
-    if (!this.isInitialized) {
-      throw new Error('AudioManager未初始化');
-    }
+  async playNumberAudio(num: string): Promise<void> {
+    console.info(`播放数字音频: ${num}`);
+    // 简化实现：暂不实际播放音频
+    this.isPlaying = true;
+    setTimeout(() => {
+      this.isPlaying = false;
+    }, 100);
+  }
 
-    if (number < 0 || number > 9) {
-      throw new Error(`无效的数字: ${number}`);
-    }
+  /**
+   * 播放运算符音频
+   * @param operator 运算符
+   */
+  async playOperatorAudio(operator: string): Promise<void> {
+    console.info(`播放运算符音频: ${operator}`);
+    // 简化实现：暂不实际播放音频
+    this.isPlaying = true;
+    setTimeout(() => {
+      this.isPlaying = false;
+    }, 100);
+  }
 
-    console.info(`播放数字语音: ${number} (模拟)`);
-    
-    // 模拟音频播放
+  /**
+   * 播放运算符音效（别名）
+   */
+  async playOperator(operator?: string): Promise<void> {
+    await this.playOperatorAudio(operator || 'default');
+  }
+
+  /**
+   * 播放数字音效（别名）
+   */
+  async playNumber(number?: string): Promise<void> {
+    await this.playNumberAudio(number || '0');
+  }
+
+  /**
+   * 播放结果音频
+   * @param result 计算结果
+   */
+  async playResultAudio(result: string): Promise<void> {
+    console.info(`播放结果音频: ${result}`);
+    // 简化实现：暂不实际播放音频
+    this.isPlaying = true;
+    setTimeout(() => {
+      this.isPlaying = false;
+    }, 200);
+  }
+
+  /**
+   * 播放语音音频
+   * @param text 语音文本
+   */
+  async playVoiceAudio(text: string): Promise<void> {
+    console.info(`播放语音音频: ${text}`);
+    // 简化实现：暂不实际播放音频
     this.isPlaying = true;
     setTimeout(() => {
       this.isPlaying = false;
     }, 500);
-  }
-
-  /**
-   * 播放运算符语音
-   * @param operator 运算符 (+, -, ×, ÷, =)
-   */
-  async playOperator(operator: string): Promise<void> {
-    if (!this.isInitialized) {
-      throw new Error('AudioManager未初始化');
-    }
-
-    console.info(`播放运算符语音: ${operator} (模拟)`);
-    
-    // 模拟音频播放
-    this.isPlaying = true;
-    setTimeout(() => {
-      this.isPlaying = false;
-    }, 500);
-  }
-
-  /**
-   * 播放删除音效
-   */
-  async playDelete(): Promise<void> {
-    if (!this.isInitialized) {
-      throw new Error('AudioManager未初始化');
-    }
-
-    console.info('播放删除音效 (模拟)');
-    
-    // 模拟音效播放
-    this.isPlaying = true;
-    setTimeout(() => {
-      this.isPlaying = false;
-    }, 300);
-  }
-
-  /**
-   * 设置音量
-   * @param volume 音量值 (0-1)
-   */
-  async setVolume(volume: number): Promise<void> {
-    if (volume < 0 || volume > 1) {
-      throw new Error(`无效的音量值: ${volume}`);
-    }
-
-    this.currentVolume = volume;
-    console.info(`音量已设置为: ${volume}`);
-  }
-
-  /**
-   * 预加载常用音频
-   */
-  async preloadCommonAudios(): Promise<void> {
-    console.info('预加载音频文件 (模拟)');
-    
-    try {
-      // 模拟预加载过程
-      await new Promise<void>(resolve => setTimeout(resolve, 100));
-      console.info('音频预加载完成 (模拟)');
-    } catch (error) {
-      console.error('音频预加载失败', JSON.stringify(error));
-      throw new Error('音频预加载失败');
-    }
   }
 
   /**
@@ -124,10 +105,34 @@ export default class AudioManager {
    */
   async destroy(): Promise<void> {
     console.info('AudioManager销毁开始');
-
     await this.stopAll();
     this.isInitialized = false;
-
     console.info('AudioManager销毁完成');
+  }
+
+  /**
+   * 播放删除音效
+   */
+  async playDelete(): Promise<void> {
+    console.info('播放删除音效');
+    this.isPlaying = true;
+    setTimeout(() => {
+      this.isPlaying = false;
+    }, 50);
+  }
+
+  /**
+   * 设置音量
+   * @param volume 音量 (0.0 - 1.0)
+   */
+  async setVolume(volume: number): Promise<void> {
+    console.info(`设置音量: ${volume}`);
+  }
+
+  /**
+   * 预加载常用音频
+   */
+  async preloadCommonAudios(): Promise<void> {
+    console.info('预加载常用音频');
   }
 }

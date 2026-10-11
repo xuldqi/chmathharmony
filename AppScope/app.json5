@@ -1,6 +1,6 @@
 {
   "app": {
-    "bundleName": "com.tsto.chmath",
+    "bundleName": "com.tsto.wallet",
     "vendor": "example",
     "versionCode": 1000000,
     "versionName": "1.0.0",

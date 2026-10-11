@@ -93,9 +93,8 @@ struct Index {
                 '语音计算器',
                 '🧮',
                 '#fb923c',
-                () => { 
-                  console.info('点击了语音计算器');
-                  // TODO: 跳转到计算器页面
+                () => {
+                  router.pushUrl({ url: 'pages/NativeCalculator' })
                 }
               )
             }
@@ -104,82 +103,141 @@ struct Index {
             GridCol() {
               this.CartoonButton(
                 1,
-                '数学练习',
+                '练习模式',
                 '📚',
                 '#34d399',
-                () => { 
-                  console.info('点击了数学练习');
-                  // TODO: 跳转到练习页面
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/practice' } })
                 }
               )
             }
-            
+
             // 数学大冒险
             GridCol() {
               this.CartoonButton(
                 2,
-                '数学大冒险',
+                '闯关练习',
                 '🎮',
                 '#a855f7',
-                () => { 
-                  console.info('点击了数学大冒险');
-                  // TODO: 跳转到游戏页面
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/game' } })
                 }
               )
             }
-            
+
             // 学数学
             GridCol() {
               this.CartoonButton(
                 3,
-                '学数学',
+                '知识点学习',
                 '🐱',
                 '#f43f5e',
-                () => { 
-                  console.info('点击了学数学');
-                  // TODO: 跳转到可视化数学页面
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/visual-math' } })
                 }
               )
             }
-            
-            // 学习报告
+
+            // 认识时钟
             GridCol() {
               this.CartoonButton(
                 4,
-                '学习报告',
-                '📊',
-                '#22d3ee',
-                () => { 
-                  console.info('点击了学习报告');
-                  // TODO: 跳转到报告页面
+                '认识时钟',
+                '⏰',
+                '#3b82f6',
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/time-master' } })
                 }
               )
             }
-            
-            // 语音选择
+
+            // 小小收银员
             GridCol() {
               this.CartoonButton(
                 5,
-                '语音选择',
-                '🎤',
-                '#ec4899',
-                () => { 
-                  console.info('点击了语音选择');
-                  // TODO: 跳转到语音选择页面
+                '小小收银员',
+                '🏪',
+                '#10b981',
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/money-cashier' } })
                 }
               )
             }
-            
-            // 设置
+
+            // 心愿存钱罐
             GridCol() {
               this.CartoonButton(
                 6,
+                '心愿存钱罐',
+                '🎯',
+                '#6366f1',
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/savings' } })
+                }
+              )
+            }
+
+            // 金币商城
+            GridCol() {
+              this.CartoonButton(
+                7,
+                '金币商城',
+                '🛍️',
+                '#f59e0b',
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/shop' } })
+                }
+              )
+            }
+
+            // 学习报告
+            GridCol() {
+              this.CartoonButton(
+                8,
+                '学习报告',
+                '📊',
+                '#22d3ee',
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/report' } })
+                }
+              )
+            }
+
+            // 我的
+            GridCol() {
+              this.CartoonButton(
+                9,
+                '我的',
+                '👧',
+                '#ec4899',
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/my' } })
+                }
+              )
+            }
+
+            // 家长控制
+            GridCol() {
+              this.CartoonButton(
+                10,
+                '家长控制',
+                '🛡️',
+                '#475569',
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/parent-dashboard' } })
+                }
+              )
+            }
+
+            // 设置
+            GridCol() {
+              this.CartoonButton(
+                11,
                 '设置',
                 '⚙️',
                 '#64748b',
-                () => { 
-                  console.info('点击了设置');
-                  // TODO: 跳转到设置页面
+                () => {
+                  router.pushUrl({ url: 'pages/WebContainer', params: { url: '/settings' } })
                 }
               )
             }

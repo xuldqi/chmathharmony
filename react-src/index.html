@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>语音计算器</title>
+
+    <script>
+      (function () {
+        var hasBooted = function () {
+          return Boolean(window.__APP_BOOTED__);
+        };
+        var ensureBootStatusNode = function () {
+          var root = document.getElementById('boot-status');
+          if (root) return root;
+          root = document.createElement('div');
+          root.id = 'boot-status';
+          root.style.position = 'fixed';
+          root.style.inset = '0';
+          root.style.display = 'flex';
+          root.style.alignItems = 'center';
+          root.style.justifyContent = 'center';
+          root.style.zIndex = '9999';
+          root.style.background = 'rgba(255,255,255,0.96)';
+          document.body.appendChild(root);
+          return root;
+        };
+        var renderError = function (title, detail) {
+          var root = ensureBootStatusNode();
+          root.style.pointerEvents = 'auto';
+          root.innerHTML =
+            '<div style="padding:16px;font-family:system-ui, sans-serif;color:#1f2937;">' +
+            '<h2 style="margin:0 0 8px 0;color:#b91c1c;">' + title + '</h2>' +
+            '<pre style="white-space:pre-wrap;background:#fef2f2;border:1px solid #fecaca;padding:12px;border-radius:8px;">' +
+            String(detail || '') +
+            '</pre>' +
+            '</div>';
+        };
+        window.addEventListener('error', function (event) {
+          if (hasBooted()) {
+            console.error('[RuntimeError]', event.error || event.message);
+            return;
+          }
+          renderError('应用启动出错', event.error && (event.error.stack || event.error.message) || event.message);
+        });
+        window.addEventListener('unhandledrejection', function (event) {
+          if (hasBooted()) {
+            console.error('[RuntimeUnhandledRejection]', event.reason);
+            return;
+          }
+          renderError('应用启动出错（Promise）', event.reason);
+        });
+        window.__BOOT_RENDER_ERROR__ = renderError;
+        window.__BOOT_TIMER__ = setTimeout(function () {
+          renderError('应用未启动', 'JS 未执行或资源加载失败。');
+        }, 12000);
+      })();
+    </script>
+  </head>
+  <body style="margin:0;min-height:100vh;-webkit-tap-highlight-color:transparent;">
+    <div id="root" style="min-height:100vh;"></div>
+    <script
+      type="module"
+      src="/src/main.tsx"
+      id="app-script"
+      onerror="window.__BOOT_RENDER_ERROR__ && window.__BOOT_RENDER_ERROR__('资源加载失败', this && this.src)"
+    ></script>
+  </body>
+</html>

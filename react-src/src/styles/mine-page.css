@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+.mine-page {
+  font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #E0F7FA 0%, #E1F5FE 30%, #F3E5F5 100%);
+}
+
+.mine-card-shadow {
+  box-shadow: 0 6px 0 #DED6E0;
+}
+
+.mine-card-interactive {
+  box-shadow: 0 6px 0 #DED6E0;
+  transition: all 0.15s ease;
+}
+
+.mine-card-interactive:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #DED6E0;
+}
+
+.mine-card-shadow-sm {
+  box-shadow: 0 4px 0 #E2E8F0;
+  transition: all 0.2s ease;
+}
+
+.mine-card-shadow-sm:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #E2E8F0;
+}
+
+.mine-text-shadow-sm {
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.mine-hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.mine-hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

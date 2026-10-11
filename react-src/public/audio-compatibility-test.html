@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音频兼容性测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .test-button:hover {
+            background: #45a049;
+        }
+        .test-button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 3px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .compatibility-info {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔊 音频兼容性测试</h1>
+        <p>此页面用于测试浏览器的音频播放兼容性，特别是针对记账日记的音频文件。</p>
+        
+        <div class="compatibility-info" id="compatibilityInfo">
+            <h3>浏览器兼容性检测</h3>
+            <div id="compatibilityResults">正在检测...</div>
+        </div>
+        
+        <div class="test-section">
+            <h3>基础音频测试</h3>
+            <p>测试基本的数字和运算符音频播放：</p>
+            <button class="test-button" onclick="testAudio('num1')">数字1</button>
+            <button class="test-button" onclick="testAudio('num2')">数字2</button>
+            <button class="test-button" onclick="testAudio('jia')">加法</button>
+            <button class="test-button" onclick="testAudio('jian')">减法</button>
+            <button class="test-button" onclick="testAudio('chengyi')">乘法</button>
+            <button class="test-button" onclick="testAudio('chuyi')">除法</button>
+            <button class="test-button" onclick="testAudio('dengyu')">等于</button>
+            <div id="basicTestResults"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>格式兼容性测试</h3>
+            <p>测试不同音频格式的支持情况：</p>
+            <button class="test-button" onclick="testFormat('chuyi', 'ogg')">除法 (OGG)</button>
+            <button class="test-button" onclick="testFormat('del', 'mp3')">删除 (MP3)</button>
+            <div id="formatTestResults"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>连续播放测试</h3>
+            <p>测试连续快速播放音频的稳定性：</p>
+            <button class="test-button" onclick="testSequentialPlay()">连续播放测试</button>
+            <button class="test-button" onclick="testRapidPlay()">快速连续播放</button>
+            <div id="sequentialTestResults"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>测试日志</h3>
+            <pre id="testLog"></pre>
+            <button class="test-button" onclick="clearLog()">清除日志</button>
+        </div>
+    </div>
+
+    <script>
+        let testLog = [];
+        let audioCache = new Map();
+        let currentlyPlaying = null;
+        
+        // 浏览器兼容性检测
+        function detectCompatibility() {
+            const compatibility = {
+                audioSupport: typeof Audio !== 'undefined',
+                oggSupport: false,
+                mp3Support: false,
+                webAudioSupport: typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined'
+            };
+            
+            if (compatibility.audioSupport) {
+                const audio = new Audio();
+                compatibility.oggSupport = audio.canPlayType('audio/ogg') !== '';
+                compatibility.mp3Support = audio.canPlayType('audio/mpeg') !== '';
+            }
+            
+            return compatibility;
+        }
+        
+        // 显示兼容性信息
+        function displayCompatibility() {
+            const compatibility = detectCompatibility();
+            const resultsDiv = document.getElementById('compatibilityResults');
+            
+            let html = '<ul>';
+            html += `<li>HTML5 Audio支持: ${compatibility.audioSupport ? '✅' : '❌'}</li>`;
+            html += `<li>OGG格式支持: ${compatibility.oggSupport ? '✅' : '❌'}</li>`;
+            html += `<li>MP3格式支持: ${compatibility.mp3Support ? '✅' : '❌'}</li>`;
+            html += `<li>Web Audio API支持: ${compatibility.webAudioSupport ? '✅' : '❌'}</li>`;
+            html += '</ul>';
+            
+            if (!compatibility.audioSupport) {
+                html += '<div class="error">⚠️ 浏览器不支持HTML5音频播放</div>';
+            } else if (!compatibility.oggSupport && !compatibility.mp3Support) {
+                html += '<div class="error">⚠️ 浏览器不支持OGG或MP3格式</div>';
+            } else {
+                html += '<div class="success">✅ 浏览器音频兼容性良好</div>';
+            }
+            
+            resultsDiv.innerHTML = html;
+            
+            log('兼容性检测完成', compatibility);
+        }
+        
+        // 日志记录
+        function log(message, data = null) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            if (data) {
+                testLog.push(logEntry + '\n' + JSON.stringify(data, null, 2));
+            } else {
+                testLog.push(logEntry);
+            }
+            
+            const logElement = document.getElementById('testLog');
+            logElement.textContent = testLog.join('\n\n');
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        // 清除日志
+        function clearLog() {
+            testLog = [];
+            document.getElementById('testLog').textContent = '';
+        }
+        
+        // 测试单个音频文件
+        async function testAudio(audioName) {
+            try {
+                log(`开始测试音频: ${audioName}`);
+                
+                // 停止当前播放的音频
+                if (currentlyPlaying && !currentlyPlaying.paused) {
+                    currentlyPlaying.pause();
+                    currentlyPlaying.currentTime = 0;
+                }
+                
+                let audio = audioCache.get(audioName);
+                if (!audio) {
+                    audio = new Audio(`/audio/${audioName}.ogg`);
+                    audioCache.set(audioName, audio);
+                }
+                
+                currentlyPlaying = audio;
+                audio.currentTime = 0;
+                
+                await audio.play();
+                
+                // 等待播放完成
+                await new Promise((resolve) => {
+                    const onEnded = () => {
+                        audio.removeEventListener('ended', onEnded);
+                        resolve();
+                    };
+                    audio.addEventListener('ended', onEnded);
+                    
+                    if (audio.ended) {
+                        resolve();
+                    }
+                });
+                
+                showResult('basicTestResults', `✅ ${audioName} 播放成功`, 'success');
+                log(`音频播放成功: ${audioName}`);
+                
+            } catch (error) {
+                showResult('basicTestResults', `❌ ${audioName} 播放失败: ${error.message}`, 'error');
+                log(`音频播放失败: ${audioName}`, error);
+            }
+        }
+        
+        // 测试特定格式
+        async function testFormat(audioName, format) {
+            try {
+                log(`测试格式: ${audioName}.${format}`);
+                
+                const audio = new Audio(`/audio/${audioName}.${format}`);
+                currentlyPlaying = audio;
+                
+                await audio.play();
+                
+                await new Promise((resolve) => {
+                    const onEnded = () => {
+                        audio.removeEventListener('ended', onEnded);
+                        resolve();
+                    };
+                    audio.addEventListener('ended', onEnded);
+                    
+                    if (audio.ended) {
+                        resolve();
+                    }
+                });
+                
+                showResult('formatTestResults', `✅ ${audioName}.${format} 播放成功`, 'success');
+                log(`格式测试成功: ${audioName}.${format}`);
+                
+            } catch (error) {
+                showResult('formatTestResults', `❌ ${audioName}.${format} 播放失败: ${error.message}`, 'error');
+                log(`格式测试失败: ${audioName}.${format}`, error);
+            }
+        }
+        
+        // 连续播放测试
+        async function testSequentialPlay() {
+            const sequence = ['num1', 'jia', 'num2', 'dengyu', 'num3'];
+            
+            try {
+                log('开始连续播放测试');
+                
+                for (const audioName of sequence) {
+                    await testAudio(audioName);
+                    await new Promise(resolve => setTimeout(resolve, 500)); // 间隔500ms
+                }
+                
+                showResult('sequentialTestResults', '✅ 连续播放测试成功', 'success');
+                log('连续播放测试完成');
+                
+            } catch (error) {
+                showResult('sequentialTestResults', `❌ 连续播放测试失败: ${error.message}`, 'error');
+                log('连续播放测试失败', error);
+            }
+        }
+        
+        // 快速连续播放测试
+        async function testRapidPlay() {
+            const audioName = 'chuyi';
+            
+            try {
+                log('开始快速连续播放测试 (除法音频)');
+                
+                for (let i = 0; i < 5; i++) {
+                    await testAudio(audioName);
+                    await new Promise(resolve => setTimeout(resolve, 100)); // 间隔100ms
+                }
+                
+                showResult('sequentialTestResults', '✅ 快速连续播放测试成功', 'success');
+                log('快速连续播放测试完成');
+                
+            } catch (error) {
+                showResult('sequentialTestResults', `❌ 快速连续播放测试失败: ${error.message}`, 'error');
+                log('快速连续播放测试失败', error);
+            }
+        }
+        
+        // 显示测试结果
+        function showResult(containerId, message, type) {
+            const container = document.getElementById(containerId);
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `result ${type}`;
+            resultDiv.textContent = message;
+            container.appendChild(resultDiv);
+            
+            // 自动滚动到底部
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 页面加载时执行兼容性检测
+        window.addEventListener('load', displayCompatibility);
+    </script>
+</body>
+</html>

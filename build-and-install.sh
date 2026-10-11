@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# HarmonyOS 儿童语音计算器 - 自动构建和安装脚本
+# HarmonyOS 记账日记 - 自动构建和安装脚本
 # 绕过 DevEco Studio 的 hvigor 问题
 
 set -e  # 遇到错误时退出
 
-echo "🚀 开始构建 HarmonyOS 儿童语音计算器..."
+echo "🚀 开始构建 HarmonyOS 记账日记..."
 echo "================================================"
 
 # 检查 hvigorw 脚本是否存在
@@ -76,7 +76,7 @@ if [ $INSTALL_EXIT_CODE -eq 0 ]; then
     if [ $? -eq 0 ]; then
         echo "✅ 应用启动成功！"
         echo ""
-        echo "🎉 恭喜！HarmonyOS 儿童语音计算器已成功安装并启动"
+        echo "🎉 恭喜！HarmonyOS 记账日记已成功安装并启动"
         echo "================================================"
         echo "应用功能："
         echo "  • 儿童友好的计算器界面"

@@ -1,0 +1,552 @@
+// 自定义 SVG 图标组件 - 与 React 版本风格一致
+
+@Component
+export struct IconHome {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M12 3L2 12h3v8h5v-6h4v6h5v-8h3L12 3z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconGift {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M20 6h-2.18c.11-.31.18-.65.18-1a3 3 0 0 0-5.5-1.65l-.5.67-.5-.68A3 3 0 0 0 9 2a3 3 0 0 0-3 3c0 .35.07.69.18 1H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM9 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconBook {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconPerson {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconPencil {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconGame {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconNumber {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M5 13.2h4V12H5v1.2zm0 2.4h4V14.4H5v1.2zm0-4.8h4V9.6H5v1.2zm0-2.4h4V7.2H5v1.2zm6 7.2h4v-1.2h-4v1.2zm0-2.4h4V12h-4v1.2zm0-2.4h4V9.6h-4v1.2zm0-2.4h4V7.2h-4v1.2zm6 7.2h4v-1.2h-4v1.2zm0-2.4h4V12h-4v1.2zm0-2.4h4V9.6h-4v1.2zM18 7.2v1.2h1.2V7.2H18zM5 17.4V6.6h16.8v10.8H5z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconClock {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconMoney {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconFamily {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconMic {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3-1.66 0-3 1.34-3 3v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconCart {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconChart {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8H19v6h-2.8v-6z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconTrophy {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconGear {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconInfo {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconBell {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconLock {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconTrash {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconCheck {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconPlus {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconSpeaker {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconBulb {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M9 21c0 .5.4 1 1 1h4c.6 0 1-.5 1-1v-1H9v1zm3-19C8.1 2 5 5.1 5 9c0 2.4 1.2 4.5 3 5.7V17c0 .5.4 1 1 1h6c.6 0 1-.5 1-1v-2.3c1.8-1.3 3-3.4 3-5.7 0-3.9-3.1-7-7-7z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconVibration {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M0 15h2V9H0v6zm3 2h2V7H3v10zm19-8v6h2V9h-2zm-3 8h2V7h-2v10zM16.5 3h-9C6.67 3 6 3.67 6 4.5v15c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-15c0-.83-.67-1.5-1.5-1.5zM16 19H8V5h8v14z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconTimer {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconEnvelope {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconDoc {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconStar {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
+
+@Component
+export struct IconBicycle {
+  iconSize: number = 24
+  color: string = '#4B454E'
+
+  build() {
+    Shape() {
+      Path()
+        .width(this.iconSize)
+        .height(this.iconSize)
+        .commands('M15.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5zm5.8-10l2.4-2.4.8.8c1.3 1.3 3 2.1 5.1 2.1V9c-1.5 0-2.7-.6-3.6-1.5l-1.9-1.9c-.5-.4-1-.6-1.6-.6s-1.1.2-1.4.6L7.8 8.4c-.4.4-.6.9-.6 1.4 0 .6.2 1.1.6 1.4L11 14v5h2v-6.2l-2.2-2.3zM19 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z')
+    }
+    .width(this.iconSize)
+    .height(this.iconSize)
+    .viewPort({ x: 0, y: 0, width: 24, height: 24 })
+    .fill(this.color)
+  }
+}
