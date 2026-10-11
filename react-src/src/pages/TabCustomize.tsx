@@ -5,12 +5,14 @@ import {
   useCustomTabs,
   AVAILABLE_TAB_PAGES,
   AVAILABLE_TAB_ICONS,
+  TAB_PRESETS,
   type TabItemConfig,
   type TabPageOption,
+  type TabPreset,
 } from '@/lib/tabConfig';
 import AppPageHeader from '@/components/AppPageHeader';
 import TabIconRenderer from '@/components/TabIconRenderer';
-import { Sliders, RotateCcw, Check, X, Lock } from 'lucide-react';
+import { Sliders, Check, X, Lock } from 'lucide-react';
 import '@/styles/settings-page.css';
 
 export default function TabCustomize() {
@@ -67,13 +69,18 @@ export default function TabCustomize() {
   };
 
   // 恢复出厂默认
-  const handleReset = () => {
-    TabConfigManager.resetTabs();
-    showToast('已恢复默认导航栏设置');
+  // 触发预览卡片弹跳动效的临时状态
+  const [popKey, setPopKey] = useState<number>(0);
+
+  // 一键应用场景推荐模版
+  const handleApplyPreset = (preset: TabPreset) => {
+    TabConfigManager.saveTabs(preset.tabs);
+    setPopKey((prev) => prev + 1);
+    showToast(`已切换为「${preset.name}」`);
   };
 
   return (
-    <div className="tab-customize-page bg-gradient-to-b from-[#E8F6F1] via-[#F3E8F5] to-[#FCE7F3] min-h-screen w-full flex flex-col px-5 py-6 text-[#4B454E] relative">
+    <div className="tab-customize-page bg-gradient-to-b from-[#E8F6F1] via-[#F3E8F5] to-[#FCE7F3] min-h-screen w-full flex flex-col px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] text-[#4B454E] relative">
       {/* 顶部 Toast */}
       {toastMessage && (
         <div className="fixed top-12 left-1/2 -translate-x-1/2 z-[90] bg-slate-800/90 backdrop-blur-md text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg animate-in fade-in zoom-in">
@@ -85,29 +92,18 @@ export default function TabCustomize() {
       <AppPageHeader
         title="底栏导航定制"
         onBack={() => navigate(-1)}
-        className="mb-3"
-        rightElement={
-          <button
-            type="button"
-            onClick={handleReset}
-            className="flex items-center gap-1 text-xs font-bold text-slate-500 bg-white/80 hover:bg-white px-3 py-1.5 rounded-full border border-slate-200/80 pop-shadow-sm active:scale-95 transition-all cursor-pointer"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            恢复默认
-          </button>
-        }
       />
 
-      <div className="flex flex-col gap-4 w-full max-w-md mx-auto pb-10">
-        {/* 说明卡片 */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-[20px] p-3.5 border border-slate-100/90 text-xs text-slate-500 leading-relaxed shadow-sm">
-          根据您的日常使用习惯，前 3 个 Tab 支持自由更换功能、自定义名称与挑选图标；「功能」与「我的」为系统全局模块保持固定。
-        </div>
-
+      <div className="flex flex-col gap-4 w-full max-w-md mx-auto pb-12">
         {/* 实时底栏预览 */}
-        <div className="flex flex-col gap-1.5">
-          <span className="text-xs font-black text-slate-500 ml-1">当前底栏实时预览</span>
-          <div className="bg-white rounded-[24px] p-3 shadow-md border border-slate-100 flex items-center justify-around">
+        <div className="flex flex-col gap-1.5 animate-subtle-spring">
+          <span className="text-xs font-black text-slate-500 ml-1">底栏预览</span>
+          <div
+            key={popKey}
+            className={`bg-white rounded-[24px] p-3 shadow-md border border-slate-100 flex items-center justify-around transition-all ${
+              popKey > 0 ? 'animate-spring-pop ring-2 ring-indigo-200/60' : ''
+            }`}
+          >
             {customTabs.map((t, idx) => {
               const page = AVAILABLE_TAB_PAGES.find((p) => p.key === t.pageKey) || AVAILABLE_TAB_PAGES[idx];
               return (
@@ -136,9 +132,58 @@ export default function TabCustomize() {
           </div>
         </div>
 
+        {/* 快捷推荐模版区 */}
+        <div className="flex flex-col gap-2 animate-subtle-spring anim-delay-1">
+          <span className="text-xs font-black text-slate-500 ml-1">场景模板</span>
+
+          <div className="grid grid-cols-2 gap-2.5">
+            {TAB_PRESETS.map((preset) => {
+              // 检查当前是否完全匹配该模版
+              const isMatch = preset.tabs.every((pt, idx) => customTabs[idx]?.pageKey === pt.pageKey);
+
+              return (
+                <button
+                  key={preset.id}
+                  type="button"
+                  onClick={() => handleApplyPreset(preset)}
+                  className={`bg-white rounded-[20px] p-3 text-left border transition-all active:scale-[0.96] cursor-pointer flex flex-col justify-between ${
+                    isMatch
+                      ? 'border-indigo-400 ring-2 ring-indigo-200/70 shadow-sm bg-indigo-50/20'
+                      : 'border-slate-100 hover:border-indigo-100 shadow-xs'
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-xs font-black text-slate-800">{preset.name}</span>
+                    <span
+                      className={`text-[9px] font-extrabold px-1.5 py-0.5 rounded-full ${
+                        isMatch
+                          ? 'bg-indigo-600 text-white'
+                          : 'bg-slate-100 text-slate-500'
+                      }`}
+                    >
+                      {isMatch ? '生效中' : preset.badge}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 mt-2.5">
+                    {preset.tabs.map((t, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className="text-[10px] font-bold text-indigo-600 bg-indigo-50/80 px-2 py-0.5 rounded-md"
+                      >
+                        {t.title}
+                      </span>
+                    ))}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* 3 个可定制项列表 */}
-        <div className="flex flex-col gap-3">
-          <span className="text-xs font-black text-slate-500 ml-1">可定制导航项（前 3 项）</span>
+        <div className="flex flex-col gap-3 animate-subtle-spring anim-delay-2">
+          <span className="text-xs font-black text-slate-500 ml-1">自定义导航</span>
 
           {customTabs.map((tab, index) => {
             const page = AVAILABLE_TAB_PAGES.find((p) => p.key === tab.pageKey) || AVAILABLE_TAB_PAGES[index];
@@ -162,7 +207,7 @@ export default function TabCustomize() {
                       </span>
                     </div>
                     <span className="text-xs text-slate-400 font-medium truncate mt-0.5">
-                      {page.name} · {page.desc}
+                      {page.desc}
                     </span>
                   </div>
                 </div>
@@ -182,7 +227,7 @@ export default function TabCustomize() {
 
         {/* 2 个固定项列表 */}
         <div className="flex flex-col gap-2.5">
-          <span className="text-xs font-black text-slate-500 ml-1">系统固定导航项（后 2 项）</span>
+          <span className="text-xs font-black text-slate-500 ml-1">固定导航</span>
 
           <div className="bg-slate-100/70 rounded-[20px] p-3.5 flex items-center justify-between border border-slate-200/60">
             <div className="flex items-center gap-3">
@@ -193,7 +238,7 @@ export default function TabCustomize() {
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-slate-700">功能</span>
-                <span className="text-xs text-slate-400">工具集合、趣味数学与口算大全</span>
+                <span className="text-xs text-slate-400">全部功能与计算器</span>
               </div>
             </div>
             <span className="text-[11px] font-bold text-slate-400 flex items-center gap-1 bg-slate-200/80 px-2.5 py-1 rounded-full">
@@ -211,7 +256,7 @@ export default function TabCustomize() {
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-slate-700">我的</span>
-                <span className="text-xs text-slate-400">个人主页、存钱罐、报告与设置</span>
+                <span className="text-xs text-slate-400">个人中心与设置</span>
               </div>
             </div>
             <span className="text-[11px] font-bold text-slate-400 flex items-center gap-1 bg-slate-200/80 px-2.5 py-1 rounded-full">

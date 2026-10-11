@@ -38,7 +38,7 @@ export const AVAILABLE_TAB_PAGES: TabPageOption[] = [
 export const AVAILABLE_TAB_ICONS: Array<{ key: string; name: string }> = [
   { key: 'calc', name: '计算器' },
   { key: 'flask', name: '科学实验' },
-  { key: 'divide', name: '分数除号' },
+  { key: 'divide', name: '分数积木' },
   { key: 'gift', name: '心愿存钱' },
   { key: 'zap', name: '速算闪电' },
   { key: 'history', name: '历史时钟' },
@@ -58,6 +58,83 @@ export const DEFAULT_TABS: TabItemConfig[] = [
   { id: 'tab_1', pageKey: 'basic', title: '基础', iconKey: 'calc' },
   { id: 'tab_2', pageKey: 'scientific', title: '科学', iconKey: 'flask' },
   { id: 'tab_3', pageKey: 'fraction', title: '分数', iconKey: 'divide' },
+];
+
+export interface TabPreset {
+  id: string;
+  name: string;
+  badge: string;
+  desc: string;
+  tabs: TabItemConfig[];
+}
+
+export const TAB_PRESETS: TabPreset[] = [
+  {
+    id: 'default',
+    name: '经典默认',
+    badge: '默认',
+    desc: '基础 · 科学 · 分数',
+    tabs: [
+      { id: 'tab_1', pageKey: 'basic', title: '基础', iconKey: 'calc' },
+      { id: 'tab_2', pageKey: 'scientific', title: '科学', iconKey: 'flask' },
+      { id: 'tab_3', pageKey: 'fraction', title: '分数', iconKey: 'divide' },
+    ],
+  },
+  {
+    id: 'savings',
+    name: '日常存钱',
+    badge: '常用',
+    desc: '基础 · 存钱 · 历史',
+    tabs: [
+      { id: 'tab_1', pageKey: 'basic', title: '基础', iconKey: 'calc' },
+      { id: 'tab_2', pageKey: 'savings', title: '存钱', iconKey: 'gift' },
+      { id: 'tab_3', pageKey: 'calc_history', title: '历史', iconKey: 'history' },
+    ],
+  },
+  {
+    id: 'student',
+    name: '学生备战',
+    badge: '学习',
+    desc: '科学 · 分数 · 报告',
+    tabs: [
+      { id: 'tab_1', pageKey: 'scientific', title: '科学', iconKey: 'flask' },
+      { id: 'tab_2', pageKey: 'fraction', title: '分数', iconKey: 'divide' },
+      { id: 'tab_3', pageKey: 'report', title: '报告', iconKey: 'chart' },
+    ],
+  },
+  {
+    id: 'family',
+    name: '亲子益智',
+    badge: '启蒙',
+    desc: '口算 · 24点 · 报告',
+    tabs: [
+      { id: 'tab_1', pageKey: 'practice', title: '口算', iconKey: 'zap' },
+      { id: 'tab_2', pageKey: 'game24', title: '24点', iconKey: 'trophy' },
+      { id: 'tab_3', pageKey: 'report', title: '报告', iconKey: 'chart' },
+    ],
+  },
+  {
+    id: 'wealth',
+    name: '买房理财',
+    badge: '实用',
+    desc: '房贷 · 汇率 · 换算',
+    tabs: [
+      { id: 'tab_1', pageKey: 'mortgage', title: '房贷', iconKey: 'home' },
+      { id: 'tab_2', pageKey: 'currency', title: '汇率', iconKey: 'coins' },
+      { id: 'tab_3', pageKey: 'unit', title: '换算', iconKey: 'ruler' },
+    ],
+  },
+  {
+    id: 'life',
+    name: '生活便民',
+    badge: '效率',
+    desc: '基础 · 换算 · 汇率',
+    tabs: [
+      { id: 'tab_1', pageKey: 'basic', title: '基础', iconKey: 'calc' },
+      { id: 'tab_2', pageKey: 'unit', title: '换算', iconKey: 'ruler' },
+      { id: 'tab_3', pageKey: 'currency', title: '汇率', iconKey: 'coins' },
+    ],
+  },
 ];
 
 const STORAGE_KEY = 'chmath_custom_tabs_v1';

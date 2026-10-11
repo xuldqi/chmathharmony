@@ -208,3 +208,45 @@ body {
 .modal-enter {
   animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+/* 精致物理微交互 (Micro-interactions) */
+@keyframes subtleSpringIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.976);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-1.5px) scale(1.008);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes springPop {
+  0% {
+    transform: scale(0.94);
+  }
+  55% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-subtle-spring {
+  animation: subtleSpringIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-spring-pop {
+  animation: springPop 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.anim-delay-1 { animation-delay: 35ms; }
+.anim-delay-2 { animation-delay: 70ms; }
+.anim-delay-3 { animation-delay: 110ms; }
+.anim-delay-4 { animation-delay: 150ms; }
+.anim-delay-5 { animation-delay: 190ms; }

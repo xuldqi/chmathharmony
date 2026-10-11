@@ -1057,7 +1057,7 @@ const Report: React.FC = () => {
         />
 
         {/* 顶部 Tab */}
-        <nav className="flex gap-3 overflow-x-auto no-scrollbar mb-6 pb-2 -mx-4 px-4">
+        <nav className="flex gap-3 overflow-x-auto no-scrollbar mb-6 pb-2 -mx-4 px-4 animate-subtle-spring anim-delay-1">
           <button
             type="button"
             onClick={() => setActiveTab('progress')}

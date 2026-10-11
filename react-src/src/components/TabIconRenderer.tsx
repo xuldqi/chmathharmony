@@ -40,11 +40,15 @@ export const TabIconRenderer: React.FC<TabIconRendererProps> = ({
         </svg>
       );
     case 'divide':
+    case 'fraction':
       return (
-        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-          <line x1="5" y1="12" x2="19" y2="12" />
-          <circle cx="12" cy="6" r="2.2" fill="currentColor" />
-          <circle cx="12" cy="18" r="2.2" fill="currentColor" />
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+          {/* 分子方块 */}
+          <rect x="8" y="3.5" width="8" height="6.5" rx="1.5" />
+          {/* 分数横线 */}
+          <rect x="4.5" y="11" width="15" height="2" rx="1" />
+          {/* 分母方块 */}
+          <rect x="8" y="14" width="8" height="6.5" rx="1.5" />
         </svg>
       );
     case 'gift':

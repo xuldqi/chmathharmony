@@ -169,7 +169,7 @@ export default function Savings() {
           }
         />
 
-        <div className="bg-white rounded-[32px] p-6 card-shadow w-full">
+        <div className="bg-white rounded-[32px] p-6 card-shadow w-full animate-subtle-spring anim-delay-1">
           <div className="flex items-center justify-between">
             <div className="flex-1 flex flex-col items-center gap-1">
               <span className="text-xs font-bold text-gray-400">活跃目标</span>
@@ -192,7 +192,7 @@ export default function Savings() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 animate-subtle-spring anim-delay-2">
           <div className="flex items-end justify-between px-2">
             <h2 className="text-xl font-extrabold text-[#4B454E]">我的心愿</h2>
             <span className="text-sm font-bold text-gray-400">{activeGoals.length}个目标</span>
