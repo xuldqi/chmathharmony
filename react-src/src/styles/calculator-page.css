@@ -308,6 +308,20 @@
   opacity: 1;
   color: #2563EB;
 }
+.tab-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tab-item:active .tab-icon-wrapper {
+  transform: scale(0.9);
+}
+
+.tab-item.active .tab-icon-wrapper {
+  transform: scale(1.05);
+}
 
 .tab-item.active svg:not([fill="none"]) {
   fill: #2563EB;
@@ -320,6 +334,11 @@
 .tab-label {
   font-size: 11px;
   font-weight: 800;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.tab-item.active .tab-label {
+  transform: scale(1.04);
 }
 
 .main-tabbar-shell {

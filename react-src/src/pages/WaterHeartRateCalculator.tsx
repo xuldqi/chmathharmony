@@ -106,7 +106,7 @@ export default function WaterHeartRateCalculator() {
                 tab === 'heart' ? 'bg-white text-cyan-600 shadow-sm' : 'text-slate-500'
               }`}
             >
-              ❤运动燃脂心率区间
+              运动燃脂心率区间
             </button>
           </div>
 

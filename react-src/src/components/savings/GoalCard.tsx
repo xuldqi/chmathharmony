@@ -1,7 +1,24 @@
 import React from 'react';
 import clsx from 'clsx';
+import { Target, GraduationCap, Gift, Compass, ShieldCheck } from 'lucide-react';
 import { SavingsGoal } from '@/stores/savingsStore';
 import { formatCurrency, formatDate } from '@/utils/format';
+
+function renderGoalIcon(iconKey?: string) {
+  switch (iconKey) {
+    case 'education':
+      return <GraduationCap className="w-5 h-5 text-orange-500" />;
+    case 'dream':
+    case 'toy':
+      return <Gift className="w-5 h-5 text-purple-500" />;
+    case 'travel':
+      return <Compass className="w-5 h-5 text-sky-500" />;
+    case 'emergency':
+      return <ShieldCheck className="w-5 h-5 text-amber-500" />;
+    default:
+      return <Target className="w-5 h-5 text-indigo-500" />;
+  }
+}
 
 interface GoalCardProps {
   goal: SavingsGoal;
@@ -40,7 +57,7 @@ export default function GoalCard({
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F8FAFC] border border-[#EEF2F7] text-sm font-black text-[#4B454E]">
-            <span className="text-xl">{goal.icon}</span>
+            {renderGoalIcon(goal.icon)}
             <span>{goal.name}</span>
           </div>
           {goal.description && (

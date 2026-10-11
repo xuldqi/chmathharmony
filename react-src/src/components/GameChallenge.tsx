@@ -418,7 +418,7 @@ export default function GameChallenge({ level, onComplete, onExit, autoStart = f
           className="bg-white rounded-3xl p-8 text-center pop-shadow max-w-md w-full"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="text-6xl mb-4">🎯</div>
+          <div className="text-xs font-bold text-slate-400 mb-4">[挑战]</div>
           <h2 className="text-3xl font-bold text-[#4B454E] mb-4">{level.name}</h2>
           <p className="text-gray-500 mb-6 font-semibold">
             准备好挑战了吗？<br />

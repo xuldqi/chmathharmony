@@ -128,12 +128,12 @@ class StudyDataStorage {
       dailyProgress: [],
       wrongQuestions: [],
       achievements: [
-        { id: 'first_answer', name: '初次尝试', description: '完成第一道题目', icon: '🎯', earned: false, category: 'basic', rarity: 'common' },
-        { id: 'ten_correct', name: '十题达人', description: '连续答对10题', icon: '🏆', earned: false, category: 'basic', rarity: 'common' },
-        { id: 'perfect_session', name: '完美表现', description: '单次学习正确率100%', icon: '⭐', earned: false, category: 'special', rarity: 'rare' },
-        { id: 'speed_master', name: '速算高手', description: '平均每题用时少于5秒', icon: '⚡', earned: false, category: 'advanced', rarity: 'epic' },
-        { id: 'daily_learner', name: '每日学习', description: '连续学习7天', icon: '📚', earned: false, category: 'streak', rarity: 'rare' },
-        { id: 'math_genius', name: '数学天才', description: '总正确率达到95%', icon: '🧠', earned: false, category: 'advanced', rarity: 'legendary' },
+        { id: 'first_answer', name: '初次尝试', description: '完成第一道题目', icon: 'target', earned: false, category: 'basic', rarity: 'common' },
+        { id: 'ten_correct', name: '十题达人', description: '连续答对10题', icon: 'trophy', earned: false, category: 'basic', rarity: 'common' },
+        { id: 'perfect_session', name: '完美表现', description: '单次学习正确率100%', icon: 'star', earned: false, category: 'special', rarity: 'rare' },
+        { id: 'speed_master', name: '速算高手', description: '平均每题用时少于5秒', icon: 'lightning', earned: false, category: 'advanced', rarity: 'epic' },
+        { id: 'daily_learner', name: '每日学习', description: '连续学习7天', icon: 'book', earned: false, category: 'streak', rarity: 'rare' },
+        { id: 'math_genius', name: '数学天才', description: '总正确率达到95%', icon: 'brain', earned: false, category: 'advanced', rarity: 'legendary' },
       ],
       settings: {
         reminderEnabled: true,
@@ -461,7 +461,7 @@ class StudyDataStorage {
       achievement.earned = true;
       achievement.earnedDate = this.getLocalDateStr();
       
-      console.log(`🎉 成就解锁: ${achievement.name}`);
+      console.log(`[成就解锁]: ${achievement.name}`);
       
       // 添加到今日成就
       const today = this.getLocalDateStr();

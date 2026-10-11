@@ -41,7 +41,7 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({ studyData }) => {
       icon: Target,
       color: 'from-green-500 to-green-600',
       bgColor: 'bg-green-50',
-      emoji: '🎯'
+      emoji: '目标'
     },
     {
       title: '答题总数',
@@ -49,7 +49,7 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({ studyData }) => {
       icon: TrendingUp,
       color: 'from-purple-500 to-purple-600',
       bgColor: 'bg-purple-50',
-      emoji: '📝'
+      emoji: '练习'
     },
     {
       title: '连续天数',
@@ -57,7 +57,7 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({ studyData }) => {
       icon: Zap,
       color: 'from-orange-500 to-orange-600',
       bgColor: 'bg-orange-50',
-      emoji: '🔥'
+      emoji: '连胜'
     }
   ];
 
@@ -75,7 +75,7 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({ studyData }) => {
         transition={{ duration: 0.5 }}
       >
         <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-2">
-          📈 学习进度统计
+          学习进度统计
         </h2>
         <p className="text-gray-600">
           看看你的学习成果吧！
@@ -120,7 +120,7 @@ const ProgressStats: React.FC<ProgressStatsProps> = ({ studyData }) => {
             'bg-red-100 text-red-600'
           }`}>
             <div className="text-sm font-medium">
-              {trend === 'up' ? '📈 进步中' : trend === 'stable' ? '📊 稳定' : '📉 需加油'}
+              {trend === 'up' ? '进步中' : trend === 'stable' ? '保持稳定' : '需加油'}
             </div>
           </div>
         </div>

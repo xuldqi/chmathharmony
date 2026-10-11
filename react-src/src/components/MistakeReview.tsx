@@ -27,10 +27,10 @@ const MistakeReview: React.FC<MistakeReviewProps> = ({ wrongQuestions }) => {
 
   // 题目类型映射
   const typeMap = {
-    addition: { name: '加法', emoji: '➕', color: 'from-green-400 to-green-600' },
-    subtraction: { name: '减法', emoji: '➖', color: 'from-blue-400 to-blue-600' },
-    multiplication: { name: '乘法', emoji: '✖️', color: 'from-purple-400 to-purple-600' },
-    division: { name: '除法', emoji: '➗', color: 'from-orange-400 to-orange-600' }
+    addition: { name: '加法', emoji: '+', color: 'from-green-400 to-green-600' },
+    subtraction: { name: '减法', emoji: '-', color: 'from-blue-400 to-blue-600' },
+    multiplication: { name: '乘法', emoji: '×', color: 'from-purple-400 to-purple-600' },
+    division: { name: '除法', emoji: '÷', color: 'from-orange-400 to-orange-600' }
   };
 
   // 过滤错题
@@ -164,7 +164,7 @@ const MistakeReview: React.FC<MistakeReviewProps> = ({ wrongQuestions }) => {
               <div className={`text-2xl font-bold ${
                 isCorrect ? 'text-green-600' : 'text-red-600'
               }`}>
-                {isCorrect ? '🎉 答对了！' : '❌ 答错了'}
+                {isCorrect ? '答对了！' : '答错了'}
               </div>
               
               {!isCorrect && (
@@ -198,7 +198,7 @@ const MistakeReview: React.FC<MistakeReviewProps> = ({ wrongQuestions }) => {
         transition={{ duration: 0.5 }}
       >
         <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-pink-600 mb-2">
-          📝 错题回顾
+          错题回顾
         </h2>
         <p className="text-gray-600">
           重新练习错题，加深理解！
@@ -352,7 +352,7 @@ const MistakeReview: React.FC<MistakeReviewProps> = ({ wrongQuestions }) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.6 }}
         >
-          <div className="text-6xl mb-4">🎉</div>
+          <div className="text-xs font-bold text-slate-400 mb-4">[完成]</div>
           <h3 className="text-2xl font-bold text-gray-600 mb-2">
             {selectedType === 'all' ? '太棒了！没有错题记录' : `${typeMap[selectedType as keyof typeof typeMap]?.name}没有错题`}
           </h3>

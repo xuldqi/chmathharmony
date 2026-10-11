@@ -547,7 +547,7 @@ const Report: React.FC = () => {
       {filteredWrongQuestions.length === 0 ? (
         <div className="bg-white rounded-[32px] p-8 pop-shadow text-center flex flex-col items-center justify-center min-h-[300px] flex-grow mb-4">
           <div className="text-[64px] mb-5 transform hover:rotate-12 transition-transform cursor-default select-none">
-            🎉
+            
           </div>
           <h3 className="text-[22px] font-black text-[#4B454E] mb-2 tracking-tight">
             太棒了！没有错题记录
@@ -821,7 +821,7 @@ const Report: React.FC = () => {
                 className="bg-gray-100/60 rounded-[24px] p-5 border-2 border-dashed border-gray-200 flex flex-col h-full items-center justify-center text-center"
               >
                 <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 mb-3">
-                  🔒
+                  
                 </div>
                 <h3 className="text-gray-400 font-black text-lg mb-1">{a.name}</h3>
                 <p className="text-gray-400/80 text-xs font-bold leading-tight">{a.description}</p>
@@ -1057,7 +1057,7 @@ const Report: React.FC = () => {
         />
 
         {/* 顶部 Tab */}
-        <nav className="flex gap-3 overflow-x-auto no-scrollbar mb-6 pb-2 -mx-4 px-4 animate-subtle-spring anim-delay-1">
+        <nav className="flex gap-3 overflow-x-auto no-scrollbar mb-6 pb-2 -mx-4 px-4">
           <button
             type="button"
             onClick={() => setActiveTab('progress')}

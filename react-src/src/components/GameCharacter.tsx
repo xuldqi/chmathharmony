@@ -21,8 +21,8 @@ export default function GameCharacter({
   // 角色表情和动作
   const characterStates = {
     happy: {
-      face: '😊',
-      body: '🐼',
+      face: '开心',
+      body: '伙伴',
       animation: {
         y: [0, -5, 0],
         rotate: [0, 2, -2, 0],
@@ -31,8 +31,8 @@ export default function GameCharacter({
       duration: 2
     },
     excited: {
-      face: '🤩',
-      body: '🐼',
+      face: '期待',
+      body: '伙伴',
       animation: {
         y: [0, -10, 0, -5, 0],
         rotate: [0, 5, -5, 3, 0],
@@ -41,8 +41,8 @@ export default function GameCharacter({
       duration: 1.5
     },
     thinking: {
-      face: '🤔',
-      body: '🐼',
+      face: '思考',
+      body: '伙伴',
       animation: {
         rotate: [0, 3, -3, 0],
         scale: [1, 1.02, 1]
@@ -50,8 +50,8 @@ export default function GameCharacter({
       duration: 3
     },
     sad: {
-      face: '😢',
-      body: '🐼',
+      face: '加油',
+      body: '伙伴',
       animation: {
         y: [0, 2, 0],
         rotate: [0, -2, 2, 0],
@@ -60,8 +60,8 @@ export default function GameCharacter({
       duration: 2.5
     },
     celebrating: {
-      face: '🥳',
-      body: '🐼',
+      face: '胜利',
+      body: '伙伴',
       animation: {
         y: [0, -15, 0, -10, 0, -5, 0],
         rotate: [0, 10, -10, 5, -5, 0],
@@ -106,7 +106,7 @@ export default function GameCharacter({
   
   const getBlinkFace = () => {
     if (currentFrame === 1) {
-      return '😑'; // 眨眼
+      return '专注'; // 眨眼
     }
     return currentState.face;
   };
@@ -163,7 +163,7 @@ export default function GameCharacter({
                   repeatDelay: 3
                 }}
               >
-                {['⭐', '✨', '🎉', '🎊'][i % 4]}
+                {['✦', '★', '◆', '▲'][i % 4]}
               </motion.div>
             ))}
           </div>
@@ -183,7 +183,7 @@ export default function GameCharacter({
               ease: "easeInOut"
             }}
           >
-            💭
+            
           </motion.div>
         )}
         
@@ -214,20 +214,20 @@ export default function GameCharacter({
         >
           {emotion === 'happy' && (
             <div className="flex gap-1">
-              <span className="text-xs">💖</span>
-              <span className="text-xs">💖</span>
+              <span className="text-xs">♥</span>
+              <span className="text-xs">♥</span>
             </div>
           )}
           {emotion === 'excited' && (
             <div className="flex gap-1">
-              <span className="text-xs">⚡</span>
-              <span className="text-xs">⚡</span>
-              <span className="text-xs">⚡</span>
+              <span className="text-xs">★</span>
+              <span className="text-xs">★</span>
+              <span className="text-xs">★</span>
             </div>
           )}
           {emotion === 'sad' && (
             <div className="flex gap-1">
-              <span className="text-xs">💧</span>
+              <span className="text-xs">·</span>
             </div>
           )}
         </motion.div>

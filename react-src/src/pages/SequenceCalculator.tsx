@@ -122,7 +122,7 @@ export default function SequenceCalculator() {
                   : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              ✖等比数列 (GP)
+              等比数列 (GP)
             </button>
           </div>
 

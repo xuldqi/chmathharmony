@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Volume2, VolumeX } from 'lucide-react';
+import {
+  Volume2,
+  VolumeX,
+  Calculator,
+  BookOpen,
+  Gamepad2,
+  Sparkles,
+  Clock,
+  Store,
+  Gift,
+  BarChart3,
+  User,
+  ShieldCheck,
+  Settings as SettingsIcon,
+} from 'lucide-react';
 import { useAudio } from '../hooks/useAudio';
 import CartoonButton from '@/components/CartoonButton';
 import MainTabBar from '@/components/MainTabBar';
@@ -151,7 +165,7 @@ export default function Home() {
         <p className={`text-sm font-black transition-colors duration-300 ${
           isAudioEnabled ? 'text-green-600' : 'text-[#8A8490]'
         }`}>
-          {isAudioEnabled ? '🔊 声音已开启' : '🔇 声音已关闭'}
+          {isAudioEnabled ? '声音已开启' : '声音已关闭'}
         </p>
       </div>
 
@@ -160,7 +174,7 @@ export default function Home() {
         <div className="flex flex-col items-center gap-4 mb-10">
           <CartoonButton
             title="开始语音计算"
-            emoji="🧮"
+            icon={<Calculator className="w-14 h-14 text-white" />}
             bgGradient="bg-gradient-to-br from-orange-200 to-orange-400"
             shadowColor="#fb923c"
             onClick={handleCalculatorClick}
@@ -181,7 +195,7 @@ export default function Home() {
           {/* 学习核心 */}
           <CartoonButton
             title="练习模式"
-            emoji="📚"
+            icon={<BookOpen className="w-10 h-10 text-white" />}
             bgGradient="bg-gradient-to-br from-emerald-200 to-emerald-400"
             shadowColor="#34d399"
             onClick={handlePracticeClick}
@@ -190,7 +204,7 @@ export default function Home() {
 
           <CartoonButton
             title="闯关练习"
-            emoji="🎮"
+            icon={<Gamepad2 className="w-10 h-10 text-white" />}
             bgGradient="bg-gradient-to-br from-violet-200 to-violet-400"
             shadowColor="#a855f7"
             onClick={handleGameClick}
@@ -199,7 +213,7 @@ export default function Home() {
 
           <CartoonButton
             title="知识点学习"
-            emoji="🐱"
+            icon={<Sparkles className="w-10 h-10 text-white" />}
             bgGradient="bg-gradient-to-br from-rose-200 to-rose-400"
             shadowColor="#f43f5e"
             onClick={handleVisualMathClick}
@@ -208,7 +222,7 @@ export default function Home() {
 
           <CartoonButton
             title="认识时钟"
-            emoji="⏰"
+            icon={<Clock className="w-10 h-10 text-white" />}
             bgGradient="bg-gradient-to-br from-blue-200 to-blue-400"
             shadowColor="#3b82f6"
             onClick={handleTimeMasterClick}
@@ -218,7 +232,7 @@ export default function Home() {
           {/* 生活应用 */}
           <CartoonButton
             title="小小收银员"
-            emoji="🏪"
+            icon={<Store className="w-10 h-10 text-white" />}
             bgGradient="bg-gradient-to-br from-emerald-100 to-emerald-300"
             shadowColor="#10b981"
             onClick={handleMoneyCashierClick}
@@ -227,7 +241,7 @@ export default function Home() {
 
           <CartoonButton
             title="心愿存钱罐"
-            emoji="🎯"
+            icon={<Gift className="w-10 h-10 text-white" />}
             bgGradient="bg-gradient-to-br from-indigo-200 to-indigo-400"
             shadowColor="#6366f1"
             onClick={handleSavingsClick}
@@ -237,7 +251,7 @@ export default function Home() {
           {/* 账户与设置 */}
           <CartoonButton
             title="学习报告"
-            emoji="📊"
+            icon={<BarChart3 className="w-10 h-10 text-white" />}
             bgGradient="bg-gradient-to-br from-cyan-200 to-cyan-400"
             shadowColor="#22d3ee"
             onClick={handleReportClick}
@@ -246,7 +260,7 @@ export default function Home() {
 
           <CartoonButton
             title="我的"
-            emoji="👧"
+            icon={<User className="w-10 h-10 text-white" />}
             bgGradient="bg-gradient-to-br from-pink-200 to-pink-400"
             shadowColor="#ec4899"
             onClick={handleMyClick}
@@ -255,7 +269,7 @@ export default function Home() {
 
           <CartoonButton
             title="家长控制"
-            emoji="🛡️"
+            icon={<ShieldCheck className="w-10 h-10 text-white" />}
             bgGradient="bg-gradient-to-br from-slate-200 to-slate-500"
             shadowColor="#475569"
             onClick={handleParentDashboardClick}
@@ -264,7 +278,7 @@ export default function Home() {
 
           <CartoonButton
             title="设置"
-            emoji="⚙️"
+            icon={<SettingsIcon className="w-10 h-10 text-white" />}
             bgGradient="bg-gradient-to-br from-slate-200 to-slate-400"
             shadowColor="#64748b"
             onClick={handleSettingsClick}

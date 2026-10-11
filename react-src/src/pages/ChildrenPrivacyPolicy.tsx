@@ -144,21 +144,21 @@ const ChildrenPrivacyPolicy: React.FC = () => {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
-                      <span className="text-pink-500">👁️</span>
+                      <span className="w-2 h-2 rounded-full bg-pink-400 shrink-0 inline-block" />
                       <span className="text-[#5B5560]">查看儿童的个人信息</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-pink-500">✏️</span>
+                      <span className="w-2 h-2 rounded-full bg-pink-400 shrink-0 inline-block" />
                       <span className="text-[#5B5560]">要求更正或删除信息</span>
                     </div>
                   </div>
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
-                      <span className="text-pink-500">🚫</span>
+                      <span className="w-2 h-2 rounded-full bg-pink-400 shrink-0 inline-block" />
                       <span className="text-[#5B5560]">拒绝进一步收集信息</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-pink-500">↩️</span>
+                      <span className="w-2 h-2 rounded-full bg-pink-400 shrink-0 inline-block" />
                       <span className="text-[#5B5560]">随时撤销同意</span>
                     </div>
                   </div>

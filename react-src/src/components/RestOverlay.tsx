@@ -93,7 +93,7 @@ const RestOverlay: React.FC<RestOverlayProps> = ({ onUnlock }) => {
   return (
     <div className="fixed inset-0 bg-[#E8F6F1] z-[9999] flex flex-col items-center justify-center p-6 text-center">
       <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-lg mb-6">
-        <span className="text-6xl">😴</span>
+        <span className="text-lg font-bold text-indigo-200">休息中</span>
       </div>
       <h1 className="text-3xl font-black text-[#4B454E] mb-4">休息一下吧</h1>
       <p className="text-lg font-bold text-gray-500 max-w-xs mb-10">

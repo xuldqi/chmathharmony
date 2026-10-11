@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 
 const tabs = [
-  { key: 'home', label: '首页', icon: '🏠', path: '/' },
-  { key: 'my', label: '我的', icon: '👤', path: '/my' },
+  { key: 'home', label: '首页', icon: 'home', path: '/' },
+  { key: 'my', label: '我的', icon: 'my', path: '/my' },
 ];
 
 const shouldHighlight = (pathname: string, path: string) => {

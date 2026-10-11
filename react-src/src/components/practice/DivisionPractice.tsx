@@ -27,7 +27,7 @@ const DivisionPractice: React.FC<DivisionPracticeProps> = ({ onBack }) => {
       top: `${Math.random() * 100}%`,
       animationDelay: `${Math.random() * 2}s`,
       animationDuration: `${1 + Math.random()}s`,
-      icon: ['⭐', '🎉', '✨', '🌟', '💫'][Math.floor(Math.random() * 5)],
+      icon: ['★', '✦', '▲', '●'][Math.floor(Math.random() * 5)],
     })),
     [],
   );
@@ -129,10 +129,10 @@ const DivisionPractice: React.FC<DivisionPracticeProps> = ({ onBack }) => {
     }));
 
     if (correct) {
-      setFeedback('太棒了！答对了！🎉');
+      setFeedback('太棒了！答对了！');
       setShowCelebration(true);
     } else {
-      setFeedback(`不对哦，正确答案是 ${question.answer}，再试试吧！💪`);
+      setFeedback(`不对哦，正确答案是 ${question.answer}，再试试吧！`);
     }
     playAnswerFeedback(correct, answer, question.answer);
   }, [userAnswer, question.num1, question.num2, question.answer, questionStartTime, playAnswerFeedback]);

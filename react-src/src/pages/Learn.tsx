@@ -648,7 +648,7 @@ export default function Learn() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveCategory(tab.id)}
-                className={`px-3 py-1.5 rounded-full text-xs font-black shrink-0 transition-all cursor-pointer flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-full text-xs font-black shrink-0 transition-all cursor-pointer flex items-center gap-1.5 active:scale-95 ${
                   isActive
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 ring-2 ring-indigo-300/50'
                     : 'bg-white/80 text-slate-600 border border-slate-200/80 hover:bg-white'

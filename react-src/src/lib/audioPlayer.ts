@@ -133,15 +133,15 @@ export class AudioPlayer {
     this.browserCompatibility.webAudioSupport = 
       typeof AudioContext !== 'undefined' || typeof appWindow.webkitAudioContext !== 'undefined';
     
-    console.log('🔊 [兼容性检测] 浏览器音频兼容性:', this.browserCompatibility);
+    console.log('[Audio] [兼容性检测] 浏览器音频兼容性:', this.browserCompatibility);
     
     // 如果没有任何音频支持，发出警告
     if (!this.browserCompatibility.audioSupport) {
-      console.warn('🔊 [兼容性警告] 当前浏览器不支持HTML5音频播放');
+      console.warn('[Audio] [兼容性警告] 当前浏览器不支持HTML5音频播放');
     }
     
     if (!this.browserCompatibility.oggSupport && !this.browserCompatibility.mp3Support) {
-      console.warn('🔊 [兼容性警告] 当前浏览器不支持OGG或MP3格式');
+      console.warn('[Audio] [兼容性警告] 当前浏览器不支持OGG或MP3格式');
     }
   }
 
@@ -272,12 +272,12 @@ export class AudioPlayer {
    */
   private checkAudioCompatibility(): boolean {
     if (!this.browserCompatibility.audioSupport) {
-      console.error('🔊 [兼容性错误] 浏览器不支持HTML5音频播放');
+      console.error('[Audio] [兼容性错误] 浏览器不支持HTML5音频播放');
       return false;
     }
     
     if (!this.browserCompatibility.oggSupport && !this.browserCompatibility.mp3Support) {
-      console.error('🔊 [兼容性错误] 浏览器不支持任何音频格式');
+      console.error('[Audio] [兼容性错误] 浏览器不支持任何音频格式');
       return false;
     }
     
@@ -349,7 +349,7 @@ export class AudioPlayer {
     }
     
     audio.onerror = () => {
-      console.warn(`🔊 [格式回退] ${format}格式加载失败: ${audioName}，尝试备用格式`);
+      console.warn(`[Audio] [格式回退] ${format}格式加载失败: ${audioName}，尝试备用格式`);
       // 如果首选格式失败，尝试另一种格式；仅在备用格式可播放时才替换缓存
       const fallbackFormat = format === 'ogg' ? 'mp3' : 'ogg';
       const fallbackAudio = new Audio(this.buildAudioSrc(audioName, fallbackFormat));
@@ -362,7 +362,7 @@ export class AudioPlayer {
       };
       
       fallbackAudio.onerror = () => {
-        console.error(`🔊 [格式错误] 所有音频格式都加载失败: ${audioName}`);
+        console.error(`[Audio] [格式错误] 所有音频格式都加载失败: ${audioName}`);
         // 不替换现有缓存，避免污染
       };
     };
@@ -381,35 +381,35 @@ export class AudioPlayer {
    * 播放音频
    */
   public async playAudio(audioName: string, playbackRate: number = 1.0): Promise<void> {
-    console.log(`🔊 [DEBUG] playAudio 被调用: ${audioName}, 播放速度: ${playbackRate}`);
+    console.log(`[Audio] [DEBUG] playAudio 被调用: ${audioName}, 播放速度: ${playbackRate}`);
     
     if (!this.isEnabled) {
-      console.log(`🔊 [DEBUG] 音频已禁用，跳过播放: ${audioName}`);
+      console.log(`[Audio] [DEBUG] 音频已禁用，跳过播放: ${audioName}`);
       return;
     }
 
     // 检查浏览器兼容性
     if (!this.checkAudioCompatibility()) {
-      console.error(`🔊 [兼容性错误] 无法播放音频，浏览器不兼容: ${audioName}`);
+      console.error(`[Audio] [兼容性错误] 无法播放音频，浏览器不兼容: ${audioName}`);
       throw new Error(`浏览器不支持音频播放: ${audioName}`);
     }
 
     // 移动设备环境下确保音频已解锁
     const isMobile = this.isAndroid || /iPhone|iPad|iPod/i.test(navigator.userAgent);
     if (isMobile && !this.isAudioInitialized) {
-      console.log(`🔊 [DEBUG] 移动设备环境，尝试解锁音频`);
+      console.log(`[Audio] [DEBUG] 移动设备环境，尝试解锁音频`);
       await this.unlockAudio();
     }
 
-    console.log(`🔊 [DEBUG] 尝试播放音频: ${audioName}, 当前语音方案: ${this.currentVoiceProfile}`);
+    console.log(`[Audio] [DEBUG] 尝试播放音频: ${audioName}, 当前语音方案: ${this.currentVoiceProfile}`);
     
     try {
       // 如果是自定义语音方案，尝试播放自定义录音
       if (this.currentVoiceProfile !== 'default') {
-        console.log(`🔊 [DEBUG] 尝试播放自定义音频: ${audioName}`);
+        console.log(`[Audio] [DEBUG] 尝试播放自定义音频: ${audioName}`);
         const customAudio = await this.playCustomAudio(audioName, playbackRate);
         if (customAudio) {
-          console.log(`🔊 [DEBUG] 自定义音频播放成功: ${audioName}`);
+          console.log(`[Audio] [DEBUG] 自定义音频播放成功: ${audioName}`);
           return; // 成功播放自定义音频
         }
       }
@@ -417,16 +417,16 @@ export class AudioPlayer {
       // 尝试TTS（系统语音）- 作为默认
       const ttsSuccess = await this.playTTS(audioName, playbackRate);
       if (ttsSuccess) {
-        console.log(`🔊 [DEBUG] TTS播放成功: ${audioName}`);
+        console.log(`[Audio] [DEBUG] TTS播放成功: ${audioName}`);
         return;
       }
       
       // TTS不可用，回退到本地音频文件
-      console.log(`🔊 [DEBUG] TTS不可用，播放默认音频: ${audioName}`);
+      console.log(`[Audio] [DEBUG] TTS不可用，播放默认音频: ${audioName}`);
       await this.playDefaultAudio(audioName, playbackRate);
-      console.log(`🔊 [DEBUG] 默认音频播放完成: ${audioName}`);
+      console.log(`[Audio] [DEBUG] 默认音频播放完成: ${audioName}`);
     } catch (error) {
-      console.error(`🔊 [ERROR] 播放音频失败: ${audioName}`, error);
+      console.error(`[Audio] [ERROR] 播放音频失败: ${audioName}`, error);
       throw error;
     }
   }
@@ -441,7 +441,7 @@ export class AudioPlayer {
       return;
     }
 
-    console.log(`🔊 [speakText] 播报文本: ${text}`);
+    console.log(`[Audio] [speakText] 播报文本: ${text}`);
 
     if (isHarmonyOS()) {
       const appWindow = window as AppWindow;
@@ -569,7 +569,7 @@ export class AudioPlayer {
         rate: playbackRate,
       });
       
-      console.log(`🔊 [TTS] 原生TTS播放成功: ${text}`);
+      console.log(`[Audio] [TTS] 原生TTS播放成功: ${text}`);
       return true;
     } catch (error) {
       console.warn(`TTS播放失败: ${audioName}`, error);
@@ -724,7 +724,7 @@ export class AudioPlayer {
         }
         
         audio.onerror = (e) => {
-          console.warn(`🔊 [格式回退] ${format}格式加载失败: ${audioName}`, e);
+          console.warn(`[Audio] [格式回退] ${format}格式加载失败: ${audioName}`, e);
           // 尝试备用格式；仅在可播放时替换缓存与当前引用
           const fallbackFormat = format === 'ogg' ? 'mp3' : 'ogg';
           const fallbackAudio = new Audio(this.buildAudioSrc(audioName, fallbackFormat));
@@ -739,7 +739,7 @@ export class AudioPlayer {
             this.audioCache.set(audioName!, fallbackAudio);
             // 重要：更新当前使用的audio引用
             audio = fallbackAudio;
-            console.log(`🔊 [格式回退成功] ${audioName} 已切换到${fallbackFormat}格式`);
+            console.log(`[Audio] [格式回退成功] ${audioName} 已切换到${fallbackFormat}格式`);
           };
           
           fallbackAudio.oncanplaythrough = () => {
@@ -753,7 +753,7 @@ export class AudioPlayer {
           };
           
           fallbackAudio.onerror = () => {
-            console.error(`🔊 [格式错误] 所有音频格式都加载失败: ${audioName}`);
+            console.error(`[Audio] [格式错误] 所有音频格式都加载失败: ${audioName}`);
             // 不替换，保持原有状态以便后续重试
           };
         };
@@ -766,9 +766,9 @@ export class AudioPlayer {
           if (!audioCached && !shouldCreateNewInstance) {
             this.audioCache.set(audioName, audio);
             audioCached = true;
-            console.log(`🔊 [缓存成功] 音频已缓存: ${audioName}`);
+            console.log(`[Audio] [缓存成功] 音频已缓存: ${audioName}`);
           } else if (shouldCreateNewInstance) {
-            console.log(`🔊 [跳过缓存] 问题音频不缓存: ${audioName}`);
+            console.log(`[Audio] [跳过缓存] 问题音频不缓存: ${audioName}`);
           }
         };
         
@@ -803,7 +803,7 @@ export class AudioPlayer {
 
       // 停止当前正在播放的音频（包括同一个音频对象）
       if (this.currentlyPlaying && !this.currentlyPlaying.paused) {
-        console.log(`🔊 停止之前播放的音频`);
+        console.log(`[Audio] 停止之前播放的音频`);
         this.currentlyPlaying.pause();
         this.currentlyPlaying.currentTime = 0;
       }
@@ -828,7 +828,7 @@ export class AudioPlayer {
       // 设置当前播放的音频
       this.currentlyPlaying = audio;
       
-      console.log(`🔊 开始播放音频: ${audioName}, 播放速率: ${playbackRate}, readyState: ${audio.readyState}`);
+      console.log(`[Audio] 开始播放音频: ${audioName}, 播放速率: ${playbackRate}, readyState: ${audio.readyState}`);
       
       // Android环境下的播放重试机制
       if (this.isAndroid) {
@@ -1324,9 +1324,9 @@ export class AudioPlayer {
       }
     }
 
-    console.log(`🔊 [DEBUG] 播放运算符: ${operator} -> ${audioName}`);
-    console.log(`🔊 [DEBUG] 音频启用状态: ${this.isEnabled}`);
-    console.log(`🔊 [DEBUG] 当前语音配置: ${this.currentVoiceProfile}`);
+    console.log(`[Audio] [DEBUG] 播放运算符: ${operator} -> ${audioName}`);
+    console.log(`[Audio] [DEBUG] 音频启用状态: ${this.isEnabled}`);
+    console.log(`[Audio] [DEBUG] 当前语音配置: ${this.currentVoiceProfile}`);
 
     // “约等于”无预存本地录音，直接走 TTS 朗读
     if (audioName === 'yuedengyu') {
@@ -1339,33 +1339,33 @@ export class AudioPlayer {
     }
     
     if (audioName) {
-      console.log(`🔊 [DEBUG] 开始播放运算符音频: ${audioName}`);
+      console.log(`[Audio] [DEBUG] 开始播放运算符音频: ${audioName}`);
       
       // 检查缓存状态
       const cachedAudio = this.audioCache.get(audioName);
       if (cachedAudio) {
-        console.log(`🔊 [DEBUG] 缓存音频状态 - readyState: ${cachedAudio.readyState}, networkState: ${cachedAudio.networkState}, error: ${cachedAudio.error}`);
+        console.log(`[Audio] [DEBUG] 缓存音频状态 - readyState: ${cachedAudio.readyState}, networkState: ${cachedAudio.networkState}, error: ${cachedAudio.error}`);
       } else {
-        console.log(`🔊 [DEBUG] 音频未缓存: ${audioName}`);
+        console.log(`[Audio] [DEBUG] 音频未缓存: ${audioName}`);
       }
       
       try {
         // 运算符优先播本地录音文件，避免某些机型 TTS 对符号词条（如“等于”）漏播
         await this.playDefaultAudio(audioName);
-        console.log(`🔊 [DEBUG] 运算符音频播放完成: ${audioName}`);
+        console.log(`[Audio] [DEBUG] 运算符音频播放完成: ${audioName}`);
       } catch (error) {
-        console.warn(`🔊 [WARN] 本地运算符音频播放失败，回退到通用播放链路: ${audioName}`, error);
+        console.warn(`[Audio] [WARN] 本地运算符音频播放失败，回退到通用播放链路: ${audioName}`, error);
         try {
           await this.playAudio(audioName);
-          console.log(`🔊 [DEBUG] 运算符回退播放完成: ${audioName}`);
+          console.log(`[Audio] [DEBUG] 运算符回退播放完成: ${audioName}`);
         } catch (fallbackError) {
-          console.error(`🔊 [ERROR] 运算符音频回退后仍失败: ${audioName}`, fallbackError);
+          console.error(`[Audio] [ERROR] 运算符音频回退后仍失败: ${audioName}`, fallbackError);
           // 不重新抛出错误，避免阻断后续播放
-          console.log(`🔊 [DEBUG] 音频播放失败但继续执行，不阻断后续操作`);
+          console.log(`[Audio] [DEBUG] 音频播放失败但继续执行，不阻断后续操作`);
         }
       }
     } else {
-      console.warn(`🔊 [WARN] 未找到运算符映射: ${operator}`);
+      console.warn(`[Audio] [WARN] 未找到运算符映射: ${operator}`);
     }
   }
 
@@ -1423,18 +1423,18 @@ export class AudioPlayer {
    * 停止所有正在播放的音频
    */
   public stopAllAudio(): void {
-    console.log('🔊 [停止] 停止所有音频播放');
+    console.log('[Audio] [停止] 停止所有音频播放');
     
     // 清除所有待处理的延迟
     this.pendingTimeouts.forEach(timeout => {
       clearTimeout(timeout);
     });
     this.pendingTimeouts.clear();
-    console.log('🔊 [停止] 清除所有待处理的延迟');
+    console.log('[Audio] [停止] 清除所有待处理的延迟');
     
     // 停止当前正在播放的音频
     if (this.currentlyPlaying && !this.currentlyPlaying.paused) {
-      console.log('🔊 [停止] 停止当前播放的音频');
+      console.log('[Audio] [停止] 停止当前播放的音频');
       this.currentlyPlaying.pause();
       this.currentlyPlaying.currentTime = 0;
       this.currentlyPlaying = null;
@@ -1443,7 +1443,7 @@ export class AudioPlayer {
     // 停止缓存中的所有音频
     this.audioCache.forEach((audio, audioName) => {
       if (audio && !audio.paused) {
-        console.log(`🔊 [停止] 停止音频: ${audioName}`);
+        console.log(`[停止] 停止音频: ${audioName}`);
         audio.pause();
         audio.currentTime = 0;
       }
@@ -1452,7 +1452,7 @@ export class AudioPlayer {
     // 停止自定义音频缓存中的所有音频
     this.customAudioCache.forEach((audio, audioName) => {
       if (audio && !audio.paused) {
-        console.log(`🔊 [停止] 停止自定义音频: ${audioName}`);
+        console.log(`[停止] 停止自定义音频: ${audioName}`);
         audio.pause();
         audio.currentTime = 0;
       }

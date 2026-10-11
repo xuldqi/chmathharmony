@@ -133,7 +133,7 @@ export default function CalcHistory() {
         <button
           type="button"
           onClick={() => setActiveFilter('all')}
-          className={`flex-1 py-2 text-xs font-black rounded-xl transition-all ${
+          className={`flex-1 py-2 text-xs font-black rounded-xl transition-all active:scale-95 ${
             activeFilter === 'all'
               ? 'bg-white text-[#1E293B] shadow-sm'
               : 'text-[#64748B] hover:text-[#334155]'
@@ -144,7 +144,7 @@ export default function CalcHistory() {
         <button
           type="button"
           onClick={() => setActiveFilter('standard')}
-          className={`flex-1 py-2 text-xs font-black rounded-xl transition-all ${
+          className={`flex-1 py-2 text-xs font-black rounded-xl transition-all active:scale-95 ${
             activeFilter === 'standard'
               ? 'bg-white text-[#0284C7] shadow-sm'
               : 'text-[#64748B] hover:text-[#334155]'
@@ -155,7 +155,7 @@ export default function CalcHistory() {
         <button
           type="button"
           onClick={() => setActiveFilter('scientific')}
-          className={`flex-1 py-2 text-xs font-black rounded-xl transition-all ${
+          className={`flex-1 py-2 text-xs font-black rounded-xl transition-all active:scale-95 ${
             activeFilter === 'scientific'
               ? 'bg-white text-[#7C3AED] shadow-sm'
               : 'text-[#64748B] hover:text-[#334155]'
@@ -166,7 +166,7 @@ export default function CalcHistory() {
         <button
           type="button"
           onClick={() => setActiveFilter('fraction')}
-          className={`flex-1 py-2 text-xs font-black rounded-xl transition-all ${
+          className={`flex-1 py-2 text-xs font-black rounded-xl transition-all active:scale-95 ${
             activeFilter === 'fraction'
               ? 'bg-white text-[#9333EA] shadow-sm'
               : 'text-[#64748B] hover:text-[#334155]'

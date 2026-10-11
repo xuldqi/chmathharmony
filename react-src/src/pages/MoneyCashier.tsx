@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Store, ShoppingCart, Check, AlertCircle } from 'lucide-react';
 import { useAudio } from '../hooks/useAudio';
 import '@/styles/money-cashier-page.css';
 import AppPageHeader from '@/components/AppPageHeader';
@@ -7,7 +8,8 @@ import AppPageHeader from '@/components/AppPageHeader';
 interface Product {
   id: number;
   name: string;
-  icon: string;
+  tag: string;
+  bg: string;
   price: number;
 }
 
@@ -16,12 +18,12 @@ interface CartItem extends Product {
 }
 
 const PRODUCTS: Product[] = [
-  { id: 0, name: '苹果', icon: '🍎', price: 2 },
-  { id: 1, name: '香蕉', icon: '🍌', price: 3 },
-  { id: 2, name: '牛奶', icon: '🥛', price: 5 },
-  { id: 3, name: '面包', icon: '🍞', price: 4 },
-  { id: 4, name: '糖果', icon: '🍬', price: 1 },
-  { id: 5, name: '小汽车', icon: '🚗', price: 10 },
+  { id: 0, name: '苹果', tag: '果', bg: 'bg-rose-400 text-white', price: 2 },
+  { id: 1, name: '香蕉', tag: '蕉', bg: 'bg-amber-400 text-white', price: 3 },
+  { id: 2, name: '牛奶', tag: '奶', bg: 'bg-sky-400 text-white', price: 5 },
+  { id: 3, name: '面包', tag: '包', bg: 'bg-orange-400 text-white', price: 4 },
+  { id: 4, name: '糖果', tag: '糖', bg: 'bg-pink-400 text-white', price: 1 },
+  { id: 5, name: '小汽车', tag: '车', bg: 'bg-indigo-400 text-white', price: 10 },
 ];
 
 const MoneyCashier: React.FC = () => {
@@ -123,7 +125,7 @@ const MoneyCashier: React.FC = () => {
         {/* 商品货架 */}
         <section className="bg-white rounded-[32px] p-5 shadow-card relative">
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-2xl">🏪</span>
+            <Store className="w-5 h-5 text-emerald-600" />
             <h2 className="text-lg font-black text-slate-700">商品货架</h2>
           </div>
 
@@ -135,8 +137,8 @@ const MoneyCashier: React.FC = () => {
                 onClick={() => addToCart(product)}
                 className="bg-slate-50 border-2 border-slate-100 rounded-[24px] p-2 flex flex-col items-center justify-between h-32 active:scale-95 transition-transform relative group"
               >
-                <div className="text-4xl mt-2 drop-shadow-sm group-hover:scale-110 transition-transform">
-                  {product.icon}
+                <div className={`w-11 h-11 rounded-2xl ${product.bg} flex items-center justify-center font-black text-base mt-2 shadow-sm group-hover:scale-105 transition-transform`}>
+                  {product.tag}
                 </div>
                 <div className="flex flex-col items-center w-full">
                   <span className="font-bold text-slate-600 text-sm mb-1">
@@ -158,7 +160,7 @@ const MoneyCashier: React.FC = () => {
           <div className="min-h-[60px] max-h-[150px] overflow-y-auto no-scrollbar mb-4 space-y-2">
             {groupedCart.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-slate-300 py-4 animate-pop-in">
-                <span className="text-4xl mb-2 opacity-50">🧺</span>
+                <ShoppingCart className="w-10 h-10 text-slate-300 mb-2" />
                 <p className="text-sm font-bold">购物车是空的～</p>
               </div>
             ) : (
@@ -168,7 +170,7 @@ const MoneyCashier: React.FC = () => {
                   className="flex items-center justify-between bg-slate-50 p-2 rounded-xl border border-slate-100 animate-pop-in"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">{item.icon}</span>
+                    <span className={`w-7 h-7 rounded-lg ${item.bg} flex items-center justify-center font-black text-xs shadow-xs`}>{item.tag}</span>
                     <span className="font-bold text-slate-600">{item.name}</span>
                     <span className="bg-indigo-100 text-indigo-500 text-[10px] font-black px-1.5 py-0.5 rounded-md">
                       x{item.count}
@@ -243,8 +245,8 @@ const MoneyCashier: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
           <div className="bg-white rounded-[40px] p-8 w-[80%] max-w-sm shadow-2xl transform scale-100 flex flex-col items-center text-center relative z-10">
-            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-6 text-6xl shadow-inner">
-              🎉
+            <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-6 shadow-inner">
+              <Check className="w-10 h-10 text-emerald-600" />
             </div>
             <h3 className="text-2xl font-black text-slate-800 mb-2">支付成功!</h3>
             <p className="text-slate-500 font-bold mb-8">
@@ -264,7 +266,7 @@ const MoneyCashier: React.FC = () => {
       {/* 提示气泡：仅在有消息时显示 */}
       {toastMessage && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 bg-[#FF8585] text-white px-6 py-3 rounded-full font-bold shadow-pop-pink z-50 flex items-center gap-2 animate-pop-in">
-          <span className="text-xl">⚠️</span>
+          <AlertCircle className="w-5 h-5 text-white" />
           <span>{toastMessage}</span>
         </div>
       )}

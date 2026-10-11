@@ -114,7 +114,7 @@ const StudyCalendar: React.FC<StudyCalendarProps> = ({ dailyProgress }) => {
         transition={{ duration: 0.5 }}
       >
         <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-2">
-          📅 学习日历
+          学习日历
         </h2>
         <p className="text-gray-600">
           记录你的每日学习足迹！
@@ -124,9 +124,9 @@ const StudyCalendar: React.FC<StudyCalendarProps> = ({ dailyProgress }) => {
       {/* 月度统计 */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: '学习天数', value: `${studyDays}天`, icon: Calendar, color: 'from-blue-500 to-blue-600', emoji: '📚' },
-          { label: '答题总数', value: `${totalQuestions}题`, icon: Target, color: 'from-green-500 to-green-600', emoji: '🎯' },
-          { label: '平均正确率', value: `${avgCorrectRate}%`, icon: TrendingUp, color: 'from-purple-500 to-purple-600', emoji: '📈' },
+          { label: '学习天数', value: `${studyDays}天`, icon: Calendar, color: 'from-blue-500 to-blue-600', emoji: '天数' },
+          { label: '答题总数', value: `${totalQuestions}题`, icon: Target, color: 'from-green-500 to-green-600', emoji: '题数' },
+          { label: '平均正确率', value: `${avgCorrectRate}%`, icon: TrendingUp, color: 'from-purple-500 to-purple-600', emoji: '率' },
           { label: '学习时长', value: `${Math.floor(totalTime / 60)}h${totalTime % 60}m`, icon: Clock, color: 'from-orange-500 to-orange-600', emoji: '⏰' },
         ].map((stat, index) => (
           <motion.div
@@ -236,7 +236,7 @@ const StudyCalendar: React.FC<StudyCalendarProps> = ({ dailyProgress }) => {
                 {dayData?.streak && (
                   <div className="absolute -top-1 -right-1">
                     <div className="w-3 h-3 bg-orange-500 rounded-full flex items-center justify-center">
-                      <span className="text-xs text-white">🔥</span>
+                      
                     </div>
                   </div>
                 )}
@@ -291,7 +291,7 @@ const StudyCalendar: React.FC<StudyCalendarProps> = ({ dailyProgress }) => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="text-center">
-                <div className="text-4xl mb-4">📊</div>
+                
                 
                 <h3 className="text-xl font-bold text-gray-800 mb-2">
                   {new Date(selectedDay.date).toLocaleDateString('zh-CN', {
@@ -328,7 +328,7 @@ const StudyCalendar: React.FC<StudyCalendarProps> = ({ dailyProgress }) => {
                   {selectedDay.streak && (
                     <div className="bg-orange-50 rounded-2xl p-4">
                       <div className="flex items-center justify-center gap-2 text-orange-600 font-medium">
-                        <span>🔥</span>
+                        
                         <span>连击日！</span>
                       </div>
                     </div>
@@ -343,10 +343,10 @@ const StudyCalendar: React.FC<StudyCalendarProps> = ({ dailyProgress }) => {
                   'bg-red-100 text-red-800'
                 }`}>
                   <div className="font-medium">
-                    {selectedDay.correctRate >= 90 ? '🌟 表现优秀！' :
-                     selectedDay.correctRate >= 80 ? '👍 表现良好！' :
-                     selectedDay.correctRate >= 70 ? '💪 继续努力！' :
-                     '📚 需要加油！'}
+                    {selectedDay.correctRate >= 90 ? '表现优秀！' :
+                     selectedDay.correctRate >= 80 ? '表现良好！' :
+                     selectedDay.correctRate >= 70 ? '继续努力！' :
+                     '需要加油！'}
                   </div>
                 </div>
                 

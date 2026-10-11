@@ -94,9 +94,9 @@ export default function KitchenConverter() {
         {/* 顶部Tab切换 */}
         <div className="bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100 flex gap-1">
           {[
-            { id: 'mold', label: '�蛋糕模具缩放' },
-            { id: 'capacity', label: '�容量换算克重' },
-            { id: 'temperature', label: '🌡烤箱温度℃/℉' },
+            { id: 'mold', label: '蛋糕模具缩放' },
+            { id: 'capacity', label: '容量换算克重' },
+            { id: 'temperature', label: '烤箱温度℃/℉' },
           ].map((tab) => (
             <button
               key={tab.id}

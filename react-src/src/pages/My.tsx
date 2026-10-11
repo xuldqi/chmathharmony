@@ -17,14 +17,41 @@ import { formatCurrency } from '@/utils/format';
 import { AdControl } from '@/native/adControl';
 import '@/styles/mine-page.css';
 
-const AVATAR_EMOJIS = [
-  '🐱', '🐼', '🦊', '🐯', '🐰', '🦁', '🐵', '🐸',
-  '🦉', '🦄', '🦖', '🐙', '🐬', '🐧', '🐻', '🐨',
-  '🐠', '🦋', '🐞', '🐢'
+interface AvatarOption {
+  id: string;
+  name: string;
+  label: string;
+  bg: string;
+  textColor: string;
+}
+
+const AVATAR_OPTIONS: AvatarOption[] = [
+  { id: 'panda', name: '大熊猫', label: '熊猫', bg: 'bg-emerald-500', textColor: 'text-white' },
+  { id: 'tiger', name: '小勇虎', label: '小虎', bg: 'bg-amber-500', textColor: 'text-white' },
+  { id: 'fox', name: '智慧狐', label: '小狐', bg: 'bg-orange-500', textColor: 'text-white' },
+  { id: 'rabbit', name: '机灵兔', label: '玉兔', bg: 'bg-pink-500', textColor: 'text-white' },
+  { id: 'bear', name: '阳光熊', label: '小熊', bg: 'bg-yellow-600', textColor: 'text-white' },
+  { id: 'koala', name: '巧考拉', label: '考拉', bg: 'bg-teal-500', textColor: 'text-white' },
+  { id: 'penguin', name: '智多星', label: '企鹅', bg: 'bg-blue-600', textColor: 'text-white' },
+  { id: 'deer', name: '灵巧鹿', label: '小鹿', bg: 'bg-purple-500', textColor: 'text-white' },
+  { id: 'dolphin', name: '海豚星', label: '海豚', bg: 'bg-cyan-500', textColor: 'text-white' },
+  { id: 'cat', name: '元气喵', label: '灵猫', bg: 'bg-rose-500', textColor: 'text-white' },
 ];
 
 function getRandomAvatar(): string {
-  return AVATAR_EMOJIS[Math.floor(Math.random() * AVATAR_EMOJIS.length)];
+  return AVATAR_OPTIONS[Math.floor(Math.random() * AVATAR_OPTIONS.length)].id;
+}
+
+function renderAvatarBadge(seed?: string, sizeClass = 'w-[52px] h-[52px]') {
+  const opt = AVATAR_OPTIONS.find((o) => o.id === seed) || AVATAR_OPTIONS[0];
+  return (
+    <div
+      className={`${sizeClass} rounded-full ${opt.bg} ${opt.textColor} flex flex-col items-center justify-center font-black select-none shadow-sm transition-transform`}
+      title={opt.name}
+    >
+      <span className="text-xs tracking-tight font-extrabold">{opt.label}</span>
+    </div>
+  );
 }
 
 export default function My() {
@@ -170,7 +197,7 @@ export default function My() {
     return () => window.clearTimeout(timer);
   }, [profileMessage]);
 
-  const avatarSeed = profile?.avatarSeed ?? '🐼';
+  const avatarSeed = profile?.avatarSeed ?? 'panda';
   const displayName = profile?.displayName ?? '学习伙伴';
 
 
@@ -277,9 +304,7 @@ export default function My() {
             className="bg-white w-full rounded-[24px] p-4 flex items-center justify-between mine-card-interactive border border-slate-100/90 mb-3.5 cursor-pointer"
           >
             <div className="flex items-center gap-3.5">
-              <div className="w-[52px] h-[52px] rounded-full bg-indigo-50 border-2 border-indigo-100 flex items-center justify-center text-2xl select-none">
-                {avatarSeed.startsWith('kid-') ? '🐼' : avatarSeed}
-              </div>
+              {renderAvatarBadge(avatarSeed)}
               <span className="text-base font-black text-slate-800 leading-snug">
                 {displayName}
               </span>
@@ -467,36 +492,36 @@ export default function My() {
 
             {/* 当前选中头像预览 */}
             <div className="flex flex-col items-center gap-2 mb-4">
-              <div className="w-20 h-20 rounded-full bg-indigo-50 border-4 border-indigo-100 flex items-center justify-center text-4xl shadow-inner select-none">
-                {draftProfile.avatarSeed.startsWith('kid-') ? '🐼' : draftProfile.avatarSeed}
+              <div className="w-20 h-20 rounded-full flex items-center justify-center shadow-sm select-none">
+                {renderAvatarBadge(draftProfile.avatarSeed, 'w-20 h-20 text-base')}
               </div>
               <button
                 type="button"
                 onClick={() => setDraftProfile({ ...draftProfile, avatarSeed: getRandomAvatar() })}
-                className="text-xs font-bold text-indigo-600 bg-indigo-50 px-3.5 py-1 rounded-full hover:bg-indigo-100 transition-colors"
+                className="text-xs font-bold text-indigo-600 bg-indigo-50 px-3.5 py-1 rounded-full hover:bg-indigo-100 transition-colors cursor-pointer active:scale-95"
               >
                 随机换一个
               </button>
             </div>
 
-            {/* 快速挑选头像 Emoji */}
+            {/* 快速挑选头像徽章 */}
             <div className="mb-4">
-              <span className="text-xs font-bold text-slate-400 mb-2 block">挑选喜欢的萌宠头像</span>
-              <div className="grid grid-cols-5 gap-2 max-h-36 overflow-y-auto p-1 rounded-2xl bg-slate-50">
-                {AVATAR_EMOJIS.map((emoji) => {
-                  const isSelected = draftProfile.avatarSeed === emoji;
+              <span className="text-xs font-bold text-slate-400 mb-2 block">挑选喜欢的萌宠徽章</span>
+              <div className="grid grid-cols-5 gap-2 max-h-36 overflow-y-auto p-1.5 rounded-2xl bg-slate-50">
+                {AVATAR_OPTIONS.map((opt) => {
+                  const isSelected = draftProfile.avatarSeed === opt.id;
                   return (
                     <button
-                      key={emoji}
+                      key={opt.id}
                       type="button"
-                      onClick={() => setDraftProfile({ ...draftProfile, avatarSeed: emoji })}
-                      className={`h-10 rounded-xl flex items-center justify-center text-xl transition-all ${
+                      onClick={() => setDraftProfile({ ...draftProfile, avatarSeed: opt.id })}
+                      className={`h-11 rounded-xl flex items-center justify-center transition-all cursor-pointer ${
                         isSelected
-                          ? 'bg-white shadow-md border-2 border-indigo-500 scale-105'
-                          : 'hover:bg-white/80 active:scale-95'
+                          ? 'ring-2 ring-indigo-500 scale-105 shadow-sm'
+                          : 'opacity-85 hover:opacity-100 active:scale-95'
                       }`}
                     >
-                      {emoji}
+                      {renderAvatarBadge(opt.id, 'w-9 h-9')}
                     </button>
                   );
                 })}

@@ -145,7 +145,7 @@ export default function AchievementNotification({ achievement, onClose }: Achiev
                 transition={{ delay: 1, type: "spring", damping: 12 }}
                 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
               >
-                🎉 恭喜你！🎉
+                恭喜你！
               </motion.div>
 
               {/* 继续按钮 */}

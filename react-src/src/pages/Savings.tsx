@@ -3,11 +3,27 @@ import { useNavigate } from 'react-router-dom';
 import { useSavingsStore, type SavingsGoal } from '@/stores/savingsStore';
 import { formatCurrency, formatDateTime } from '@/utils/format';
 import '@/styles/savings-page.css';
-import { Plus, Trash2, X, Archive } from 'lucide-react';
+import { Plus, Trash2, X, Archive, Target, GraduationCap, Gift, Compass, ShieldCheck } from 'lucide-react';
 import AppPageHeader from '@/components/AppPageHeader';
 import MainTabBar from '@/components/MainTabBar';
 import { useIsCurrentTab } from '@/lib/tabConfig';
 import QuickSaveDialog from '@/components/savings/QuickSaveDialog';
+
+function renderGoalIcon(iconKey?: string) {
+  switch (iconKey) {
+    case 'education':
+      return <GraduationCap className="w-6 h-6" />;
+    case 'dream':
+    case 'toy':
+      return <Gift className="w-6 h-6" />;
+    case 'travel':
+      return <Compass className="w-6 h-6" />;
+    case 'emergency':
+      return <ShieldCheck className="w-6 h-6" />;
+    default:
+      return <Target className="w-6 h-6" />;
+  }
+}
 
 type ToastTone = 'success' | 'warning';
 
@@ -169,7 +185,7 @@ export default function Savings() {
           }
         />
 
-        <div className="bg-white rounded-[32px] p-6 card-shadow w-full animate-subtle-spring anim-delay-1">
+        <div className="bg-white rounded-[32px] p-6 card-shadow w-full">
           <div className="flex items-center justify-between">
             <div className="flex-1 flex flex-col items-center gap-1">
               <span className="text-xs font-bold text-gray-400">活跃目标</span>
@@ -192,7 +208,7 @@ export default function Savings() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-5 animate-subtle-spring anim-delay-2">
+        <div className="flex flex-col gap-5">
           <div className="flex items-end justify-between px-2">
             <h2 className="text-xl font-extrabold text-[#4B454E]">我的心愿</h2>
             <span className="text-sm font-bold text-gray-400">{activeGoals.length}个目标</span>
@@ -222,11 +238,7 @@ export default function Savings() {
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${iconWrapClass}`}>
-                        {goal.icon ? (
-                          <span className="text-2xl leading-none">{goal.icon}</span>
-                        ) : (
-                          <i className="ph-fill ph-diamond text-2xl" />
-                        )}
+                        {renderGoalIcon(goal.icon)}
                       </div>
                       <span className="text-2xl font-black text-[#4B454E]">{goal.name}</span>
                     </div>

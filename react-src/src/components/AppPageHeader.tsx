@@ -35,7 +35,7 @@ export default function AppPageHeader({
             type="button"
             onClick={onBack}
             aria-label={backAriaLabel}
-            className="flex-shrink-0 w-10 h-10 bg-white rounded-full flex items-center justify-center pop-shadow-sm pop-shadow-sm-active transition-all text-[#4B454E] cursor-pointer"
+            className="flex-shrink-0 w-10 h-10 bg-white rounded-full flex items-center justify-center pop-shadow-sm active:scale-90 transition-all text-[#4B454E] cursor-pointer"
           >
             <span className="text-xl leading-none" aria-hidden="true">←</span>
           </button>

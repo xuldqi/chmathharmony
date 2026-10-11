@@ -492,7 +492,7 @@ export default function Game() {
                 <p className="text-sm opacity-80">{achievement.description}</p>
               </div>
               {achievement.unlocked && (
-                <div className="text-2xl">✅</div>
+                <div className="text-emerald-500 font-extrabold text-xl">✓</div>
               )}
             </div>
           </motion.div>

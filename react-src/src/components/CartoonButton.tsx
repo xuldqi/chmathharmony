@@ -3,7 +3,8 @@ import { useAudio } from '@/hooks/useAudio';
 
 export interface CartoonButtonProps {
   title: string;
-  emoji: string;
+  emoji?: string;
+  icon?: React.ReactNode;
   bgGradient: string;
   shadowColor: string;
   onClick: () => void;
@@ -14,6 +15,7 @@ export interface CartoonButtonProps {
 const CartoonButton: React.FC<CartoonButtonProps> = ({
   title,
   emoji,
+  icon,
   bgGradient,
   shadowColor,
   onClick,
@@ -107,7 +109,7 @@ const CartoonButton: React.FC<CartoonButtonProps> = ({
               : 'drop-shadow(0 3px 12px rgba(0,0,0,0.4)) drop-shadow(0 0 20px rgba(255,255,255,0.3))',
           }}
         >
-          {emoji}
+          {icon || emoji}
         </div>
         <div
           className="text-white font-semibold text-lg text-center leading-tight"

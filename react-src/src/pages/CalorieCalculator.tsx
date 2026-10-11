@@ -168,9 +168,9 @@ export default function CalorieCalculator() {
             <div className="text-xs font-bold text-slate-600 mb-2">我的目标</div>
             <div className="grid grid-cols-3 gap-2">
               {[
-                { id: 'lose', label: '�减脂热量缺口' },
-                { id: 'maintain', label: '⚖保持体重' },
-                { id: 'gain', label: '�增肌热量盈余' },
+                { id: 'lose', label: '减脂热量缺口' },
+                { id: 'maintain', label: '保持体重' },
+                { id: 'gain', label: '增肌热量盈余' },
               ].map((item) => (
                 <button
                   key={item.id}

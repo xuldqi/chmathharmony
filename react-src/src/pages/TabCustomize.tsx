@@ -96,7 +96,7 @@ export default function TabCustomize() {
 
       <div className="flex flex-col gap-4 w-full max-w-md mx-auto pb-12">
         {/* 实时底栏预览 */}
-        <div className="flex flex-col gap-1.5 animate-subtle-spring">
+        <div className="flex flex-col gap-1.5">
           <span className="text-xs font-black text-slate-500 ml-1">底栏预览</span>
           <div
             key={popKey}
@@ -133,7 +133,7 @@ export default function TabCustomize() {
         </div>
 
         {/* 快捷推荐模版区 */}
-        <div className="flex flex-col gap-2 animate-subtle-spring anim-delay-1">
+        <div className="flex flex-col gap-2">
           <span className="text-xs font-black text-slate-500 ml-1">场景模板</span>
 
           <div className="grid grid-cols-2 gap-2.5">
@@ -182,7 +182,7 @@ export default function TabCustomize() {
         </div>
 
         {/* 3 个可定制项列表 */}
-        <div className="flex flex-col gap-3 animate-subtle-spring anim-delay-2">
+        <div className="flex flex-col gap-3">
           <span className="text-xs font-black text-slate-500 ml-1">自定义导航</span>
 
           {customTabs.map((tab, index) => {

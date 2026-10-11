@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, Star, Lock, Calendar } from 'lucide-react';
+import { Trophy, Star, Lock, Calendar, Flame, Award, Zap, Sparkles, Gem } from 'lucide-react';
 import { useAudio } from '@/hooks/useAudio';
 
 interface Achievement {
@@ -14,6 +14,29 @@ interface Achievement {
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
 }
 
+function renderAchievementIcon(iconName: string) {
+  switch (iconName) {
+    case 'trophy':
+    case 'trophy':
+      return <Trophy className="w-8 h-8 text-amber-500 mx-auto" />;
+    case 'star':
+    case 'star':
+      return <Star className="w-8 h-8 text-yellow-500 mx-auto" />;
+    case 'sparkles':
+    case 'sparkles':
+      return <Sparkles className="w-8 h-8 text-pink-500 mx-auto" />;
+    case 'flame':
+    case 'fire':
+    case 'flame':
+      return <Flame className="w-8 h-8 text-orange-500 mx-auto" />;
+    case 'lightning':
+    case 'lightning':
+      return <Zap className="w-8 h-8 text-sky-500 mx-auto" />;
+    default:
+      return <Award className="w-8 h-8 text-indigo-500 mx-auto" />;
+  }
+}
+
 interface AchievementDisplayProps {
   achievements: Achievement[];
 }
@@ -25,10 +48,10 @@ const AchievementDisplay: React.FC<AchievementDisplayProps> = ({ achievements })
 
   // 成就类别映射
   const categoryMap = {
-    basic: { name: '基础成就', emoji: '🌟', color: 'from-blue-400 to-blue-600' },
-    advanced: { name: '进阶成就', emoji: '🏆', color: 'from-purple-400 to-purple-600' },
-    special: { name: '特殊成就', emoji: '💎', color: 'from-pink-400 to-pink-600' },
-    streak: { name: '连击成就', emoji: '🔥', color: 'from-orange-400 to-orange-600' }
+    basic: { name: '基础成就', icon: <Star className="w-4 h-4" />, color: 'from-blue-400 to-blue-600' },
+    advanced: { name: '进阶成就', icon: <Trophy className="w-4 h-4" />, color: 'from-purple-400 to-purple-600' },
+    special: { name: '特殊成就', icon: <Sparkles className="w-4 h-4" />, color: 'from-pink-400 to-pink-600' },
+    streak: { name: '连击成就', icon: <Flame className="w-4 h-4" />, color: 'from-orange-400 to-orange-600' }
   };
 
   // 稀有度映射
@@ -43,12 +66,12 @@ const AchievementDisplay: React.FC<AchievementDisplayProps> = ({ achievements })
   const extendedAchievements: Achievement[] = [
     ...achievements,
     // 添加更多成就示例
-    { id: '5', name: '初学者', description: '完成第一道题目', icon: '🎯', earned: true, earnedDate: '2024-01-10', category: 'basic', rarity: 'common' },
-    { id: '6', name: '百题达人', description: '累计答对100道题', icon: '💯', earned: true, earnedDate: '2024-01-18', category: 'advanced', rarity: 'rare' },
-    { id: '7', name: '完美主义者', description: '连续20题全对', icon: '✨', earned: false, category: 'special', rarity: 'epic' },
-    { id: '8', name: '数学大师', description: '所有题型正确率超过90%', icon: '👑', earned: false, category: 'special', rarity: 'legendary' },
-    { id: '9', name: '学习之星', description: '连续学习30天', icon: '🌟', earned: false, category: 'streak', rarity: 'epic' },
-    { id: '10', name: '闪电计算', description: '5秒内答对一道题', icon: '⚡', earned: true, earnedDate: '2024-01-16', category: 'special', rarity: 'rare' },
+    { id: '5', name: '初学者', description: '完成第一道题目', icon: 'star', earned: true, earnedDate: '2024-01-10', category: 'basic', rarity: 'common' },
+    { id: '6', name: '百题达人', description: '累计答对100道题', icon: 'trophy', earned: true, earnedDate: '2024-01-18', category: 'advanced', rarity: 'rare' },
+    { id: '7', name: '完美主义者', description: '连续20题全对', icon: 'sparkles', earned: false, category: 'special', rarity: 'epic' },
+    { id: '8', name: '数学大师', description: '所有题型正确率超过90%', icon: 'trophy', earned: false, category: 'special', rarity: 'legendary' },
+    { id: '9', name: '学习之星', description: '连续学习30天', icon: 'star', earned: false, category: 'streak', rarity: 'epic' },
+    { id: '10', name: '闪电计算', description: '5秒内答对一道题', icon: 'lightning', earned: true, earnedDate: '2024-01-16', category: 'special', rarity: 'rare' },
   ];
 
   // 过滤成就
@@ -98,7 +121,7 @@ const AchievementDisplay: React.FC<AchievementDisplayProps> = ({ achievements })
         transition={{ duration: 0.5 }}
       >
         <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-orange-600 mb-2">
-          🏆 成就展示
+          成就展示
         </h2>
         <p className="text-gray-600">
           展示你的学习成果和荣誉！
@@ -162,7 +185,7 @@ const AchievementDisplay: React.FC<AchievementDisplayProps> = ({ achievements })
             onClick={() => handleCategoryFilter(stat.category)}
           >
             <div className="flex items-center justify-between mb-3">
-              <div className="text-2xl">{stat.emoji}</div>
+              <div className="text-indigo-600">{stat.icon}</div>
               <div className={`px-2 py-1 rounded-full bg-gradient-to-r ${stat.color} text-white text-sm font-bold`}>
                 {stat.earned}/{stat.total}
               </div>
@@ -208,7 +231,7 @@ const AchievementDisplay: React.FC<AchievementDisplayProps> = ({ achievements })
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <span>{info.emoji}</span>
+            <span>{info.icon}</span>
             <span>{info.name}</span>
           </motion.button>
         ))}
@@ -247,10 +270,10 @@ const AchievementDisplay: React.FC<AchievementDisplayProps> = ({ achievements })
                 
                 {/* 成就图标 */}
                 <div className="relative text-center mb-3">
-                  <div className={`text-4xl mb-2 ${
-                    achievement.earned ? '' : 'grayscale'
+                  <div className={`mb-2 flex items-center justify-center ${
+                    achievement.earned ? '' : 'grayscale opacity-50'
                   }`}>
-                    {achievement.icon}
+                    {renderAchievementIcon(achievement.icon)}
                   </div>
                   
                   {/* 稀有度标识 */}
@@ -315,10 +338,10 @@ const AchievementDisplay: React.FC<AchievementDisplayProps> = ({ achievements })
               onClick={(e) => e.stopPropagation()}
             >
               <div className="text-center">
-                <div className={`text-6xl mb-4 ${
-                  selectedAchievement.earned ? '' : 'grayscale'
+                <div className={`mb-4 flex items-center justify-center ${
+                  selectedAchievement.earned ? '' : 'grayscale opacity-50'
                 }`}>
-                  {selectedAchievement.icon}
+                  {renderAchievementIcon(selectedAchievement.icon)}
                 </div>
                 
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">

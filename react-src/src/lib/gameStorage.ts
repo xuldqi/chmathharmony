@@ -87,16 +87,16 @@ class GameStorage {
         { id: 6, completed: false, stars: 0, bestTime: 0, attempts: 0, unlocked: false, difficulty: 2 },
       ],
       achievements: [
-        { id: 'first_win', name: '初次胜利', description: '完成第一个关卡', icon: '🏆', unlocked: false },
-        { id: 'perfect_score', name: '完美得分', description: '获得满星评价', icon: '⭐', unlocked: false },
-        { id: 'speed_demon', name: '速度恶魔', description: '在30秒内完成关卡', icon: '⚡', unlocked: false },
-        { id: 'difficulty_2', name: '进阶挑战', description: '完成难度2的关卡', icon: '🔥', unlocked: false },
-        { id: 'difficulty_3', name: '高级挑战', description: '完成难度3的关卡', icon: '💪', unlocked: false },
-        { id: 'difficulty_4', name: '专家挑战', description: '完成难度4的关卡', icon: '🧠', unlocked: false },
-        { id: 'difficulty_5', name: '大师挑战', description: '完成难度5的关卡', icon: '🎖️', unlocked: false },
-        { id: 'math_master', name: '数学大师', description: '完成所有关卡', icon: '🎓', unlocked: false },
-        { id: 'coin_collector', name: '金币收集者', description: '累计获得1000金币', icon: '💰', unlocked: false },
-        { id: 'streak_master', name: '连击大师', description: '达到10连击', icon: '🔥', unlocked: false },
+        { id: 'first_win', name: '初次胜利', description: '完成第一个关卡', icon: 'trophy', unlocked: false },
+        { id: 'perfect_score', name: '完美得分', description: '获得满星评价', icon: 'star', unlocked: false },
+        { id: 'speed_demon', name: '速度恶魔', description: '在30秒内完成关卡', icon: 'lightning', unlocked: false },
+        { id: 'difficulty_2', name: '进阶挑战', description: '完成难度2的关卡', icon: 'fire', unlocked: false },
+        { id: 'difficulty_3', name: '高级挑战', description: '完成难度3的关卡', icon: 'muscle', unlocked: false },
+        { id: 'difficulty_4', name: '专家挑战', description: '完成难度4的关卡', icon: 'brain', unlocked: false },
+        { id: 'difficulty_5', name: '大师挑战', description: '完成难度5的关卡', icon: 'medal', unlocked: false },
+        { id: 'math_master', name: '数学大师', description: '完成所有关卡', icon: 'grad', unlocked: false },
+        { id: 'coin_collector', name: '金币收集者', description: '累计获得1000金币', icon: 'coin', unlocked: false },
+        { id: 'streak_master', name: '连击大师', description: '达到10连击', icon: 'streak', unlocked: false },
       ],
       stats: {
         totalCoins: 0,
@@ -342,7 +342,7 @@ class GameStorage {
       achievement.unlocked = true;
       achievement.unlockedAt = new Date();
 
-      console.log(`🎉 成就解锁: ${achievement.name}`);
+      console.log(`[成就解锁]: ${achievement.name}`);
 
       // 触发成就解锁回调
       this.achievementCallbacks.forEach(callback => {

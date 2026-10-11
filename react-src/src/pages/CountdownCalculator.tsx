@@ -134,7 +134,7 @@ export default function CountdownCalculator() {
                 }}
                 className="py-1.5 bg-slate-50 hover:bg-amber-50 rounded-xl text-xs font-bold text-slate-700 hover:text-amber-700 border border-slate-100 transition-all"
               >
-                ✏高考倒数
+                高考倒数
               </button>
               <button
                 onClick={() => {

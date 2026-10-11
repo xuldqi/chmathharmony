@@ -75,7 +75,9 @@ const MainTabBar: React.FC<MainTabBarProps> = ({ variant = 'fixed' }) => {
               navigate(pageDef.route, { state: {} });
             }}
           >
-            <TabIconRenderer iconKey={displayIcon} size={22} />
+            <div className="tab-icon-wrapper">
+              <TabIconRenderer iconKey={displayIcon} size={22} />
+            </div>
             <div className="tab-label">{displayTitle}</div>
           </button>
         );
@@ -89,9 +91,11 @@ const MainTabBar: React.FC<MainTabBarProps> = ({ variant = 'fixed' }) => {
           navigate('/learn', { state: {} });
         }}
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm0 9.72L5.98 9.5 12 6.28 18.02 9.5 12 12.72zM6 13.3V17c0 2.2 2.69 4 6 4s6-1.8 6-4v-3.7l-6 3.27L6 13.3z" />
-        </svg>
+        <div className="tab-icon-wrapper">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm0 9.72L5.98 9.5 12 6.28 18.02 9.5 12 12.72zM6 13.3V17c0 2.2 2.69 4 6 4s6-1.8 6-4v-3.7l-6 3.27L6 13.3z" />
+          </svg>
+        </div>
         <div className="tab-label">功能</div>
       </button>
 
@@ -103,9 +107,11 @@ const MainTabBar: React.FC<MainTabBarProps> = ({ variant = 'fixed' }) => {
           navigate('/my', { state: {} });
         }}
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-        </svg>
+        <div className="tab-icon-wrapper">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+          </svg>
+        </div>
         <div className="tab-label">我的</div>
       </button>
     </nav>

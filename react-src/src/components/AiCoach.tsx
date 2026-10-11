@@ -60,7 +60,7 @@ const AiCoach: React.FC<AiCoachProps> = ({ wrongCount }) => {
                     {/* AI 形象 */}
                     <div className="relative group">
                         <div className="bg-gradient-to-br from-blue-400 to-blue-600 w-20 h-20 rounded-full flex items-center justify-center shadow-xl border-4 border-white overflow-hidden">
-                            <span className="text-4xl">🤖</span>
+                            <span className="text-xs font-black px-2.5 py-1 bg-indigo-500 text-white rounded-full">AI</span>
                         </div>
                         {/* 点击关闭 */}
                         <button

@@ -36,7 +36,7 @@ const DailyPractice: React.FC<DailyPracticeProps> = ({ onBack }) => {
       top: `${Math.random() * 100}%`,
       animationDelay: `${Math.random() * 1.5}s`,
       animationDuration: `${1.5 + Math.random()}s`,
-      icon: ['⭐', '🎉', '✨', '🌟', '💰', '🦌'][Math.floor(Math.random() * 6)],
+      icon: ['★', '✦', '▲', '●'][Math.floor(Math.random() * 6)],
     })),
     [],
   );

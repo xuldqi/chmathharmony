@@ -124,10 +124,10 @@ const defaultAccounts: SavingsAccount[] = [
 ];
 
 const defaultCategories: SavingsCategory[] = [
-  { id: 'education', name: '教育成长', color: '#f97316', icon: '🎓', description: '课程、书籍、培训等' },
-  { id: 'toy', name: '梦想清单', color: '#a855f7', icon: '🧸', description: '玩具、心愿礼物' },
-  { id: 'travel', name: '出行探险', color: '#0ea5e9', icon: '✈️', description: '旅行、夏令营费用' },
-  { id: 'emergency', name: '应急金', color: '#facc15', icon: '🛟', description: '备用金、应急费用' },
+  { id: 'education', name: '教育成长', color: '#f97316', icon: 'education', description: '课程、书籍、培训等' },
+  { id: 'toy', name: '梦想清单', color: '#a855f7', icon: 'dream', description: '玩具、心愿礼物' },
+  { id: 'travel', name: '出行探险', color: '#0ea5e9', icon: 'travel', description: '旅行、夏令营费用' },
+  { id: 'emergency', name: '应急金', color: '#facc15', icon: 'emergency', description: '备用金、应急费用' },
 ];
 
 function generateUUID(): string {
@@ -169,7 +169,7 @@ export const useSavingsStore = create<SavingsState>()(
           accountId: input.accountId,
           categoryId: input.categoryId,
           color: input.color || category?.color || '#3b82f6',
-          icon: input.icon || category?.icon || '🎯',
+          icon: input.icon || category?.icon || 'target',
           description: input.description,
           dueDate: input.dueDate,
           createdAt: now,
@@ -373,7 +373,7 @@ export const useSavingsStore = create<SavingsState>()(
             accountId: goal.accountId ?? primaryAccountId,
             categoryId: goal.categoryId ?? primaryCategoryId,
             color: goal.color ?? '#38bdf8',
-            icon: goal.icon ?? '🎯',
+            icon: goal.icon ?? 'target',
             description: goal.description,
             dueDate: goal.dueDate,
             createdAt: goal.createdAt ?? new Date().toISOString(),

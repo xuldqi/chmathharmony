@@ -45,7 +45,7 @@ const ComparisonGame: React.FC<ComparisonGameProps> = ({ onBack }) => {
       top: `${Math.random() * 100}%`,
       animationDelay: `${Math.random() * 2}s`,
       animationDuration: `${1 + Math.random()}s`,
-      icon: ['⭐', '🎉', '✨', '🌟', '💫'][Math.floor(Math.random() * 5)],
+      icon: ['★', '✦', '▲', '●'][Math.floor(Math.random() * 5)],
     })),
     [],
   );
@@ -158,11 +158,11 @@ const ComparisonGame: React.FC<ComparisonGameProps> = ({ onBack }) => {
     }));
 
     if (correct) {
-      setFeedback('太棒了！答对了！🎉');
+      setFeedback('太棒了！答对了！');
       setShowCelebration(true);
       playAnswerFeedback(true);
     } else {
-      setFeedback(`不对哦，正确答案是 ${question.num1} ${question.correctAnswer} ${question.num2}，再试试吧！💪`);
+      setFeedback(`不对哦，正确答案是 ${question.num1} ${question.correctAnswer} ${question.num2}，再试试吧！`);
       playAnswerFeedback(false);
     }
   }, [question.num1, question.num2, question.correctAnswer, playAnswerFeedback, questionStartTime]);
@@ -294,7 +294,7 @@ const ComparisonGame: React.FC<ComparisonGameProps> = ({ onBack }) => {
           {isPlayingAudio && (
             <div className="bg-[#EDE8FF] px-4 py-2 rounded-full flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-[#9F85F0] animate-pulse" />
-              <span className="text-[#9F85F0] text-sm font-extrabold">🔊 正在播放题目语音...</span>
+              <span className="text-[#9F85F0] text-sm font-extrabold">正在播放题目语音...</span>
             </div>
           )}
           {audioError && (

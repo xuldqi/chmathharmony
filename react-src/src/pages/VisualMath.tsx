@@ -10,7 +10,8 @@ interface Question {
   id: number;
   type: 'addition' | 'subtraction';
   object: string;
-  emoji: string;
+  label: string;
+  bg: string;
   quantifier: string;
   num1: number;
   num2: number;
@@ -24,14 +25,14 @@ interface Stats {
 }
 
 const QUESTION_TEMPLATES = [
-  { object: '小猫', emoji: '🐱', quantifier: '只' },
-  { object: '苹果', emoji: '🍎', quantifier: '个' },
-  { object: '香蕉', emoji: '🍌', quantifier: '根' },
-  { object: '汽车', emoji: '🚗', quantifier: '辆' },
-  { object: '气球', emoji: '🎈', quantifier: '个' },
-  { object: '花朵', emoji: '🌸', quantifier: '朵' },
-  { object: '小鸟', emoji: '🐦', quantifier: '只' },
-  { object: '蝴蝶', emoji: '🦋', quantifier: '只' },
+  { object: '小猫', label: '喵', bg: 'bg-amber-400 text-white', quantifier: '只' },
+  { object: '苹果', label: '果', bg: 'bg-rose-500 text-white', quantifier: '个' },
+  { object: '香蕉', label: '蕉', bg: 'bg-amber-400 text-amber-900', quantifier: '根' },
+  { object: '汽车', label: '车', bg: 'bg-blue-500 text-white', quantifier: '辆' },
+  { object: '气球', label: '球', bg: 'bg-pink-400 text-white', quantifier: '个' },
+  { object: '花朵', label: '花', bg: 'bg-emerald-400 text-white', quantifier: '朵' },
+  { object: '小鸟', label: '鸟', bg: 'bg-sky-400 text-white', quantifier: '只' },
+  { object: '蝴蝶', label: '蝶', bg: 'bg-purple-400 text-white', quantifier: '只' },
 ];
 
 const shuffleNumbers = (values: number[]) => {
@@ -60,7 +61,7 @@ const VisualMath: React.FC = () => {
       top: `${Math.random() * 100}%`,
       animationDelay: `${Math.random() * 2}s`,
       animationDuration: `${1 + Math.random()}s`,
-      icon: ['⭐', '🎉', '✨', '🌟', '💫', '🎊'][Math.floor(Math.random() * 6)],
+      icon: ['★', '✦', '▲', '●'][Math.floor(Math.random() * 4)],
     })),
     [],
   );
@@ -108,7 +109,8 @@ const VisualMath: React.FC = () => {
       id: Date.now(),
       type,
       object: template.object,
-      emoji: template.emoji,
+      label: template.label,
+      bg: template.bg,
       quantifier: template.quantifier,
       num1,
       num2,
@@ -158,7 +160,8 @@ const VisualMath: React.FC = () => {
   // 渲染物体
   const renderObjects = (
     count: number,
-    emoji: string,
+    label: string,
+    bg: string,
     options?: { muted?: boolean; bounce?: boolean }
   ) => {
     const { muted, bounce } = options || {};
@@ -179,7 +182,7 @@ const VisualMath: React.FC = () => {
         } ${muted ? 'opacity-70 grayscale-[30%]' : ''}`}
       >
         {rows.map((rowCount, rowIndex) => (
-          <div key={rowIndex} className="flex gap-2 text-4xl justify-center">
+          <div key={rowIndex} className="flex gap-2 justify-center">
             {Array.from({ length: rowCount }).map(() => {
               const curIndex = globalIndex++;
               return (
@@ -188,9 +191,9 @@ const VisualMath: React.FC = () => {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: curIndex * 0.08 }}
-                  className="leading-none"
+                  className={`w-9 h-9 rounded-full ${bg} flex items-center justify-center font-black text-sm shadow-sm select-none`}
                 >
-                  {emoji}
+                  {label}
                 </motion.div>
               );
             })}
@@ -291,7 +294,7 @@ const VisualMath: React.FC = () => {
                   {currentQuestion.quantifier}
                   {currentQuestion.object}
                 </span>
-                {renderObjects(currentQuestion.num1, currentQuestion.emoji, { bounce: true })}
+                {renderObjects(currentQuestion.num1, currentQuestion.label, currentQuestion.bg, { bounce: true })}
               </div>
 
               {/* 运算符 */}
@@ -306,7 +309,7 @@ const VisualMath: React.FC = () => {
                   {currentQuestion.quantifier}
                   {currentQuestion.object}
                 </span>
-                {renderObjects(currentQuestion.num2, currentQuestion.emoji, { muted: true })}
+                {renderObjects(currentQuestion.num2, currentQuestion.label, currentQuestion.bg, { muted: true })}
               </div>
 
               {/* 等号 */}
@@ -347,12 +350,12 @@ const VisualMath: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
                   {showResult && option === currentQuestion.answer && (
-                    <div className="absolute -top-2 -right-2 text-2xl">✅</div>
+                    <div className="absolute top-2 right-2 text-emerald-300 font-extrabold text-base">✓</div>
                   )}
                   {showResult &&
                     option === selectedAnswer &&
                     option !== currentQuestion.answer && (
-                      <div className="absolute -top-2 -right-2 text-2xl">❌</div>
+                      <div className="absolute top-2 right-2 text-rose-300 font-extrabold text-base">✕</div>
                     )}
                 </motion.button>
               );
