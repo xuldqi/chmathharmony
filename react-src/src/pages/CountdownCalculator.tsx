@@ -71,10 +71,11 @@ export default function CountdownCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none pb-12">
+    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-lg mx-auto flex-1 flex flex-col">
       <AppPageHeader title="倒数日与纪念日计算" onBack={() => navigate(-1)} />
 
-      <main className="flex-1 px-4 py-4 max-w-lg mx-auto w-full space-y-4">
+      <main className="flex-1 w-full space-y-4">
         {/* 输入面板卡片 */}
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 space-y-4">
           {/* 事件名称 */}
@@ -122,7 +123,7 @@ export default function CountdownCalculator() {
                 }}
                 className="py-1.5 bg-slate-50 hover:bg-amber-50 rounded-xl text-xs font-bold text-slate-700 hover:text-amber-700 border border-slate-100 transition-all"
               >
-                🎉 元旦跨年
+                �元旦跨年
               </button>
               <button
                 onClick={() => {
@@ -133,7 +134,7 @@ export default function CountdownCalculator() {
                 }}
                 className="py-1.5 bg-slate-50 hover:bg-amber-50 rounded-xl text-xs font-bold text-slate-700 hover:text-amber-700 border border-slate-100 transition-all"
               >
-                ✏️ 高考倒数
+                ✏高考倒数
               </button>
               <button
                 onClick={() => {
@@ -144,7 +145,7 @@ export default function CountdownCalculator() {
                 }}
                 className="py-1.5 bg-slate-50 hover:bg-amber-50 rounded-xl text-xs font-bold text-slate-700 hover:text-amber-700 border border-slate-100 transition-all"
               >
-                💰 发薪日
+                �发薪日
               </button>
             </div>
           </div>
@@ -197,6 +198,7 @@ export default function CountdownCalculator() {
           </button>
         </div>
       </main>
+      </div>
     </div>
   );
 }

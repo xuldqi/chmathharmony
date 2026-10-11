@@ -83,16 +83,16 @@ export default function AmountWords() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-[#FFF7ED] via-[#F8FAFC] to-[#F1F5F9] min-h-screen w-full flex flex-col px-5 py-6 text-[#334155]">
-      {/* 顶部标题栏 */}
-      <AppPageHeader
-        title="大写金额"
-        onBack={() => navigate(-1)}
-        className="mb-3"
-        titleClassName="text-2xl font-black text-[#1E293B]"
-      />
+    <div className="bg-gradient-to-b from-[#FFF7ED] via-[#F8FAFC] to-[#F1F5F9] min-h-screen w-full flex flex-col px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12 text-[#334155]">
+      <div className="w-full max-w-md mx-auto flex-1 flex flex-col">
+        {/* 顶部标题栏 */}
+        <AppPageHeader
+          title="大写金额"
+          onBack={() => navigate(-1)}
+          className="mb-3"
+        />
 
-      <div className="flex-1 flex flex-col gap-4 max-w-md mx-auto w-full">
+        <div className="flex-1 flex flex-col gap-4 w-full">
         {/* 输入面板 */}
         <div className="bg-white rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-[#FED7AA]/40 flex flex-col gap-2">
           <label className="text-xs font-black text-[#EA580C] flex items-center justify-between">
@@ -203,6 +203,7 @@ export default function AmountWords() {
             符合国家财务收据、发票填写规范，有效防篡改。
           </p>
         </div>
+      </div>
       </div>
     </div>
   );

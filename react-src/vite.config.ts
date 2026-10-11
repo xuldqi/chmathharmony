@@ -16,17 +16,15 @@ export default defineConfig(({ command }) => ({
       compress: {
         drop_console: false,
         drop_debugger: false,
-        arrows: false,
-        collapse_vars: false,
-        computed_props: false,
-        unsafe_symbols: false,
-        unsafe_methods: false,
-        unsafe_proto: false
+        passes: 2,
+        toplevel: true,
       },
       format: {
         comments: false,
       },
-      mangle: false,
+      mangle: {
+        toplevel: true,
+      },
     },
     rollupOptions: {
       output: {

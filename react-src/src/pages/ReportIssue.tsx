@@ -129,13 +129,12 @@ ${form.description}
           </div>
         )}
 
-        <div className="relative z-10 max-w-md mx-auto min-h-screen pb-10 flex flex-col">
-          <AppPageHeader
-            title="问题举报"
-            onBack={() => navigate(-1)}
-            className="px-6 py-6 sticky top-0 z-50 backdrop-blur-[2px]"
-            titleClassName="text-xl tracking-tight"
-          />
+      <div className="relative z-10 max-w-md mx-auto min-h-screen px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12 flex flex-col">
+        <AppPageHeader
+          title="问题举报"
+          onBack={() => navigate(-1)}
+          className="mb-4"
+        />
 
           <main className="flex-1 px-5 flex flex-col gap-6 pb-20 pt-4">
             {/* 重要提示 */}
@@ -198,12 +197,11 @@ ${form.description}
         </div>
       )}
 
-      <div className="relative z-10 max-w-md mx-auto min-h-screen pb-10 flex flex-col">
+      <div className="relative z-10 max-w-md mx-auto min-h-screen px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12 flex flex-col">
         <AppPageHeader
           title="问题举报"
           onBack={() => navigate(-1)}
-          className="px-6 py-6 sticky top-0 z-50 backdrop-blur-[2px]"
-          titleClassName="text-xl tracking-tight"
+          className="mb-4"
         />
 
         <main className="flex-1 px-5 space-y-6 pb-8">
@@ -373,7 +371,11 @@ ${form.description}
       {showSuccess && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl p-8 max-w-sm mx-4 text-center shadow-lg">
-            <div className="text-5xl mb-4">✅</div>
+            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">举报已发送</h3>
             <p className="text-gray-600">感谢您的举报，我们会尽快处理并回复。</p>
           </div>

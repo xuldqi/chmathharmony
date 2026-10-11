@@ -1,3 +1,4 @@
+import AppPageHeader from '@/components/AppPageHeader';
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAudio } from '../hooks/useAudio';
@@ -125,26 +126,15 @@ export default function RandomPicker() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
       {/* 顶部导航 */}
-      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-xs">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-slate-600 font-bold active:scale-95 transition-transform"
-        >
-          <svg className="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-          </svg>
-          返回
-        </button>
-        <div className="text-center">
-          <h1 className="text-lg font-black text-slate-800">随机抽签决策</h1>
-          <span className="text-xs font-semibold text-rose-500">摇号与随机转盘助手</span>
-        </div>
-        <div className="w-12" />
-      </header>
+      <AppPageHeader
+          title="随机抽签决策"
+          subtitle="摇号与随机转盘助手"
+          onBack={() => navigate(-1)}
+        />
 
-      <main className="flex-1 max-w-md mx-auto w-full p-4 flex flex-col gap-4">
+      <main className="flex-1 max-w-md mx-auto w-full flex flex-col gap-4">
         {/* 模式选择 */}
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex flex-col gap-4">
           <div className="flex bg-slate-100 p-1 rounded-2xl">
@@ -156,7 +146,7 @@ export default function RandomPicker() {
                   : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              🎯 幸运抽签决策
+              �幸运抽签决策
             </button>
             <button
               onClick={() => setMode('number')}
@@ -166,7 +156,7 @@ export default function RandomPicker() {
                   : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              🎲 随机数摇号器
+              �随机数摇号器
             </button>
           </div>
 
@@ -236,7 +226,7 @@ export default function RandomPicker() {
                 className="mt-2 w-full py-3.5 rounded-2xl bg-rose-500 hover:bg-rose-600 text-white font-black text-lg shadow-md active:scale-98 transition-all flex items-center justify-center gap-2"
                 style={{ boxShadow: '0 5px 0 #E11D48' }}
               >
-                <span>{isSpinning ? '正在摇动...' : '🎲 立即抽取决策'}</span>
+                <span>{isSpinning ? '正在摇动...' : '�立即抽取决策'}</span>
               </button>
             </div>
           ) : (

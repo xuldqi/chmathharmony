@@ -180,7 +180,8 @@ export default function EarlyRepaymentCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-xl mx-auto flex-1 flex flex-col">
       <AppPageHeader
         title="房贷提前还款测算"
         onBack={() => navigate(-1)}
@@ -204,7 +205,7 @@ export default function EarlyRepaymentCalculator() {
         }
       />
 
-      <div className="flex-1 max-w-xl w-full mx-auto p-4 space-y-4">
+      <div className="flex-1 w-full space-y-4">
         {/* 核心结论卡片 */}
         {calcResult && (
           <div className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl p-5 shadow-lg space-y-4">
@@ -403,6 +404,7 @@ export default function EarlyRepaymentCalculator() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

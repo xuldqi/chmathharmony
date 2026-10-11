@@ -1465,36 +1465,48 @@ export class AudioPlayer {
     }
   }
 
+  private hasPreloadedCommonAudios = false;
+
   /**
-   * 预加载所有常用音频
+   * 预加载所有常用音频（空闲分批加载，避免冷启动瞬时争抢主线程与 IO）
    */
   public preloadCommonAudios(): void {
-    // 预加载中文数字0-10
-    for (let i = 0; i <= 10; i++) {
-      this.preloadAudio(`num${i}`);
+    if (this.hasPreloadedCommonAudios || isHarmonyOS()) {
+      return;
     }
+    this.hasPreloadedCommonAudios = true;
 
-    // 预加载英文数字0-9
-    const englishNumbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-    englishNumbers.forEach(num => this.preloadAudio(num));
+    // 分批次音频队列
+    const audioBatches: string[][] = [
+      // 第一批：最核心的 0-10 数字与常用键
+      ['num0', 'num1', 'num2', 'num3', 'num4', 'num5', 'num6', 'num7', 'num8', 'num9', 'num10', 'del', 'dengyu'],
+      // 第二批：基础常用中文运算符与单位
+      ['jia', 'jian', 'chengyi', 'chuyi', 'dian', 'baifenhao', 'fu', 'shi', 'bai', 'qian', 'wan', 'yi'],
+      // 第三批：英文数字与运算符及其他
+      ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'add', 'subtraction', 'multiple', 'division', 'equal', 'dot', 'percent', 'minus_sign', 'fenhao', 'e', 'shuzibai']
+    ];
 
-    // 预加载中文运算符
-    const chineseOperators = ['jia', 'jian', 'chengyi', 'chuyi', 'dengyu', 'dian', 'baifenhao', 'fu'];
-    chineseOperators.forEach(op => this.preloadAudio(op));
+    const runBatch = (index: number) => {
+      if (index >= audioBatches.length) return;
+      const batch = audioBatches[index];
+      batch.forEach(name => this.preloadAudio(name));
 
-    // 预加载英文运算符
-    const englishOperators = ['add', 'subtraction', 'multiple', 'division', 'equal', 'dot', 'percent', 'minus_sign'];
-    englishOperators.forEach(op => this.preloadAudio(op));
+      // 调度下一批次
+      if (index + 1 < audioBatches.length) {
+        if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+          (window as any).requestIdleCallback(() => runBatch(index + 1), { timeout: 2000 });
+        } else {
+          setTimeout(() => runBatch(index + 1), 600);
+        }
+      }
+    };
 
-    // 预加载中文数字单位
-    const chineseUnits = ['shi', 'bai', 'qian', 'wan', 'yi'];
-    chineseUnits.forEach(unit => this.preloadAudio(unit));
-
-    // 预加载其他常用音频
-    this.preloadAudio('del');
-    this.preloadAudio('fenhao');
-    this.preloadAudio('e');
-    this.preloadAudio('shuzibai');
+    // 延迟到首屏渲染完成后的空闲期开始执行第一批
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(() => runBatch(0), { timeout: 2500 });
+    } else {
+      setTimeout(() => runBatch(0), 1000);
+    }
   }
 }
 

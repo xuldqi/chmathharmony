@@ -78,10 +78,11 @@ export default function CalorieCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none pb-12">
+    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-lg mx-auto flex-1 flex flex-col">
       <AppPageHeader title="热量与卡路里计算" onBack={() => navigate(-1)} />
 
-      <main className="flex-1 px-4 py-4 max-w-lg mx-auto w-full space-y-4">
+      <main className="flex-1 w-full space-y-4">
         {/* 基本身体数据卡片 */}
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 space-y-4">
           <div className="flex items-center justify-between">
@@ -167,9 +168,9 @@ export default function CalorieCalculator() {
             <div className="text-xs font-bold text-slate-600 mb-2">我的目标</div>
             <div className="grid grid-cols-3 gap-2">
               {[
-                { id: 'lose', label: '🔥 减脂热量缺口' },
-                { id: 'maintain', label: '⚖️ 保持体重' },
-                { id: 'gain', label: '💪 增肌热量盈余' },
+                { id: 'lose', label: '�减脂热量缺口' },
+                { id: 'maintain', label: '⚖保持体重' },
+                { id: 'gain', label: '�增肌热量盈余' },
               ].map((item) => (
                 <button
                   key={item.id}
@@ -251,6 +252,7 @@ export default function CalorieCalculator() {
           </button>
         </div>
       </main>
+      </div>
     </div>
   );
 }

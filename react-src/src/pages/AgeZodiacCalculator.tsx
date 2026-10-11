@@ -88,10 +88,11 @@ export default function AgeZodiacCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none pb-12">
+    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-lg mx-auto flex-1 flex flex-col">
       <AppPageHeader title="年龄生肖与星座计算" onBack={() => navigate(-1)} />
 
-      <main className="flex-1 px-4 py-4 max-w-lg mx-auto w-full space-y-4">
+      <main className="flex-1 w-full space-y-4">
         {/* 输入出生日期卡片 */}
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 space-y-3">
           <div className="flex justify-between items-center text-xs font-bold text-slate-700">
@@ -134,7 +135,7 @@ export default function AgeZodiacCalculator() {
             </div>
 
             <div className="text-xs text-indigo-100 font-bold bg-white/10 px-3 py-1.5 rounded-xl inline-block">
-              🎂 距离下一个生日还剩 {result.daysUntilNextBday} 天
+              距离下一个生日还剩 {result.daysUntilNextBday} 天
             </div>
 
             {/* 生肖与星座 */}
@@ -189,6 +190,7 @@ export default function AgeZodiacCalculator() {
           </button>
         </div>
       </main>
+      </div>
     </div>
   );
 }

@@ -6,10 +6,10 @@ export default function ContactUs() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] p-5 text-[#4B454E]">
+    <div className="min-h-screen bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12 text-[#4B454E]">
       <AppPageHeader title="联系我们" onBack={() => navigate(-1)} className="mb-4" />
 
-      <div className="bg-white rounded-[24px] p-6 pop-shadow space-y-6">
+      <div className="max-w-md mx-auto w-full"><div className="bg-white rounded-[24px] p-6 pop-shadow space-y-6">
         <section>
           <h3 className="text-lg font-black text-[#4B454E] mb-2">反馈建议</h3>
           <p className="text-[#9CA3AF] text-sm font-bold leading-relaxed">
@@ -35,7 +35,4 @@ export default function ContactUs() {
             工作时间：周一至周五 9:00-18:00
           </p>
         </section>
-      </div>
-    </div>
-  );
-}
+      </div></div></div>);}

@@ -1,3 +1,4 @@
+import AppPageHeader from '@/components/AppPageHeader';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAudio } from '../hooks/useAudio';
@@ -212,31 +213,18 @@ export default function KlotskiNumber() {
   const currentBest = bestRecords[`${size}x${size}`];
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
       {/* 顶部导航 */}
-      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-xs">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-slate-600 font-bold active:scale-95 transition-transform"
-        >
-          <svg className="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-          </svg>
-          返回
-        </button>
-        <div className="text-center">
-          <h1 className="text-lg font-black text-slate-800">数字华容道</h1>
-          <span className="text-xs font-semibold text-emerald-600">{size}×{size} 经典拼图</span>
-        </div>
-        <button
-          onClick={() => startNewGame()}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm active:scale-95 transition-all"
-        >
-          重新打乱
-        </button>
-      </header>
+      <AppPageHeader
+          title="数字华容道"
+          subtitle={`{size}×{size} 经典拼图`}
+          onBack={() => navigate(-1)}
+          rightElement={
+            <button onClick={() => startNewGame()} className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm active:scale-95 transition-all">重新打乱</button>
+          }
+        />
 
-      <main className="flex-1 max-w-md mx-auto w-full p-4 flex flex-col gap-4">
+      <main className="flex-1 max-w-md mx-auto w-full flex flex-col gap-4">
         {/* 模式选择与数据统计 */}
         <div className="bg-white rounded-3xl p-4 shadow-sm border border-slate-100 flex flex-col gap-3">
           <div className="flex bg-slate-100 p-1 rounded-2xl">
@@ -345,7 +333,7 @@ export default function KlotskiNumber() {
         {/* 获胜祝贺浮层 */}
         {isWon && (
           <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl p-5 text-white shadow-lg flex flex-col items-center text-center gap-2">
-            <div className="text-3xl">🏆 恭喜通关！</div>
+            <div className="text-3xl">�恭喜通关！</div>
             <div className="text-sm font-bold opacity-90">
               您用 {moves} 步，耗时 {formatTime(seconds)} 成功复原数字华容道！
             </div>
@@ -360,7 +348,7 @@ export default function KlotskiNumber() {
 
         {/* 游戏规则提示 */}
         <div className="bg-white rounded-3xl p-4 shadow-sm border border-slate-100 text-xs text-slate-500 flex flex-col gap-1.5">
-          <div className="font-bold text-slate-700">💡 玩法说明：</div>
+          <div className="font-bold text-slate-700">�玩法说明：</div>
           <div>1. 将被打乱的数字滑块顺次移动复原成 1, 2, 3... 升序排列；</div>
           <div>2. 绿色高亮代表该数字已经处于正确的最终复原位置；</div>
           <div>3. 系统保证每次打乱 100% 具备数学可解性，请放心挑战！</div>

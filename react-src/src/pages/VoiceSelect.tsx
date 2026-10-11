@@ -794,12 +794,13 @@ const VoiceSelect: React.FC = () => {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] p-5 text-[#4B454E]">
-      <AppPageHeader
-        title={currentView === 'list' ? '语音方案' : `录制-${selectedScheme?.name ?? ''}`}
-        onBack={currentView === 'list' ? () => navigate(-1) : backToList}
-        className="mb-6"
-      />
+    <div className="min-h-screen bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12 text-[#4B454E]">
+      <div className="w-full max-w-md mx-auto flex-1 flex flex-col">
+        <AppPageHeader
+          title={currentView === 'list' ? '语音方案' : `录制-${selectedScheme?.name ?? ''}`}
+          onBack={currentView === 'list' ? () => navigate(-1) : backToList}
+          className="mb-4"
+        />
 
       {/* 主要内容区域 */}
       {currentView === 'list' ? renderSchemeList() : null}
@@ -1084,6 +1085,7 @@ const VoiceSelect: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

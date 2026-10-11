@@ -77,10 +77,11 @@ export default function KinshipCalculator() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none pb-12">
+    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-lg mx-auto flex-1 flex flex-col">
       <AppPageHeader title="亲戚称谓计算器" onBack={() => navigate(-1)} />
 
-      <main className="flex-1 px-4 py-4 max-w-lg mx-auto w-full space-y-4">
+      <main className="flex-1 w-full space-y-4">
         {/* 性别与称呼方向设置 */}
         <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 pl-1">
@@ -193,6 +194,7 @@ export default function KinshipCalculator() {
           <span>支持多层亲戚关系链解析，涵盖近亲与远亲标准称呼规范</span>
         </div>
       </main>
+      </div>
     </div>
   );
 }

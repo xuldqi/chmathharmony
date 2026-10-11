@@ -55,7 +55,7 @@ export default function PercentageCalculator() {
         {/* 场景 1 */}
         <div className="bg-white rounded-[24px] p-5 shadow-[0_6px_0_#DED6E0] border border-white flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-black text-blue-600">🔢 数量百分比</span>
+            <span className="text-sm font-black text-blue-600">�数量百分比</span>
             {res1 !== null && (
               <button
                 onClick={() => speakText(`${s1A}的百分之${s1B}是${res1}`)}
@@ -89,7 +89,7 @@ export default function PercentageCalculator() {
         {/* 场景 2 */}
         <div className="bg-white rounded-[24px] p-5 shadow-[0_6px_0_#DED6E0] border border-white flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-black text-emerald-600">📊 占比计算</span>
+            <span className="text-sm font-black text-emerald-600">�占比计算</span>
             {res2 !== null && (
               <button
                 onClick={() => speakText(`${s2A}占${s2B}的百分之${res2}`)}
@@ -123,7 +123,7 @@ export default function PercentageCalculator() {
         {/* 场景 3 */}
         <div className="bg-white rounded-[24px] p-5 shadow-[0_6px_0_#DED6E0] border border-white flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-black text-purple-600">📈 涨跌增减率</span>
+            <span className="text-sm font-black text-purple-600">�涨跌增减率</span>
             {res3 !== null && (
               <button
                 onClick={() =>

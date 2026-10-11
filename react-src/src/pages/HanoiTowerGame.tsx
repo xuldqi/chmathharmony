@@ -1,3 +1,4 @@
+import AppPageHeader from '@/components/AppPageHeader';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAudio } from '../hooks/useAudio';
@@ -158,31 +159,18 @@ export default function HanoiTowerGame() {
   const COLORS = ['#F43F5E', '#F59E0B', '#10B981', '#06B6D4', '#6366F1', '#8B5CF6'];
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
       {/* 顶部导航 */}
-      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-xs">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-slate-600 font-bold active:scale-95 transition-transform"
-        >
-          <svg className="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-          </svg>
-          返回
-        </button>
-        <div className="text-center">
-          <h1 className="text-lg font-black text-slate-800">汉诺塔数学益智</h1>
-          <span className="text-xs font-semibold text-rose-500">递归移动·最少 {minMoves} 步</span>
-        </div>
-        <button
-          onClick={() => resetGame()}
-          className="bg-rose-500 hover:bg-rose-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm active:scale-95 transition-all"
-        >
-          重置
-        </button>
-      </header>
+      <AppPageHeader
+          title="汉诺塔数学益智"
+          subtitle={`递归移动·最少 {minMoves} 步`}
+          onBack={() => navigate(-1)}
+          rightElement={
+            <button onClick={() => resetGame()} className="bg-rose-500 hover:bg-rose-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm active:scale-95 transition-all">重置</button>
+          }
+        />
 
-      <main className="flex-1 max-w-md mx-auto w-full p-4 flex flex-col gap-4">
+      <main className="flex-1 max-w-md mx-auto w-full flex flex-col gap-4">
         {/* 层数选择与数据看板 */}
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex flex-col gap-3">
           <div className="flex bg-slate-100 p-1 rounded-2xl">
@@ -214,7 +202,7 @@ export default function HanoiTowerGame() {
             <div className="bg-slate-50 p-2.5 rounded-2xl border border-slate-100">
               <span className="text-[11px] font-bold text-slate-400 block">状态</span>
               <span className={`text-base font-black ${isWon ? 'text-emerald-600' : 'text-slate-700'}`}>
-                {isWon ? '🏆 通关' : isAutoSolving ? '演示中' : '进行中'}
+                {isWon ? '�通关' : isAutoSolving ? '演示中' : '进行中'}
               </span>
             </div>
           </div>
@@ -286,7 +274,7 @@ export default function HanoiTowerGame() {
                   : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 active:scale-95'
               }`}
             >
-              {isAutoSolving ? '停止演示' : '🤖 自动演示'}
+              {isAutoSolving ? '停止演示' : '�自动演示'}
             </button>
           </div>
         </div>
@@ -294,7 +282,7 @@ export default function HanoiTowerGame() {
         {/* 获胜祝贺浮层 */}
         {isWon && (
           <div className="bg-gradient-to-r from-rose-500 to-pink-500 rounded-3xl p-5 text-white shadow-lg text-center flex flex-col items-center gap-2">
-            <span className="text-3xl">🎉 恭喜通关！</span>
+            <span className="text-3xl">�恭喜通关！</span>
             <div className="text-sm font-bold opacity-90">
               您成功将全部 {disksCount} 个圆盘转移至柱 C！共耗费 {moves} 步（最优步数 {minMoves} 步）。
             </div>

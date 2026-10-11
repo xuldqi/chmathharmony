@@ -140,16 +140,17 @@ export default function UtilityCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none pb-12">
+    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-lg mx-auto flex-1 flex flex-col">
       <AppPageHeader title="阶梯水电燃气计算" onBack={() => navigate(-1)} />
 
-      <main className="flex-1 px-4 py-4 max-w-lg mx-auto w-full space-y-4">
+      <main className="flex-1 w-full space-y-4">
         {/* 顶部类别切换 */}
         <div className="bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100 flex gap-1">
           {[
-            { id: 'electricity', label: '⚡ 阶梯电费', defaultVal: '280' },
-            { id: 'water', label: '💧 阶梯水费', defaultVal: '25' },
-            { id: 'gas', label: '🔥 阶梯燃气', defaultVal: '35' },
+            { id: 'electricity', label: '阶梯电费', defaultVal: '280' },
+            { id: 'water', label: '�阶梯水费', defaultVal: '25' },
+            { id: 'gas', label: '�阶梯燃气', defaultVal: '35' },
           ].map((item) => (
             <button
               key={item.id}
@@ -261,6 +262,7 @@ export default function UtilityCalculator() {
           </button>
         </div>
       </main>
+      </div>
     </div>
   );
 }

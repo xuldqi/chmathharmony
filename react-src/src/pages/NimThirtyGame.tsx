@@ -1,3 +1,4 @@
+import AppPageHeader from '@/components/AppPageHeader';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAudio } from '../hooks/useAudio';
@@ -35,7 +36,7 @@ export default function NimThirtyGame() {
 
     if (nextVal >= targetNum) {
       setWinner('player');
-      speakText('🎉 太厉害了！你成功抢到了目标数字，获胜！');
+      speakText('�太厉害了！你成功抢到了目标数字，获胜！');
       return;
     }
 
@@ -86,31 +87,18 @@ export default function NimThirtyGame() {
   }, [turn, winner, currentNum, targetNum, maxStep, aiLevel, speakText]);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
       {/* 顶部导航 */}
-      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-xs">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-slate-600 font-bold active:scale-95 transition-transform"
-        >
-          <svg className="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-          </svg>
-          返回
-        </button>
-        <div className="text-center">
-          <h1 className="text-lg font-black text-slate-800">抢30报数博弈</h1>
-          <span className="text-xs font-semibold text-emerald-600">数论同余必胜对决</span>
-        </div>
-        <button
-          onClick={resetGame}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm active:scale-95 transition-all"
-        >
-          新一局
-        </button>
-      </header>
+      <AppPageHeader
+          title="抢30报数博弈"
+          subtitle="数论同余必胜对决"
+          onBack={() => navigate(-1)}
+          rightElement={
+            <button onClick={resetGame} className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm active:scale-95 transition-all">新一局</button>
+          }
+        />
 
-      <main className="flex-1 max-w-md mx-auto w-full p-4 flex flex-col gap-4">
+      <main className="flex-1 max-w-md mx-auto w-full flex flex-col gap-4">
         {/* 规则设置 */}
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex flex-col gap-3">
           <div className="flex justify-between items-center text-xs font-bold text-slate-500">
@@ -153,7 +141,7 @@ export default function NimThirtyGame() {
                 ? 'bg-emerald-100 text-emerald-700 animate-pulse'
                 : 'bg-rose-100 text-rose-700'
             }`}>
-              {winner ? '游戏结束' : turn === 'player' ? '👉 轮到你报数' : '🤖 电脑思考中...'}
+              {winner ? '游戏结束' : turn === 'player' ? '�轮到你报数' : '�电脑思考中...'}
             </span>
           </div>
 
@@ -196,7 +184,7 @@ export default function NimThirtyGame() {
           <div className={`p-5 rounded-3xl text-white shadow-lg text-center flex flex-col items-center gap-2 ${
             winner === 'player' ? 'bg-gradient-to-r from-emerald-500 to-teal-500' : 'bg-gradient-to-r from-slate-600 to-slate-700'
           }`}>
-            <span className="text-3xl">{winner === 'player' ? '🏆 你赢了！' : '🤖 电脑获胜！'}</span>
+            <span className="text-3xl">{winner === 'player' ? '�你赢了！' : '�电脑获胜！'}</span>
             <div className="text-xs font-semibold opacity-90">
               {winner === 'player' ? '成功抢到目标 30！数论小天才！' : '掌握了数论余数控制权的电脑率先抢到了 30！'}
             </div>

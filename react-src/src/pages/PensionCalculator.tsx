@@ -76,10 +76,11 @@ export default function PensionCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none pb-12">
+    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-lg mx-auto flex-1 flex flex-col">
       <AppPageHeader title="养老金退休金测算" onBack={() => navigate(-1)} />
 
-      <main className="flex-1 px-4 py-4 max-w-lg mx-auto w-full space-y-4">
+      <main className="flex-1 w-full space-y-4">
         {/* 输入面板卡片 */}
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 space-y-4">
           {/* 退休年龄与工龄 */}
@@ -244,6 +245,7 @@ export default function PensionCalculator() {
           </button>
         </div>
       </main>
+      </div>
     </div>
   );
 }

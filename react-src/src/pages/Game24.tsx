@@ -1,3 +1,4 @@
+import AppPageHeader from '@/components/AppPageHeader';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAudio } from '../hooks/useAudio';
@@ -256,33 +257,19 @@ export default function Game24() {
   };
 
   return (
-    <div className={`min-h-screen bg-[#F3F4F6] text-slate-700 flex flex-col font-sans select-none ${isTab ? 'pb-28' : 'pb-6'}`}>
+    <div className={`min-h-screen bg-[#F3F4F6] text-slate-700 flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] ${isTab ? "pb-28" : "pb-12"}`}>
       {/* 顶部标题栏 */}
-      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-3 flex items-center justify-between shadow-xs">
-        <div className="flex items-center gap-3 min-w-0">
-          {!isTab && (
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="flex-shrink-0 w-10 h-10 bg-white rounded-full flex items-center justify-center pop-shadow-sm pop-shadow-sm-active transition-all text-[#4B454E] cursor-pointer"
-            >
-              <span className="text-xl leading-none" aria-hidden="true">←</span>
-            </button>
-          )}
-          <div>
-            <h1 className="text-xl font-extrabold tracking-tight text-[#4B454E]">24点益智速算</h1>
-            <span className="text-[11px] font-semibold text-rose-500">连胜: {winStreak} 局</span>
-          </div>
-        </div>
-        <button
-          onClick={handleNewDeal}
-          className="bg-amber-500 hover:bg-amber-600 text-white text-xs font-black px-3.5 py-2 rounded-xl shadow-sm active:scale-95 transition-all"
-        >
-          重新发牌
-        </button>
-      </header>
+      <AppPageHeader
+          title="24点益智速算"
+          subtitle={`连胜: {winStreak} 局`}
+          showBack={!isTab}
+          onBack={isTab ? undefined : () => navigate(-1)}
+          rightElement={
+            <button onClick={handleNewDeal} className="bg-amber-500 hover:bg-amber-600 text-white text-xs font-black px-3.5 py-2 rounded-xl shadow-sm active:scale-95 transition-all">重新发牌</button>
+          }
+        />
 
-      <main className="flex-1 max-w-md mx-auto w-full p-4 flex flex-col gap-4">
+      <main className="flex-1 max-w-md mx-auto w-full flex flex-col gap-4">
         {/* 卡牌展示区 */}
         <div className="bg-white rounded-3xl p-4 shadow-sm border border-slate-100 flex flex-col gap-3">
           <div className="flex justify-between items-center px-1">

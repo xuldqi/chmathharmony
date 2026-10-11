@@ -1,3 +1,4 @@
+import AppPageHeader from '@/components/AppPageHeader';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAudio } from '../hooks/useAudio';
@@ -230,37 +231,27 @@ export default function MentalSpeedMath() {
 
   // 结算评级
   const getRating = (finalScore: number) => {
-    if (finalScore >= 300) return '🏆 数学最强王者';
-    if (finalScore >= 200) return '🥇 心算特级大师';
-    if (finalScore >= 100) return '🥈 口算速算能手';
-    return '🥉 心算新星学员';
+    if (finalScore >= 300) return '数学最强王者';
+    if (finalScore >= 200) return '心算特级大师';
+    if (finalScore >= 100) return '口算速算能手';
+    return '心算新星学员';
   };
 
   return (
-    <div className="min-h-screen bg-[#F0FDF4] text-slate-700 flex flex-col font-sans select-none">
-      {/* 顶部标题栏 */}
-      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-xs">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-slate-600 font-bold active:scale-95 transition-transform"
-        >
-          <svg className="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-          </svg>
-          返回
-        </button>
-        <div className="text-center">
-          <h1 className="text-lg font-black text-slate-800">口算限时擂台</h1>
-          <span className="text-xs font-semibold text-emerald-600">最高分: {highScore}</span>
-        </div>
-        <div className="w-12" />
-      </header>
+    <div className="min-h-screen bg-[#F0FDF4] text-slate-700 flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-md mx-auto flex-1 flex flex-col">
+        {/* 顶部标题栏 */}
+        <AppPageHeader
+          title="口算限时擂台"
+          subtitle={`最高分: ${highScore}`}
+          onBack={() => navigate(-1)}
+        />
 
-      <main className="flex-1 max-w-md mx-auto w-full p-4 flex flex-col gap-4">
+        <main className="flex-1 w-full flex flex-col gap-4">
         {gameState === 'idle' && (
           <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex flex-col gap-5">
             <div className="text-center">
-              <span className="text-4xl block mb-2">⚡</span>
+              
               <h2 className="text-xl font-black text-slate-800">极速心算大挑战</h2>
               <p className="text-xs text-slate-400 mt-1 font-semibold">
                 在有限时间内抢答口算题，挑战手速与心算极限！
@@ -290,7 +281,7 @@ export default function MentalSpeedMath() {
                       : 'bg-slate-50 border-slate-200 text-slate-600'
                   }`}
                 >
-                  <div className="font-black text-sm">🔥 连击生存</div>
+                  <div className="font-black text-sm">连击生存</div>
                   <div className="text-[11px] opacity-75">每题8秒·一错即止</div>
                 </button>
               </div>
@@ -344,7 +335,7 @@ export default function MentalSpeedMath() {
 
               {combo > 1 && (
                 <div className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-xs font-black animate-bounce">
-                  🔥 {combo} 连击!
+                  {combo} 连击!
                 </div>
               )}
 
@@ -394,7 +385,7 @@ export default function MentalSpeedMath() {
 
         {gameState === 'ended' && (
           <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex flex-col items-center text-center gap-4">
-            <span className="text-4xl">🎉</span>
+            <span className="text-4xl"></span>
             <h2 className="text-2xl font-black text-slate-800">挑战结束</h2>
             <div className="bg-emerald-50 border border-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full text-xs font-black">
               {getRating(score)}
@@ -438,6 +429,7 @@ export default function MentalSpeedMath() {
           </div>
         )}
       </main>
+      </div>
     </div>
   );
 }

@@ -172,10 +172,11 @@ export default function SudokuGame() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none pb-12">
+    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-lg mx-auto flex-1 flex flex-col">
       <AppPageHeader title="趣味数独挑战" onBack={() => navigate(-1)} />
 
-      <main className="flex-1 px-4 py-4 max-w-lg mx-auto w-full space-y-4">
+      <main className="flex-1 w-full space-y-4">
         {/* 顶部控制栏 */}
         <div className="flex items-center justify-between">
           <div className="flex bg-slate-100 p-1 rounded-2xl">
@@ -298,6 +299,7 @@ export default function SudokuGame() {
           <span>点击棋盘格子，再点击下方数字填入，保证每行每列每宫数字不重复</span>
         </div>
       </main>
+      </div>
     </div>
   );
 }

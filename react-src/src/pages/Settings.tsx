@@ -43,10 +43,11 @@ export default function Settings() {
   }, []);
 
   return (
-    <div className="settings-page bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] min-h-screen w-full flex flex-col px-5 py-6 text-[#4B454E]">
-      <AppPageHeader title="设置" onBack={() => navigate(-1)} className="mb-2" titleClassName="text-[32px]" />
+    <div className="settings-page bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] min-h-screen w-full flex flex-col px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12 text-[#4B454E]">
+      <div className="w-full max-w-md mx-auto flex-1 flex flex-col">
+        <AppPageHeader title="设置" onBack={() => navigate(-1)} className="mb-4" />
 
-      <div className="flex flex-col gap-4 w-full pb-8">
+        <div className="flex flex-col gap-4 w-full pb-8">
         {SETTINGS_ITEMS.map((item) => (
           <button
             key={item.route}
@@ -81,6 +82,7 @@ export default function Settings() {
           </span>
           <Star className="w-4 h-4 text-[#EAB308] fill-[#EAB308]" />
         </div>
+      </div>
       </div>
     </div>
   );

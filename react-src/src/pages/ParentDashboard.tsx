@@ -247,7 +247,7 @@ const ParentDashboard: React.FC = () => {
   );
 
   const Header = ({ title }: { title: string }) => (
-    <AppPageHeader title={title} onBack={() => navigate(-1)} className="mb-6" titleClassName="text-[28px]" />
+    <AppPageHeader title={title} onBack={() => navigate(-1)} className="mb-4" />
   );
 
   if (pinState !== 'UNLOCKED') {
@@ -272,7 +272,7 @@ const ParentDashboard: React.FC = () => {
     }
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] p-5">
+      <div className="min-h-screen bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
         <Header title={title} />
         <PinPad title={title} subtitle={subtitle} />
       </div>
@@ -280,7 +280,7 @@ const ParentDashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] p-5 pb-28 relative">
+    <div className="min-h-screen bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-28 relative">
       {saveMessage && (
         <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-slate-800 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg">
           {saveMessage}

@@ -8,12 +8,12 @@ const ChildrenPrivacyPolicy: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#E8F6F1] to-[#F3E0FA] text-[#4B454E]">
-      <div className="max-w-4xl mx-auto p-5">
+      <div className="max-w-4xl mx-auto px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
         <AppPageHeader title="儿童隐私政策" onBack={() => navigate(-1)} className="mb-4" />
 
         {/* 标题区域 */}
         <div className="text-center mb-6 p-6 bg-white rounded-[32px] pop-shadow">
-          <div className="text-5xl mb-3">🛡️</div>
+          
           <h2 className="text-xl font-extrabold text-[#4B454E] mb-2">儿童隐私政策</h2>
           <p className="text-[#6B7280] font-bold">专门为14周岁以下儿童用户制定的隐私保护政策</p>
           <p className="text-sm text-[#9CA3AF] font-bold mt-2">最后更新：2026年7月5日</p>
@@ -43,7 +43,7 @@ const ChildrenPrivacyPolicy: React.FC = () => {
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-[#ECFDF5] p-4 rounded-2xl border border-emerald-100">
-                  <h3 className="text-lg font-black text-emerald-700 mb-3">✅ 我们收集的信息：</h3>
+                  <h3 className="text-lg font-black text-emerald-700 mb-3">我们收集的信息：</h3>
                   <ul className="space-y-2 text-[#5B5560]">
                     <li className="flex items-start space-x-2">
                       <span className="text-green-500 mt-1">•</span>
@@ -61,7 +61,7 @@ const ChildrenPrivacyPolicy: React.FC = () => {
                 </div>
 
                 <div className="bg-[#FEF2F2] p-4 rounded-2xl border border-rose-100">
-                  <h3 className="text-lg font-black text-rose-700 mb-3">❌ 我们不会收集：</h3>
+                  <h3 className="text-lg font-black text-rose-700 mb-3">我们不会收集：</h3>
                   <ul className="space-y-2 text-[#5B5560]">
                     <li className="flex items-start space-x-2">
                       <span className="text-red-500 mt-1">•</span>

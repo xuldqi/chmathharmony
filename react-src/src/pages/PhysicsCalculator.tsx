@@ -1,3 +1,4 @@
+import AppPageHeader from '@/components/AppPageHeader';
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAudio } from '../hooks/useAudio';
@@ -108,31 +109,18 @@ export default function PhysicsCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
       {/* 顶部导航 */}
-      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-xs">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-slate-600 font-bold active:scale-95 transition-transform"
-        >
-          <svg className="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-          </svg>
-          返回
-        </button>
-        <div className="text-center">
-          <h1 className="text-lg font-black text-slate-800">经典物理公式</h1>
-          <span className="text-xs font-semibold text-sky-600">运动学·力学·能量·压强</span>
-        </div>
-        <button
-          onClick={handleSpeak}
-          className="bg-sky-500 hover:bg-sky-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm active:scale-95 transition-all"
-        >
-          语音播报
-        </button>
-      </header>
+      <AppPageHeader
+          title="经典物理公式"
+          subtitle="运动学·力学·能量·压强"
+          onBack={() => navigate(-1)}
+          rightElement={
+            <button onClick={handleSpeak} className="bg-sky-500 hover:bg-sky-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm active:scale-95 transition-all">语音播报</button>
+          }
+        />
 
-      <main className="flex-1 max-w-md mx-auto w-full p-4 flex flex-col gap-4">
+      <main className="flex-1 max-w-md mx-auto w-full flex flex-col gap-4">
         {/* 公式分类导航 */}
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex flex-col gap-4">
           <div className="grid grid-cols-5 gap-1 bg-slate-100 p-1 rounded-2xl text-[11px] font-black">
@@ -375,7 +363,7 @@ export default function PhysicsCalculator() {
 
           {/* 公式说明 */}
           <div className="mt-2 bg-slate-50 p-3 rounded-xl border border-slate-100 text-xs text-slate-600">
-            <span className="font-bold text-slate-700 block mb-1">📘 详细公式步骤：</span>
+            <span className="font-bold text-slate-700 block mb-1">详细公式步骤：</span>
             <pre className="whitespace-pre-wrap font-sans leading-relaxed">
               {category === 'speed' && speedRes.formula}
               {category === 'accel' && accelRes.formula}

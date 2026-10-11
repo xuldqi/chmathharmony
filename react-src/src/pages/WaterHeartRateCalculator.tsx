@@ -1,3 +1,4 @@
+import AppPageHeader from '@/components/AppPageHeader';
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAudio } from '../hooks/useAudio';
@@ -76,31 +77,18 @@ export default function WaterHeartRateCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-700 flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
       {/* 顶部导航 */}
-      <header className="sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-xs">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-slate-600 font-bold active:scale-95 transition-transform"
-        >
-          <svg className="w-6 h-6 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-          </svg>
-          返回
-        </button>
-        <div className="text-center">
-          <h1 className="text-lg font-black text-slate-800">饮水量与燃脂心率</h1>
-          <span className="text-xs font-semibold text-cyan-600">健康科学补水与运动区间</span>
-        </div>
-        <button
-          onClick={handleSpeak}
-          className="bg-cyan-500 hover:bg-cyan-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm active:scale-95 transition-all"
-        >
-          语音播报
-        </button>
-      </header>
+      <AppPageHeader
+          title="饮水量与燃脂心率"
+          subtitle="健康科学补水与运动区间"
+          onBack={() => navigate(-1)}
+          rightElement={
+            <button onClick={handleSpeak} className="bg-cyan-500 hover:bg-cyan-600 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-sm active:scale-95 transition-all">语音播报</button>
+          }
+        />
 
-      <main className="flex-1 max-w-md mx-auto w-full p-4 flex flex-col gap-4">
+      <main className="flex-1 max-w-md mx-auto w-full flex flex-col gap-4">
         {/* 标签栏 */}
         <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex flex-col gap-4">
           <div className="flex bg-slate-100 p-1 rounded-2xl">
@@ -110,7 +98,7 @@ export default function WaterHeartRateCalculator() {
                 tab === 'water' ? 'bg-white text-cyan-600 shadow-sm' : 'text-slate-500'
               }`}
             >
-              💧 科学每日饮水量
+              �科学每日饮水量
             </button>
             <button
               onClick={() => setTab('heart')}
@@ -118,7 +106,7 @@ export default function WaterHeartRateCalculator() {
                 tab === 'heart' ? 'bg-white text-cyan-600 shadow-sm' : 'text-slate-500'
               }`}
             >
-              ❤️ 运动燃脂心率区间
+              ❤运动燃脂心率区间
             </button>
           </div>
 
@@ -215,7 +203,7 @@ export default function WaterHeartRateCalculator() {
             <div className="flex flex-col gap-2.5">
               <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-2xl flex justify-between items-center">
                 <div>
-                  <span className="font-black text-emerald-800 block text-sm">🔥 最佳有氧燃脂心率</span>
+                  <span className="font-black text-emerald-800 block text-sm">�最佳有氧燃脂心率</span>
                   <span className="text-[10px] text-emerald-600">高效分解脂肪·呼吸微喘可说话</span>
                 </div>
                 <span className="text-lg font-black text-emerald-700">{hrStats.fatBurn}</span>
@@ -223,7 +211,7 @@ export default function WaterHeartRateCalculator() {
 
               <div className="p-3 bg-blue-50 border border-blue-100 rounded-2xl flex justify-between items-center">
                 <div>
-                  <span className="font-black text-blue-800 block text-sm">🏃 心肺耐力耐受心率</span>
+                  <span className="font-black text-blue-800 block text-sm">�心肺耐力耐受心率</span>
                   <span className="text-[10px] text-blue-600">提升摄氧量·体能进阶训练</span>
                 </div>
                 <span className="text-lg font-black text-blue-700">{hrStats.cardio}</span>
@@ -231,7 +219,7 @@ export default function WaterHeartRateCalculator() {
 
               <div className="p-3 bg-rose-50 border border-rose-100 rounded-2xl flex justify-between items-center">
                 <div>
-                  <span className="font-black text-rose-800 block text-sm">⚡ 无氧冲刺极限心率</span>
+                  <span className="font-black text-rose-800 block text-sm">无氧冲刺极限心率</span>
                   <span className="text-[10px] text-rose-600">爆发力冲刺·不宜维持过久</span>
                 </div>
                 <span className="text-lg font-black text-rose-700">{hrStats.anaerobic}</span>

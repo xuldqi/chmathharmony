@@ -113,7 +113,8 @@ export default function CombinedMortgageCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-xl mx-auto flex-1 flex flex-col">
       <AppPageHeader
         title="组合贷款计算器"
         onBack={() => navigate(-1)}
@@ -137,7 +138,7 @@ export default function CombinedMortgageCalculator() {
         }
       />
 
-      <div className="flex-1 max-w-xl w-full mx-auto p-4 space-y-4">
+      <div className="flex-1 w-full space-y-4">
         {/* 结果汇总卡片 */}
         {calcResult && (
           <div className="bg-gradient-to-br from-indigo-600 to-sky-700 text-white rounded-2xl p-5 shadow-lg space-y-4">
@@ -305,6 +306,7 @@ export default function CombinedMortgageCalculator() {
             2. 提前还款时，由于商业贷款利率普遍高于公积金利率，通常建议优先申请提前还清商业贷款部分以最大化节省利息。
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

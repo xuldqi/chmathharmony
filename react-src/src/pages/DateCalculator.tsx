@@ -65,7 +65,7 @@ export default function DateCalculator() {
         {/* 模式 1: 两日期间隔 */}
         <div className="bg-white rounded-[24px] p-5 shadow-[0_6px_0_#DED6E0] border border-white flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-black text-purple-600">📅 计算两日期间隔天数</span>
+            <span className="text-sm font-black text-purple-600">计算两日期间隔天数</span>
             {intervalResult && (
               <button
                 onClick={() => speakText(`两日期间隔${intervalResult.diffDays}天`)}

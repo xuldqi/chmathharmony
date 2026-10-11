@@ -86,16 +86,17 @@ export default function KitchenConverter() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none pb-12">
+    <div className="min-h-screen bg-[#F7F9FC] flex flex-col font-sans select-none px-4 pt-[calc(env(safe-area-inset-top,0px)+16px)] pb-12">
+      <div className="w-full max-w-lg mx-auto flex-1 flex flex-col">
       <AppPageHeader title="厨房与烘焙换算器" onBack={() => navigate(-1)} />
 
-      <main className="flex-1 px-4 py-4 max-w-lg mx-auto w-full space-y-4">
+      <main className="flex-1 w-full space-y-4">
         {/* 顶部Tab切换 */}
         <div className="bg-white p-1.5 rounded-2xl shadow-sm border border-slate-100 flex gap-1">
           {[
-            { id: 'mold', label: '🎂 蛋糕模具缩放' },
-            { id: 'capacity', label: '🥄 容量换算克重' },
-            { id: 'temperature', label: '🌡️ 烤箱温度℃/℉' },
+            { id: 'mold', label: '�蛋糕模具缩放' },
+            { id: 'capacity', label: '�容量换算克重' },
+            { id: 'temperature', label: '🌡烤箱温度℃/℉' },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -303,6 +304,7 @@ export default function KitchenConverter() {
           </button>
         </div>
       </main>
+      </div>
     </div>
   );
 }

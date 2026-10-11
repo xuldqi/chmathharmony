@@ -2,6 +2,7 @@ import React from 'react';
 
 interface AppPageHeaderProps {
   title: string;
+  subtitle?: string;
   onBack?: () => void;
   showBack?: boolean;
   className?: string;
@@ -12,6 +13,7 @@ interface AppPageHeaderProps {
 
 export default function AppPageHeader({
   title,
+  subtitle,
   onBack,
   showBack = true,
   className = '',
@@ -38,9 +40,16 @@ export default function AppPageHeader({
             <span className="text-xl leading-none" aria-hidden="true">←</span>
           </button>
         )}
-        <h1 className={`text-xl font-extrabold tracking-tight text-[#4B454E] truncate ${titleClassName}`}>
-          {title}
-        </h1>
+        <div className="min-w-0 flex-1 flex flex-col">
+          <h1 className={`text-xl font-extrabold tracking-tight text-[#4B454E] truncate ${titleClassName}`}>
+            {title}
+          </h1>
+          {subtitle && (
+            <p className="text-xs font-semibold text-slate-400 truncate -mt-0.5">
+              {subtitle}
+            </p>
+          )}
+        </div>
       </div>
 
       {/* 右侧插槽 */}
